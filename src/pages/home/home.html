@@ -7,8 +7,45 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div *ngIf="(rfidMode$ | async) === 'get'">
+    <button ion-button (click)="setRFIDMode('set')">Set up RFID Cards</button>
+  </div>
+  <div *ngIf="(rfidMode$ | async) === 'set'">
+    <button ion-button small (click)="setRFIDMode('get')">I'm Finished</button>
+
+    <div *ngIf="!(rfidFound$ | async)?.id">
+      Waiting for an RFID card to scan...
+    </div>
+
+    <div *ngIf="rfidFound$ | async;">
+
+      <h2>RFID Found: {{ rfidData.payload.id }}</h2>
+      <ion-list radio-group [(ngModel)]="rfidData.payload.type">
+        <ion-list-header>
+            Music Type
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>Youtube Playlist</ion-label>
+          <ion-radio value="youtube-playlist" [checked]="rfidData.payload.type === 'youtube-playlist'"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Youtube Video</ion-label>
+          <ion-radio value="youtube-video" [checked]="rfidData.payload.type === 'youtube-video'"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <div *ngIf="rfidData.payload.type === 'youtube-playlist'">
+        Playlist Inputs
+      </div>
+
+      <div *ngIf="rfidData.payload.type === 'youtube-video'">
+          Video Inputs
+      </div>
+
+      <p>{{ rfidData | json }}</p>
+    </div>
+    
+
+  </div>
 </ion-content>
