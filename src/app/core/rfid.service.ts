@@ -6,8 +6,9 @@ import { SocketService } from './socket.service';
 
 export interface RFIDObject {
     id: string;
-    name: string;
+    name?: string;
     type: 'youtube-video' | 'youtube-playlist';
+    shuffle?: boolean;
 }
 
 export interface RFIDData {
@@ -18,20 +19,22 @@ export interface RFIDData {
 @Injectable()
 export class RFIDService {
 	public rfidFound$: Observable<any>;
-	public rfidModeChanged$: Observable<any>;
+    public rfidModeChanged$: Observable<any>;
+    public rfidDataSaved$: Observable<any>;
 
 	constructor(
 		private socketService: SocketService
 	) {
 		this.rfidFound$ = this.socketService.listen('rfidFound');
-		this.rfidModeChanged$ = this.socketService.listen('rfidModeChanged');
+        this.rfidModeChanged$ = this.socketService.listen('rfidModeChanged');
+        this.rfidDataSaved$ = this.socketService.listen('saveRFIDDataSuccess');
 	}
 
 	public setRFIDMode(mode: 'set' | 'get') {
 		this.socketService.emit('setRFIDMode', mode);
     }
 
-    public saveRFIDObject(rfidObject: RFIDObject) {
-		this.socketService.emit('saveRFIDObject', rfidObject);
+    public saveRFIDObject(rfidData: RFIDData) {
+		this.socketService.emit('saveRFIDData', rfidData);
     }
 }

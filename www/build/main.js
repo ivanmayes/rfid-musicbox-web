@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 118:
+/***/ 119:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -13,11 +13,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 118;
+webpackEmptyAsyncContext.id = 119;
 
 /***/ }),
 
-/***/ 159:
+/***/ 160:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -30,7 +30,7 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 159;
+webpackEmptyAsyncContext.id = 160;
 
 /***/ }),
 
@@ -44,6 +44,7 @@ webpackEmptyAsyncContext.id = 159;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_core_rfid_service__ = __webpack_require__(204);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(317);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__ = __webpack_require__(101);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -57,29 +58,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HomePage = (function () {
-    function HomePage(navCtrl, rfidService) {
+    function HomePage(navCtrl, toastCtrl, rfidService) {
         var _this = this;
         this.navCtrl = navCtrl;
+        this.toastCtrl = toastCtrl;
         this.rfidService = rfidService;
+        this.saveToast = this.toastCtrl.create({
+            message: 'RFID Object Saved Successfully!',
+            duration: 3000,
+            position: 'top'
+        });
         this.rfidFound$ = this.rfidService.rfidFound$
             .do(function (rfidData) { return _this.rfidData = rfidData; });
         this.rfidMode$ = this.rfidService.rfidModeChanged$
             .do(function (mode) { return console.log('Mode Changed', mode); });
+        this.rfidService.rfidDataSaved$
+            .subscribe(function () {
+            _this.saveToast.present();
+        });
     }
     HomePage.prototype.ionViewDidEnter = function () {
     };
     HomePage.prototype.ngOnDestroy = function () {
         this.rfidService.setRFIDMode('get');
     };
+    HomePage.prototype.changeType = function (type) {
+        this.rfidData.payload = {
+            id: undefined,
+            type: type
+        };
+    };
     HomePage.prototype.setRFIDMode = function (mode) {
         this.rfidService.setRFIDMode(mode);
     };
+    HomePage.prototype.saveRFIDObject = function (rfidData) {
+        if (rfidData.id &&
+            rfidData.payload &&
+            rfidData.payload.id &&
+            rfidData.payload.type) {
+            this.rfidService.saveRFIDObject(rfidData);
+        }
+    };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ionic Blank\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="(rfidMode$ | async) === \'get\'">\n    <button ion-button (click)="setRFIDMode(\'set\')">Set up RFID Cards</button>\n  </div>\n  <div *ngIf="(rfidMode$ | async) === \'set\'">\n    <button ion-button small (click)="setRFIDMode(\'get\')">I\'m Finished</button>\n\n    <div *ngIf="!(rfidFound$ | async)?.id">\n      Waiting for an RFID card to scan...\n    </div>\n\n    <div *ngIf="rfidFound$ | async;">\n\n      <h2>RFID Found: {{ rfidData.payload.id }}</h2>\n      <ion-list radio-group [(ngModel)]="rfidData.payload.type">\n        <ion-list-header>\n            Music Type\n        </ion-list-header>\n\n        <ion-item>\n          <ion-label>Youtube Playlist</ion-label>\n          <ion-radio value="youtube-playlist" [checked]="rfidData.payload.type === \'youtube-playlist\'"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Youtube Video</ion-label>\n          <ion-radio value="youtube-video" [checked]="rfidData.payload.type === \'youtube-video\'"></ion-radio>\n        </ion-item>\n      </ion-list>\n\n      <div *ngIf="rfidData.payload.type === \'youtube-playlist\'">\n        Playlist Inputs\n      </div>\n\n      <div *ngIf="rfidData.payload.type === \'youtube-video\'">\n          Video Inputs\n      </div>\n\n      <p>{{ rfidData | json }}</p>\n    </div>\n    \n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      RFID Configurator\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="(rfidMode$ | async) === \'get\'">\n    <button ion-button (click)="setRFIDMode(\'set\')">Set up RFID Cards</button>\n  </div>\n  <div *ngIf="(rfidMode$ | async) === \'set\'">\n    <button ion-button small color="light" icon-left (click)="setRFIDMode(\'get\')">\n        <ion-icon name="arrow-back"></ion-icon>\n        I\'m Finished\n    </button>\n\n    <br>\n    <br>\n\n    <div *ngIf="!(rfidFound$ | async)?.id">\n      Waiting for an RFID card to scan...\n    </div>\n\n    <div *ngIf="rfidFound$ | async;">\n\n      <h2>RFID Found: {{ rfidData.id }}</h2>\n      <ion-list radio-group [(ngModel)]="rfidData.payload.type">\n        <ion-list-header>\n            Music Type\n        </ion-list-header>\n\n        <ion-item>\n          <ion-label>Youtube Playlist</ion-label>\n          <ion-radio value="youtube-playlist" [checked]="rfidData.payload.type === \'youtube-playlist\'" (click)="changeType(\'youtube-playlist\')"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Youtube Video</ion-label>\n          <ion-radio value="youtube-video" [checked]="rfidData.payload.type === \'youtube-video\'" (click)="changeType(\'youtube-video\')"></ion-radio>\n        </ion-item>\n      </ion-list>\n\n      <ion-list *ngIf="rfidData.payload.type === \'youtube-playlist\'">\n        <ion-item>\n          <ion-label stacked>Playlist ID:</ion-label>\n          <ion-input type="text" [(ngModel)]="rfidData.payload.id" name="id"></ion-input>\n        </ion-item>\n        <p><small><a href="http://youtube.com">(Find ID on Youtube)</a></small></p>\n      \n        <ion-item>\n          <ion-label>Shuffle Playlist?</ion-label>\n          <ion-toggle [(ngModel)]="rfidData.payload.shuffle"></ion-toggle>\n        </ion-item>\n      </ion-list>\n\n      <ion-list *ngIf="rfidData.payload.type === \'youtube-video\'">\n        <ion-item>\n          <ion-label stacked>Video ID:</ion-label>\n          <ion-input type="text" [(ngModel)]="rfidData.payload.id" name="id"></ion-input>\n          \n        </ion-item>\n        <p><small><a href="http://youtube.com">(Find ID on Youtube)</a></small></p>\n      \n        <ion-item>\n            <ion-label stacked>Name:</ion-label>\n            <ion-input type="text" [(ngModel)]="rfidData.payload.name" name="name"></ion-input>\n        </ion-item>\n      </ion-list>\n\n      <button ion-button icon-left (click)="saveRFIDObject(rfidData)">\n          <ion-icon name="checkmark"></ion-icon>\n          Save\n      </button>\n\n      <p>{{ rfidData | json }}</p>\n\n    </div>\n    \n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */],
             __WEBPACK_IMPORTED_MODULE_2__app_core_rfid_service__["a" /* RFIDService */]])
     ], HomePage);
     return HomePage;
@@ -112,12 +139,13 @@ var RFIDService = (function () {
         this.socketService = socketService;
         this.rfidFound$ = this.socketService.listen('rfidFound');
         this.rfidModeChanged$ = this.socketService.listen('rfidModeChanged');
+        this.rfidDataSaved$ = this.socketService.listen('saveRFIDDataSuccess');
     }
     RFIDService.prototype.setRFIDMode = function (mode) {
         this.socketService.emit('setRFIDMode', mode);
     };
-    RFIDService.prototype.saveRFIDObject = function (rfidObject) {
-        this.socketService.emit('saveRFIDObject', rfidObject);
+    RFIDService.prototype.saveRFIDObject = function (rfidData) {
+        this.socketService.emit('saveRFIDData', rfidData);
     };
     RFIDService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),

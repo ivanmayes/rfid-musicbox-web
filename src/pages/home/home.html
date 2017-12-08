@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      RFID Configurator
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,7 +11,13 @@
     <button ion-button (click)="setRFIDMode('set')">Set up RFID Cards</button>
   </div>
   <div *ngIf="(rfidMode$ | async) === 'set'">
-    <button ion-button small (click)="setRFIDMode('get')">I'm Finished</button>
+    <button ion-button small color="light" icon-left (click)="setRFIDMode('get')">
+        <ion-icon name="arrow-back"></ion-icon>
+        I'm Finished
+    </button>
+
+    <br>
+    <br>
 
     <div *ngIf="!(rfidFound$ | async)?.id">
       Waiting for an RFID card to scan...
@@ -19,7 +25,7 @@
 
     <div *ngIf="rfidFound$ | async;">
 
-      <h2>RFID Found: {{ rfidData.payload.id }}</h2>
+      <h2>RFID Found: {{ rfidData.id }}</h2>
       <ion-list radio-group [(ngModel)]="rfidData.payload.type">
         <ion-list-header>
             Music Type
@@ -27,23 +33,48 @@
 
         <ion-item>
           <ion-label>Youtube Playlist</ion-label>
-          <ion-radio value="youtube-playlist" [checked]="rfidData.payload.type === 'youtube-playlist'"></ion-radio>
+          <ion-radio value="youtube-playlist" [checked]="rfidData.payload.type === 'youtube-playlist'" (click)="changeType('youtube-playlist')"></ion-radio>
         </ion-item>
         <ion-item>
           <ion-label>Youtube Video</ion-label>
-          <ion-radio value="youtube-video" [checked]="rfidData.payload.type === 'youtube-video'"></ion-radio>
+          <ion-radio value="youtube-video" [checked]="rfidData.payload.type === 'youtube-video'" (click)="changeType('youtube-video')"></ion-radio>
         </ion-item>
       </ion-list>
 
-      <div *ngIf="rfidData.payload.type === 'youtube-playlist'">
-        Playlist Inputs
-      </div>
+      <ion-list *ngIf="rfidData.payload.type === 'youtube-playlist'">
+        <ion-item>
+          <ion-label stacked>Playlist ID:</ion-label>
+          <ion-input type="text" [(ngModel)]="rfidData.payload.id" name="id"></ion-input>
+        </ion-item>
+        <p><small><a href="http://youtube.com">(Find ID on Youtube)</a></small></p>
+      
+        <ion-item>
+          <ion-label>Shuffle Playlist?</ion-label>
+          <ion-toggle [(ngModel)]="rfidData.payload.shuffle"></ion-toggle>
+        </ion-item>
+      </ion-list>
 
-      <div *ngIf="rfidData.payload.type === 'youtube-video'">
-          Video Inputs
-      </div>
+      <ion-list *ngIf="rfidData.payload.type === 'youtube-video'">
+        <ion-item>
+          <ion-label stacked>Video ID:</ion-label>
+          <ion-input type="text" [(ngModel)]="rfidData.payload.id" name="id"></ion-input>
+          
+        </ion-item>
+        <p><small><a href="http://youtube.com">(Find ID on Youtube)</a></small></p>
+      
+        <ion-item>
+            <ion-label stacked>Name:</ion-label>
+            <ion-input type="text" [(ngModel)]="rfidData.payload.name" name="name"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <button ion-button icon-left (click)="saveRFIDObject(rfidData)">
+          <ion-icon name="checkmark"></ion-icon>
+          Save
+      </button>
 
       <p>{{ rfidData | json }}</p>
+
     </div>
     
 

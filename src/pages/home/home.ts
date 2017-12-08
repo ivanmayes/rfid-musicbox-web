@@ -4,6 +4,8 @@ import { RFIDService, RFIDData } from '../../app/core/rfid.service';
 import { Observable } from 'rxjs';
 
 import 'rxjs/add/operator/do';
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { Toast } from 'ionic-angular/components/toast/toast';
 
 
 @Component({
@@ -15,9 +17,15 @@ export class HomePage {
   public rfidMode$: Observable<string>;
 
   public rfidData: RFIDData;
+  public saveToast: Toast = this.toastCtrl.create({
+    message: 'RFID Object Saved Successfully!',
+    duration: 3000,
+    position: 'top'
+  });
 
   constructor(
     public navCtrl: NavController,
+    private toastCtrl: ToastController,
     private rfidService: RFIDService
   ) {
     this.rfidFound$ = this.rfidService.rfidFound$
@@ -25,6 +33,11 @@ export class HomePage {
 
     this.rfidMode$ = this.rfidService.rfidModeChanged$
       .do((mode) => console.log('Mode Changed', mode));
+
+    this.rfidService.rfidDataSaved$
+      .subscribe(() => {
+        this.saveToast.present();
+      });
   }
 
   ionViewDidEnter() {
@@ -35,8 +48,26 @@ export class HomePage {
     this.rfidService.setRFIDMode('get');
   }
 
+  public changeType(type: 'youtube-playlist' | 'youtube-video') {
+    this.rfidData.payload = {
+      id: undefined,
+      type: type
+    }
+  }
+
   public setRFIDMode(mode: 'set' | 'get') {
     this.rfidService.setRFIDMode(mode);
+  }
+
+  public saveRFIDObject(rfidData: RFIDData) {
+    if (
+      rfidData.id &&
+      rfidData.payload &&
+      rfidData.payload.id &&
+      rfidData.payload.type
+    ) {
+      this.rfidService.saveRFIDObject(rfidData);
+    }
   }
 
 }
