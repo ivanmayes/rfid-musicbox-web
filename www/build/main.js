@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 119:
+/***/ 134:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -13,11 +13,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 119;
+webpackEmptyAsyncContext.id = 134;
 
 /***/ }),
 
-/***/ 160:
+/***/ 177:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -30,21 +30,21 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 160;
+webpackEmptyAsyncContext.id = 177;
 
 /***/ }),
 
-/***/ 203:
+/***/ 220:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_core_rfid_service__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_core_rfid_service__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(333);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__ = __webpack_require__(108);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -116,13 +116,13 @@ var HomePage = (function () {
 
 /***/ }),
 
-/***/ 204:
+/***/ 221:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RFIDService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__socket_service__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__socket_service__ = __webpack_require__(222);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -158,19 +158,19 @@ var RFIDService = (function () {
 
 /***/ }),
 
-/***/ 205:
+/***/ 222:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SocketService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(293);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client__ = __webpack_require__(311);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_socket_io_client__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__(235);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -244,13 +244,31 @@ var SocketService = (function () {
 
 /***/ }),
 
-/***/ 218:
+/***/ 235:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+var environment = {
+    production: false,
+    youtubeAPIKey: 'AIzaSyB41MomupoaLtgaIkTN-HvtiUyHeF64Y7E',
+    socket: {
+        server: 'http://localhost:3000',
+        namespace: 'rfid',
+        heartbeatInterval: 5000
+    }
+};
+//# sourceMappingURL=environment.js.map
+
+/***/ }),
+
+/***/ 245:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(262);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -258,19 +276,24 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 241:
+/***/ 262:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(292);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_core_module__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(738);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(310);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__core_core_module__ = __webpack_require__(336);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ngrx_store__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ngrx_effects__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ngrx_store_devtools__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_reducers__ = __webpack_require__(372);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -285,26 +308,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
+
+
+
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */]
+                __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_7__pages_home_home__["a" /* HomePage */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
+                __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["b" /* HttpClientModule */],
+                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */], {}, {
                     links: []
                 }),
-                __WEBPACK_IMPORTED_MODULE_7__core_core_module__["a" /* CoreModule */]
+                __WEBPACK_IMPORTED_MODULE_8__core_core_module__["a" /* CoreModule */],
+                __WEBPACK_IMPORTED_MODULE_9__ngrx_store__["i" /* StoreModule */].forRoot([], { metaReducers: __WEBPACK_IMPORTED_MODULE_12__app_reducers__["a" /* metaReducers */] }),
+                __WEBPACK_IMPORTED_MODULE_10__ngrx_effects__["c" /* EffectsModule */].forRoot([]),
+                __WEBPACK_IMPORTED_MODULE_11__ngrx_store_devtools__["a" /* StoreDevtoolsModule */].instrument({
+                    maxAge: 25 //  Retains last 25 states
+                })
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */]
+                __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_7__pages_home_home__["a" /* HomePage */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
@@ -320,16 +354,16 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 292:
+/***/ 310:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(220);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -366,38 +400,26 @@ var MyApp = (function () {
 
 /***/ }),
 
-/***/ 313:
+/***/ 330:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 316:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
-var environment = {
-    production: false,
-    socket: {
-        server: 'http://localhost:3000',
-        namespace: 'rfid',
-        heartbeatInterval: 5000
-    }
-};
-//# sourceMappingURL=environment.js.map
-
-/***/ }),
-
-/***/ 320:
+/***/ 336:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CoreModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__socket_service__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__rfid_service__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__socket_service__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__rfid_service__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngrx_store__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_songs__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_songs_effects_search_effects__ = __webpack_require__(482);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__youtube_youtube_service__ = __webpack_require__(737);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -407,17 +429,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
+
+
+
 var CoreModule = (function () {
     function CoreModule() {
     }
     CoreModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            imports: [],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["i" /* StoreModule */].forFeature('songs', __WEBPACK_IMPORTED_MODULE_5__store_songs__["b" /* reducers */]),
+                __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["c" /* EffectsModule */].forFeature([__WEBPACK_IMPORTED_MODULE_6__store_songs_effects_search_effects__["a" /* SongsSearchEffects */]])
+            ],
             exports: [],
             declarations: [],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_1__socket_service__["a" /* SocketService */],
-                __WEBPACK_IMPORTED_MODULE_2__rfid_service__["a" /* RFIDService */]
+                __WEBPACK_IMPORTED_MODULE_2__rfid_service__["a" /* RFIDService */],
+                __WEBPACK_IMPORTED_MODULE_7__youtube_youtube_service__["a" /* YoutubeSearchService */]
             ]
         })
     ], CoreModule);
@@ -426,7 +457,503 @@ var CoreModule = (function () {
 
 //# sourceMappingURL=core.module.js.map
 
+/***/ }),
+
+/***/ 372:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export logger */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return metaReducers; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environments_environment__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ngrx_store_freeze__ = __webpack_require__(373);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ngrx_store_freeze___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_ngrx_store_freeze__);
+
+/**
+ * storeFreeze prevents state from being mutated. When mutation occurs, an
+ * exception will be thrown. This is useful during development mode to
+ * ensure that none of the reducers accidentally mutates the state.
+ */
+
+// console.log all actions
+function logger(reducer) {
+    return function (state, action) {
+        console.log('state', state);
+        console.log('action', action);
+        return reducer(state, action);
+    };
+}
+// Only activate our dev meta reducers if we're not in production
+var metaReducers = !__WEBPACK_IMPORTED_MODULE_0__environments_environment__["a" /* environment */].production
+    ? [logger, __WEBPACK_IMPORTED_MODULE_1_ngrx_store_freeze__["storeFreeze"]]
+    : [];
+//# sourceMappingURL=app.reducers.js.map
+
+/***/ }),
+
+/***/ 386:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LOAD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SEARCH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SEARCH_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SEARCH_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return NEXT_PAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return NEXT_PAGE_SUCCESS; });
+/* unused harmony export Search */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SearchSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SearchFail; });
+/* unused harmony export Load */
+/* unused harmony export NextPage */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return NextPageSuccess; });
+var LOAD = '[Songs] Load';
+var SEARCH = '[Songs] Search';
+var SEARCH_SUCCESS = '[Songs] Search Success';
+var SEARCH_FAIL = '[Songs] Search Fail';
+var NEXT_PAGE = '[Songs] Next Page';
+var NEXT_PAGE_SUCCESS = '[Songs] Next Page Success';
+var Search = (function () {
+    function Search(payload) {
+        this.payload = payload;
+        this.type = SEARCH;
+    }
+    return Search;
+}());
+
+var SearchSuccess = (function () {
+    function SearchSuccess(payload) {
+        this.payload = payload;
+        this.type = SEARCH_SUCCESS;
+    }
+    return SearchSuccess;
+}());
+
+var SearchFail = (function () {
+    function SearchFail(payload) {
+        this.payload = payload;
+        this.type = SEARCH_FAIL;
+    }
+    return SearchFail;
+}());
+
+var Load = (function () {
+    function Load() {
+        this.type = LOAD;
+    }
+    return Load;
+}());
+
+var NextPage = (function () {
+    function NextPage() {
+        this.type = NEXT_PAGE;
+    }
+    return NextPage;
+}());
+
+var NextPageSuccess = (function () {
+    function NextPageSuccess(payload) {
+        this.payload = payload;
+        this.type = NEXT_PAGE_SUCCESS;
+    }
+    return NextPageSuccess;
+}());
+
+//# sourceMappingURL=song.actions.js.map
+
+/***/ }),
+
+/***/ 398:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return reducers; });
+/* unused harmony export getSongsState */
+/* unused harmony export getSongsEntitiesState */
+/* unused harmony export getSongsIds */
+/* unused harmony export getSongsEntities */
+/* unused harmony export getAllSongs */
+/* unused harmony export getTotalSongs */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getSearchState; });
+/* unused harmony export getSearchEntriesIds */
+/* unused harmony export getSearchParams */
+/* unused harmony export getSearchLoading */
+/* unused harmony export getSearchError */
+/* unused harmony export getSearchResults */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_store__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducers_song_reducer__ = __webpack_require__(480);
+
+
+
+;
+;
+var reducers = {
+    songs: __WEBPACK_IMPORTED_MODULE_2__reducers_song_reducer__["b" /* reducer */],
+    search: __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["e" /* reducer */]
+};
+/* Selectors */
+var getSongsState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["l" /* createFeatureSelector */])('songs');
+var getSongsEntitiesState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSongsState, function (state) { return state.songs; });
+var getSongsIds = (_a = __WEBPACK_IMPORTED_MODULE_2__reducers_song_reducer__["a" /* adapter */].getSelectors(getSongsEntitiesState), _a.selectIds), getSongsEntities = _a.selectEntities, getAllSongs = _a.selectAll, getTotalSongs = _a.selectTotal;
+/* Search */
+var getSearchState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSongsState, function (state) { return state.search; });
+var getSearchEntriesIds = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["b" /* getIds */]);
+var getSearchParams = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["d" /* getParams */]);
+var getSearchLoading = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["c" /* getLoading */]);
+var getSearchError = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["a" /* getError */]);
+var getSearchResults = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSongsEntities, getSearchEntriesIds, function (entries, searchIds) {
+    return searchIds.map(function (id) { return entries[id]; });
+});
+var _a;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 479:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["e"] = reducer;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getIds; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getParams; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getLoading; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getError; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__ = __webpack_require__(386);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+
+var initialState = {
+    ids: [],
+    loading: false,
+    canLoadMore: true,
+    error: '',
+    params: {},
+    limit: 20,
+    offset: 0
+};
+function reducer(state, action) {
+    if (state === void 0) { state = initialState; }
+    switch (action.type) {
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["a" /* LOAD */]: {
+            return initialState;
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["e" /* SEARCH */]: {
+            var params = action.payload;
+            return __assign({}, state, { loading: true, ids: [], error: '', params: params, offset: 0, limit: 20, canLoadMore: false });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["g" /* SEARCH_SUCCESS */]: {
+            return __assign({}, state, { ids: action.payload.map(function (entries) { return entries.id; }), loading: false, error: '', params: state.params, canLoadMore: true });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["f" /* SEARCH_FAIL */]: {
+            return __assign({}, state, { loading: false, error: action.payload });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["b" /* NEXT_PAGE */]: {
+            if (state.loading) {
+                return state;
+            }
+            return __assign({}, state, { loading: true, offset: state.offset + state.limit, canLoadMore: false });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["c" /* NEXT_PAGE_SUCCESS */]: {
+            return __assign({}, state, { ids: state.ids.concat(action.payload.map(function (entries) { return entries.id; })), loading: false, error: '', params: state.params, canLoadMore: true });
+        }
+        default:
+            return state;
+    }
+}
+var getIds = function (state) { return state.ids; };
+var getParams = function (state) { return state.params; };
+var getLoading = function (state) { return state.loading; };
+var getError = function (state) { return state.error; };
+//# sourceMappingURL=search.reducer.js.map
+
+/***/ }),
+
+/***/ 480:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return adapter; });
+/* unused harmony export initialState */
+/* harmony export (immutable) */ __webpack_exports__["b"] = reducer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_entity__ = __webpack_require__(481);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_song_actions__ = __webpack_require__(386);
+
+
+var adapter = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_entity__["a" /* createEntityAdapter */])({
+    selectId: function (song) { return song.id; },
+    sortComparer: false
+});
+var initialState = adapter.getInitialState();
+function reducer(state, action) {
+    if (state === void 0) { state = initialState; }
+    switch (action.type) {
+        case __WEBPACK_IMPORTED_MODULE_1__actions_song_actions__["g" /* SEARCH_SUCCESS */]: {
+            return adapter.addMany(action.payload, state);
+        }
+        default: {
+            return state;
+        }
+    }
+}
+//# sourceMappingURL=song.reducer.js.map
+
+/***/ }),
+
+/***/ 482:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SongsSearchEffects; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(430);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__ = __webpack_require__(369);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngrx_effects__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6____ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__ = __webpack_require__(386);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__ = __webpack_require__(737);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ngrx_store__ = __webpack_require__(243);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+var SongsSearchEffects = (function () {
+    function SongsSearchEffects(actions$, searchService, store) {
+        var _this = this;
+        this.actions$ = actions$;
+        this.searchService = searchService;
+        this.store = store;
+        this.debounce = 700;
+        // Load Effect
+        this.load$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["a" /* LOAD */])
+            .withLatestFrom(this.store.select(__WEBPACK_IMPORTED_MODULE_6____["a" /* getSearchState */]))
+            .map(function (_a) {
+            var action = _a[0], store = _a[1];
+            // Recreate our params from the state
+            return __assign({}, store.params, { offset: store.offset });
+        })
+            .switchMap(function (params) { return _this.searchYoutube(params, __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["a" /* LOAD */]); })
+            .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["i" /* SearchSuccess */](songs); })
+            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["h" /* SearchFail */](err)); });
+        // Search Effect
+        this.search$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["e" /* SEARCH */])
+            .debounceTime(this.debounce)
+            .map(function (action) { return action.payload; })
+            .switchMap(function (params) { return _this.searchYoutube(params, __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["a" /* LOAD */]); })
+            .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["i" /* SearchSuccess */](songs); })
+            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["h" /* SearchFail */](err)); });
+        // Next Page Effect
+        this.nextPage$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["b" /* NEXT_PAGE */])
+            .debounceTime(2000)
+            .withLatestFrom(this.store.select(__WEBPACK_IMPORTED_MODULE_6____["a" /* getSearchState */]))
+            .map(function (_a) {
+            var action = _a[0], store = _a[1];
+            // Recreate our params from the state
+            return __assign({}, store.params, { offset: store.offset });
+        })
+            .switchMap(function (params) { return _this.searchYoutube(params, __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["a" /* LOAD */]); })
+            .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["d" /* NextPageSuccess */](songs); })
+            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["h" /* SearchFail */](err)); });
+    }
+    SongsSearchEffects.prototype.searchYoutube = function (params, action) {
+        var _this = this;
+        if (!params.query || params.query === '') {
+            return Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
+        }
+        var nextSearch$ = this.actions$.ofType(action).skip(1);
+        return this.searchService
+            .search(params.query)
+            .takeUntil(nextSearch$)
+            .flatMap(function (items) { return _this.searchService.getItemDetails(items); });
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+    ], SongsSearchEffects.prototype, "load$", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+    ], SongsSearchEffects.prototype, "search$", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+    ], SongsSearchEffects.prototype, "nextPage$", void 0);
+    SongsSearchEffects = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["a" /* Actions */],
+            __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__["a" /* YoutubeSearchService */],
+            __WEBPACK_IMPORTED_MODULE_9__ngrx_store__["h" /* Store */]])
+    ], SongsSearchEffects);
+    return SongsSearchEffects;
+}());
+
+//# sourceMappingURL=search.effects.js.map
+
+/***/ }),
+
+/***/ 737:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return YoutubeSearchService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(738);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(235);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var YoutubeSearchService = (function () {
+    function YoutubeSearchService(http) {
+        this.http = http;
+        this.searchResults$ = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"]();
+    }
+    YoutubeSearchService.prototype.search = function (query) {
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]();
+        params = params.append('maxResults', '20');
+        params = params.append('part', 'snippet');
+        params = params.append('q', query);
+        params = params.append('safeSearch', 'none');
+        params = params.append('type', 'video');
+        params = params.append('videoDuration', 'any');
+        params = params.append('videoEmbeddable', 'true');
+        params = params.append('order', 'viewCount');
+        params = params.append('key', __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].youtubeAPIKey);
+        return this.http
+            .get('https://www.googleapis.com/youtube/v3/search', { params: params })
+            .map(function (data) {
+            var items = data['items'];
+            if (items) {
+                return items;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    YoutubeSearchService.prototype.getItemDetails = function (items) {
+        var _this = this;
+        // If the first result contains support, remove it?
+        if (items[0] && items[0].snippet.title == 'https://youtube.com/devicesupport') {
+            items.splice(0, 1);
+        }
+        var ids = items.map(function (i) {
+            return i.id.videoId;
+        });
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]();
+        params = params.append('id', ids.join(','));
+        params = params.append('part', 'contentDetails');
+        params = params.append('fields', 'items(id,contentDetails/duration)');
+        params = params.append('key', __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].youtubeAPIKey);
+        return this.http
+            .get('https://www.googleapis.com/youtube/v3/videos', { params: params })
+            .map(function (data) {
+            var durationItems = data['items'];
+            var songs = items.map(function (item) {
+                var song = {
+                    id: item.id.videoId,
+                    title: item.snippet.title,
+                    thumbnail: item.snippet.thumbnails.high.url
+                };
+                for (var i = 0; i < durationItems.length; i++) {
+                    var di = durationItems[i];
+                    if (di.id === item.id.videoId) {
+                        song.durationString = _this.getTimeString(di.contentDetails.duration);
+                        song.durationSeconds = _this.getSeconds(di.contentDetails.duration);
+                    }
+                }
+                return song;
+            });
+            return songs;
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    YoutubeSearchService.prototype.getTimeString = function (duration) {
+        var string = duration.replace('PT', '').replace('H', ':').replace('M', ':').replace('S', '');
+        // Look for single digit seconds
+        var string_array = string.split(':');
+        if (string_array[string_array.length - 1].length == 1) {
+            string_array[string_array.length - 1] = '0' + string_array[string_array.length - 1];
+        }
+        return string_array.join(':');
+    };
+    // Expects ISO 8601 duration string
+    YoutubeSearchService.prototype.getSeconds = function (duration) {
+        var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+        var hours = 0, minutes = 0, seconds = 0, totalseconds;
+        if (reptms.test(duration)) {
+            var matches = reptms.exec(duration);
+            if (matches[1])
+                hours = Number(matches[1]);
+            if (matches[2])
+                minutes = Number(matches[2]);
+            if (matches[3])
+                seconds = Number(matches[3]);
+            totalseconds = hours * 3600 + minutes * 60 + seconds;
+            //console.log(duration);
+            //console.log(hours, minutes, seconds, totalseconds);
+        }
+        return totalseconds;
+    };
+    YoutubeSearchService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+    ], YoutubeSearchService);
+    return YoutubeSearchService;
+}());
+
+//# sourceMappingURL=youtube.service.js.map
+
 /***/ })
 
-},[218]);
+},[245]);
 //# sourceMappingURL=main.js.map

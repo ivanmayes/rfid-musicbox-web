@@ -4,10 +4,14 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../environments/environment';
 import { SocketService } from './socket.service';
 
-export interface RFIDObject {
+export interface Track {
     id: string;
     name?: string;
     type: 'youtube-video' | 'youtube-playlist';
+}
+
+export interface RFIDObject {
+    tracks: Track[];
     shuffle?: boolean;
 }
 
