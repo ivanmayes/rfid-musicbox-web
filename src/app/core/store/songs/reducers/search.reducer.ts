@@ -36,6 +36,10 @@ export function reducer(
     
         case song.SEARCH: {
           const params = action.payload;
+
+          if (action.payload.query.length < 1) {
+            return state;
+          }
     
           return {
             ...state,

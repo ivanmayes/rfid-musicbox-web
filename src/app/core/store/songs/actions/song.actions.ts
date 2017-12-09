@@ -1,19 +1,19 @@
 import { Action } from '@ngrx/store';
 
-import { Song } from '../song.model';
+import { Song, SearchParams } from '../song.model';
 
 
 export const LOAD = '[Songs] Load';
 export const SEARCH = '[Songs] Search';
 export const SEARCH_SUCCESS = '[Songs] Search Success';
 export const SEARCH_FAIL = '[Songs] Search Fail';
-export const NEXT_PAGE = '[Songs] Next Page';
-export const NEXT_PAGE_SUCCESS = '[Songs] Next Page Success';
+export const NEXT_PAGE = '[Songs] Load Next Page';
+export const NEXT_PAGE_SUCCESS = '[Songs] Load Next Page Success';
 
 export class Search implements Action {
 	readonly type = SEARCH;
 
-	constructor(public payload: Song) {}
+	constructor(public payload: SearchParams) {}
 }
 
 export class SearchSuccess implements Action {

@@ -19,9 +19,9 @@ export class YoutubeSearchService {
 		params = params.append('part', 'snippet');
 		params = params.append('q', query);
 		params = params.append('safeSearch', 'none');
-		params = params.append('type', 'video');
-		params = params.append('videoDuration', 'any');
-		params = params.append('videoEmbeddable', 'true');
+		params = params.append('type', 'video,playlist');
+		// params = params.append('videoDuration', 'any');
+		// params = params.append('videoEmbeddable', 'true');
 		params = params.append('order', 'viewCount');
 		params = params.append('key', environment.youtubeAPIKey);
 
@@ -63,7 +63,8 @@ export class YoutubeSearchService {
 					let song: any = {
 						id: item.id.videoId,
 						title: item.snippet.title,
-						thumbnail: item.snippet.thumbnails.high.url
+						thumbnail: item.snippet.thumbnails.high.url,
+						type: 'youtube-video'
 					};
 
 					for(let i = 0; i < durationItems.length; i++) {
@@ -81,6 +82,51 @@ export class YoutubeSearchService {
 			}, (err) => {
 				console.log(err);
 			});
+	}
+
+	public getPlaylistInfo(playlists: any): Observable<any> {
+		// If the first result contains support, remove it?
+		if(playlists[0] && playlists[0].snippet.title == 'https://youtube.com/devicesupport') {
+			playlists.splice(0,1);
+		}
+
+		let ids = playlists.map((i) => {
+			return i.id.playlistId;
+		});
+
+		let params = new HttpParams();
+		params = params.append('id', ids.join(','));
+		params = params.append('part', 'contentDetails');
+		params = params.append('fields', 'items(id,contentDetails/duration)');
+		params = params.append('key', environment.youtubeAPIKey);
+
+		return this.http
+			.get('https://www.googleapis.com/youtube/v3/videos', { params: params })
+			.map(data => {
+				let durationItems = data['items'];
+				
+				let songs = playlists.map((item) => {
+					let song: any = {
+						id: item.id.videoId,
+						title: item.snippet.title,
+						thumbnail: item.snippet.thumbnails.high.url,
+						type: 'youtube-video'
+					};
+
+					for(let i = 0; i < durationItems.length; i++) {
+						let di = durationItems[i];
+
+						if(di.id === item.id.videoId) {
+							song.durationString = this.getTimeString(di.contentDetails.duration);
+							song.durationSeconds = this.getSeconds(di.contentDetails.duration);
+						}
+					}
+					return song;
+				});
+
+				return songs;
+			});
+
 	}
 
 	private getTimeString(duration) {

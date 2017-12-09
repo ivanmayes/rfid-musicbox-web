@@ -1,0 +1,35 @@
+<ion-content padding>
+    <ion-grid class="search">
+            
+        <ion-row>
+            <ion-col>
+                <h4>Search Youtube for videos to add to this card:</h4>
+                <ion-searchbar placeholder="Search Youtube videos" (ionInput)="search($event)"></ion-searchbar>
+            </ion-col>
+        </ion-row>
+    
+        <ion-row class="search-results">
+            <ion-col>
+                <p *ngIf="(searchState$ | async)?.loading">
+                    <ion-spinner name="dots"></ion-spinner>
+                </p>
+    
+                <ion-list *ngIf="searchResults$ | async; let results;">
+                    <ion-item *ngFor="let result of results;">
+                    <ion-thumbnail item-start>
+                        <div class="overlay">
+                        <i class="fa fa-plus"></i>
+                        </div>
+                        <img [src]="result.thumbnail">
+                    </ion-thumbnail>
+                    <h2>{{result.title}}</h2>
+                    <p>{{result.durationString}}</p>
+                    <button *ngIf="!result.added" ion-button item-end (click)="addSongToList(result)">Add</button>
+                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    
+    </ion-grid>
+</ion-content>

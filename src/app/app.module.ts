@@ -13,12 +13,14 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers } from './app.reducers';
+import { SearchPage } from '../pages/search/search';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    SearchPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { metaReducers } from './app.reducers';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    SearchPage
   ],
   providers: [
     StatusBar,
