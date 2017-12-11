@@ -29,6 +29,8 @@
     "@ngrx/entity": "^4.1.1",
     "@ngrx/store": "^4.1.1",
     "@ngrx/store-devtools": "^4.1.1",
+    "compression": "^1.7.1",
+    "express": "^4.16.2",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
     "ngrx-store-freeze": "^0.2.0",
