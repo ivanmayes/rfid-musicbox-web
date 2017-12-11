@@ -368,9 +368,11 @@ var SearchPage = (function () {
             var results = _a[0], tracklist = _a[1];
             // Find any results that are already in our tracklist
             return results.map(function (result) {
-                for (var i = 0; i < tracklist.payload.tracks.length; i++) {
-                    if (result.id === tracklist.payload.tracks[i].id) {
-                        result = Object.assign({}, result, { added: true });
+                if (tracklist.payload && tracklist.payload.tracks) {
+                    for (var i = 0; i < tracklist.payload.tracks.length; i++) {
+                        if (result.id === tracklist.payload.tracks[i].id) {
+                            result = Object.assign({}, result, { added: true });
+                        }
                     }
                 }
                 return result;
