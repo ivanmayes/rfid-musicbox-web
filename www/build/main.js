@@ -1,12 +1,12 @@
 webpackJsonp([0],{
 
-/***/ 171:
+/***/ 161:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RFIDService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__socket_service__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__socket_service__ = __webpack_require__(286);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -42,7 +42,7 @@ var RFIDService = (function () {
 
 /***/ }),
 
-/***/ 175:
+/***/ 165:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51,7 +51,7 @@ var environment = {
     production: false,
     youtubeAPIKey: 'AIzaSyB41MomupoaLtgaIkTN-HvtiUyHeF64Y7E',
     socket: {
-        server: 'http://localhost:3000',
+        server: 'http://' + window.location.hostname + ':3000',
         namespace: 'rfid',
         heartbeatInterval: 5000
     }
@@ -60,118 +60,7 @@ var environment = {
 
 /***/ }),
 
-/***/ 176:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return reducers; });
-/* unused harmony export getRFIDFeatureState */
-/* unused harmony export getRFIDState */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getSelectedRFIDObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getMode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getDirty; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_store__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__ = __webpack_require__(723);
-
-
-;
-var reducers = {
-    rfid: __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__["d" /* reducer */]
-};
-/* Selectors */
-var getRFIDFeatureState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["l" /* createFeatureSelector */])('rfid');
-var getRFIDState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getRFIDFeatureState, function (state) { return state.rfid; });
-var getSelectedRFIDObject = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getRFIDState, __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__["c" /* getSelectedRFID */]);
-var getMode = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getRFIDState, __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__["b" /* getMode */]);
-var getDirty = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getRFIDState, __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__["a" /* getDirty */]);
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 177:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOAD_RFID_OBJECT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SET_MODE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return MODE_CHANGED; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SAVE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ADD_SONG; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return REMOVE_SONG; });
-/* unused harmony export CLEAR_LIST */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LoadRFIDObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SetMode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ModeChanged; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return Save; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AddSong; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return RemoveSong; });
-/* unused harmony export ClearList */
-var LOAD_RFID_OBJECT = '[RFID] Load';
-var SET_MODE = '[RFID] Set Mode';
-var MODE_CHANGED = '[RFID] Mode Changed';
-var SAVE = '[RFID] Save';
-var ADD_SONG = '[RFID] Add Song';
-var REMOVE_SONG = '[RFID] Remove Song';
-var CLEAR_LIST = '[RFID] Clear List';
-var LoadRFIDObject = (function () {
-    function LoadRFIDObject(payload) {
-        this.payload = payload;
-        this.type = LOAD_RFID_OBJECT;
-    }
-    return LoadRFIDObject;
-}());
-
-var SetMode = (function () {
-    function SetMode(payload) {
-        this.payload = payload;
-        this.type = SET_MODE;
-    }
-    return SetMode;
-}());
-
-var ModeChanged = (function () {
-    function ModeChanged(payload) {
-        this.payload = payload;
-        this.type = MODE_CHANGED;
-    }
-    return ModeChanged;
-}());
-
-var Save = (function () {
-    function Save() {
-        this.type = SAVE;
-    }
-    return Save;
-}());
-
-var AddSong = (function () {
-    function AddSong(payload) {
-        this.payload = payload;
-        this.type = ADD_SONG;
-    }
-    return AddSong;
-}());
-
-var RemoveSong = (function () {
-    function RemoveSong(payload) {
-        this.payload = payload;
-        this.type = REMOVE_SONG;
-    }
-    return RemoveSong;
-}());
-
-var ClearList = (function () {
-    function ClearList() {
-        this.type = CLEAR_LIST;
-    }
-    return ClearList;
-}());
-
-//# sourceMappingURL=rfid.actions.js.map
-
-/***/ }),
-
-/***/ 178:
+/***/ 179:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -188,9 +77,9 @@ var ClearList = (function () {
 /* unused harmony export getSearchLoading */
 /* unused harmony export getSearchError */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getSearchResults; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_store__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__ = __webpack_require__(724);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducers_song_reducer__ = __webpack_require__(725);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_store__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__ = __webpack_require__(725);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducers_song_reducer__ = __webpack_require__(726);
 
 
 
@@ -218,7 +107,7 @@ var _a;
 
 /***/ }),
 
-/***/ 188:
+/***/ 189:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -231,11 +120,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 188;
+webpackEmptyAsyncContext.id = 189;
 
 /***/ }),
 
-/***/ 233:
+/***/ 234:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -248,7 +137,7 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 233;
+webpackEmptyAsyncContext.id = 234;
 
 /***/ }),
 
@@ -258,16 +147,16 @@ webpackEmptyAsyncContext.id = 233;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_core_store_rfid__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__search_search__ = __webpack_require__(735);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_core_store_rfid__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__search_search__ = __webpack_require__(300);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -329,17 +218,20 @@ var HomePage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      RFID Configurator\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="(rfidMode$ | async) === \'get\'">\n    <button ion-button (click)="setRFIDMode(\'set\')">Turn on \'Edit\' Mode</button>\n  </div>\n  <div *ngIf="(rfidMode$ | async) === \'set\'">\n    <button ion-button small color="light" icon-left (click)="setRFIDMode(\'get\')">\n        <ion-icon name="arrow-back"></ion-icon>\n        I\'m Finished\n    </button>\n\n    <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="rfidObjectFound$ | async">\n        Save To RFID\n    </button>\n\n    <button ion-button small (click)="addSongs()" *ngIf="rfidObjectFound$ | async">\n        Add Songs to Tracklist\n    </button>\n\n    <br>\n    <br>\n\n    <div *ngIf="!(rfidObjectFound$ | async)?.id">\n      Waiting for an RFID card to scan...\n    </div>\n\n    <div *ngIf="rfidObjectFound$ | async; let rfidObject;">\n\n      <h2>RFID Found: {{ rfidObject.id }}</h2>\n\n      <div class="tracklist" *ngIf="rfidObject.payload">\n        <ion-list>\n            <h4>Track List:</h4>\n            <ion-item *ngFor="let track of rfidObject.payload.tracks">\n              <ion-thumbnail item-start>\n                <div class="overlay">\n                  <i class="fa fa-plus"></i>\n                </div>\n                <img [src]="track.thumbnail">\n              </ion-thumbnail>\n              <h2>{{track.title}}</h2>\n              <p>{{track.durationString}}</p>\n              <button ion-button color="danger" item-end (click)="removeSongFromList(track.id)">Remove</button>\n            </ion-item>\n        </ion-list>\n      </div>\n\n      <p>{{ rfidObject | json }}</p>\n\n    </div>\n    \n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */],
+            __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */],
+            __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */]])
     ], HomePage);
     return HomePage;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ 379:
+/***/ 286:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -347,11 +239,11 @@ var HomePage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client__ = __webpack_require__(702);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client__ = __webpack_require__(447);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_socket_io_client__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__(165);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -425,7 +317,97 @@ var SocketService = (function () {
 
 /***/ }),
 
-/***/ 392:
+/***/ 300:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngrx_store__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_core_store_rfid__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__ = __webpack_require__(97);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+var SearchPage = (function () {
+    function SearchPage(navCtrl, toastCtrl, rfidStore, songStore) {
+        this.navCtrl = navCtrl;
+        this.toastCtrl = toastCtrl;
+        this.rfidStore = rfidStore;
+        this.songStore = songStore;
+        this.addSong = this.toastCtrl.create({
+            message: 'Song Added Successfully!',
+            duration: 2000,
+            position: 'top'
+        });
+        this.searchResults$ = __WEBPACK_IMPORTED_MODULE_2_rxjs__["Observable"].combineLatest(this.songStore.select(__WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__["a" /* getSearchResults */]), this.rfidStore.select(__WEBPACK_IMPORTED_MODULE_6__app_core_store_rfid__["c" /* getSelectedRFIDObject */])).map(function (_a) {
+            var results = _a[0], tracklist = _a[1];
+            // Find any results that are already in our tracklist
+            return results.map(function (result) {
+                for (var i = 0; i < tracklist.payload.tracks.length; i++) {
+                    if (result.id === tracklist.payload.tracks[i].id) {
+                        result = Object.assign({}, result, { added: true });
+                    }
+                }
+                return result;
+            });
+        });
+        this.searchState$ = this.songStore.select(__WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__["b" /* getSearchState */]);
+    }
+    SearchPage.prototype.ionViewDidEnter = function () { };
+    SearchPage.prototype.search = function (query) {
+        console.log(query);
+        if (query.target) {
+            this.songStore.dispatch(new __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__["h" /* Search */]({
+                query: query.target.value,
+                type: undefined
+            }));
+        }
+    };
+    SearchPage.prototype.addSongToList = function (song) {
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["b" /* AddSong */](song));
+    };
+    SearchPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-search',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/'<ion-content padding>\n    <ion-grid class="search">\n            \n        <ion-row>\n            <ion-col>\n                <h4>Search Youtube for videos to add to this card:</h4>\n                <ion-searchbar placeholder="Search Youtube videos" (ionInput)="search($event)"></ion-searchbar>\n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="searchResults$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                        <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added" ion-button item-end (click)="addSongToList(result)">Add</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */],
+            __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]])
+    ], SearchPage);
+    return SearchPage;
+}());
+
+//# sourceMappingURL=search.js.map
+
+/***/ }),
+
+/***/ 393:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -434,7 +416,7 @@ var SocketService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(278);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(165);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -589,13 +571,13 @@ var YoutubeSearchService = (function () {
 
 /***/ }),
 
-/***/ 393:
+/***/ 394:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(394);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(395);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(399);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -603,25 +585,25 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 398:
+/***/ 399:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(272);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(277);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(278);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(440);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(441);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(280);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__core_core_module__ = __webpack_require__(727);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ngrx_store__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ngrx_effects__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ngrx_store_devtools__ = __webpack_require__(730);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_reducers__ = __webpack_require__(731);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_search_search__ = __webpack_require__(735);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__core_core_module__ = __webpack_require__(728);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ngrx_store__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ngrx_effects__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ngrx_store_devtools__ = __webpack_require__(731);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_reducers__ = __webpack_require__(732);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_search_search__ = __webpack_require__(300);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -685,13 +667,13 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 440:
+/***/ 441:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(277);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(272);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(280);
@@ -731,14 +713,14 @@ var MyApp = (function () {
 
 /***/ }),
 
-/***/ 720:
+/***/ 465:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 723:
+/***/ 468:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -746,7 +728,7 @@ var MyApp = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getMode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getDirty; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getSelectedRFID; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rfid_actions__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rfid_actions__ = __webpack_require__(90);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -789,7 +771,7 @@ var getSelectedRFID = function (state) { return state.selectedRFID; };
 
 /***/ }),
 
-/***/ 724:
+/***/ 725:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -798,7 +780,7 @@ var getSelectedRFID = function (state) { return state.selectedRFID; };
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getParams; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getLoading; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getError; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__ = __webpack_require__(97);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -857,15 +839,15 @@ var getError = function (state) { return state.error; };
 
 /***/ }),
 
-/***/ 725:
+/***/ 726:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return adapter; });
 /* unused harmony export initialState */
 /* harmony export (immutable) */ __webpack_exports__["b"] = reducer;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_entity__ = __webpack_require__(726);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_song_actions__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_entity__ = __webpack_require__(727);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_song_actions__ = __webpack_require__(97);
 
 
 var adapter = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_entity__["a" /* createEntityAdapter */])({
@@ -888,21 +870,21 @@ function reducer(state, action) {
 
 /***/ }),
 
-/***/ 727:
+/***/ 728:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CoreModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__socket_service__ = __webpack_require__(379);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__youtube_youtube_service__ = __webpack_require__(392);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngrx_store__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_rfid_rfid_service__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_songs__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store_songs_effects_search_effects__ = __webpack_require__(728);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__store_rfid__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__store_rfid_rfid_effects__ = __webpack_require__(729);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__socket_service__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__youtube_youtube_service__ = __webpack_require__(393);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngrx_store__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_rfid_rfid_service__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_songs__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store_songs_effects_search_effects__ = __webpack_require__(729);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__store_rfid__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__store_rfid_rfid_effects__ = __webpack_require__(730);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -945,25 +927,25 @@ var CoreModule = (function () {
 
 /***/ }),
 
-/***/ 728:
+/***/ 729:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SongsSearchEffects; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngrx_effects__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6____ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__ = __webpack_require__(392);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ngrx_store__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngrx_effects__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6____ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__ = __webpack_require__(393);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ngrx_store__ = __webpack_require__(26);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -1068,23 +1050,23 @@ var SongsSearchEffects = (function () {
 
 /***/ }),
 
-/***/ 729:
+/***/ 730:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RFIDEffects; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngrx_store__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rfid_service__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__rfid_actions__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8____ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngrx_store__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rfid_service__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__rfid_actions__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8____ = __webpack_require__(89);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1166,14 +1148,14 @@ var RFIDEffects = (function () {
 
 /***/ }),
 
-/***/ 731:
+/***/ 732:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export logger */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return metaReducers; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environments_environment__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ngrx_store_freeze__ = __webpack_require__(732);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environments_environment__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ngrx_store_freeze__ = __webpack_require__(733);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ngrx_store_freeze___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_ngrx_store_freeze__);
 
 /**
@@ -1198,95 +1180,118 @@ var metaReducers = !__WEBPACK_IMPORTED_MODULE_0__environments_environment__["a" 
 
 /***/ }),
 
-/***/ 735:
+/***/ 89:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngrx_store__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_core_store_rfid__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__ = __webpack_require__(93);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return reducers; });
+/* unused harmony export getRFIDFeatureState */
+/* unused harmony export getRFIDState */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getSelectedRFIDObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getDirty; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_store__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__ = __webpack_require__(468);
+
+
+;
+var reducers = {
+    rfid: __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__["d" /* reducer */]
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-var SearchPage = (function () {
-    function SearchPage(navCtrl, toastCtrl, rfidStore, songStore) {
-        this.navCtrl = navCtrl;
-        this.toastCtrl = toastCtrl;
-        this.rfidStore = rfidStore;
-        this.songStore = songStore;
-        this.addSong = this.toastCtrl.create({
-            message: 'Song Added Successfully!',
-            duration: 2000,
-            position: 'top'
-        });
-        this.searchResults$ = __WEBPACK_IMPORTED_MODULE_2_rxjs__["Observable"].combineLatest(this.songStore.select(__WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__["a" /* getSearchResults */]), this.rfidStore.select(__WEBPACK_IMPORTED_MODULE_6__app_core_store_rfid__["c" /* getSelectedRFIDObject */])).map(function (_a) {
-            var results = _a[0], tracklist = _a[1];
-            // Find any results that are already in our tracklist
-            return results.map(function (result) {
-                for (var i = 0; i < tracklist.payload.tracks.length; i++) {
-                    if (result.id === tracklist.payload.tracks[i].id) {
-                        result = Object.assign({}, result, { added: true });
-                    }
-                }
-                return result;
-            });
-        });
-        this.searchState$ = this.songStore.select(__WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__["b" /* getSearchState */]);
-    }
-    SearchPage.prototype.ionViewDidEnter = function () { };
-    SearchPage.prototype.search = function (query) {
-        console.log(query);
-        if (query.target) {
-            this.songStore.dispatch(new __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__["h" /* Search */]({
-                query: query.target.value,
-                type: undefined
-            }));
-        }
-    };
-    SearchPage.prototype.addSongToList = function (song) {
-        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["b" /* AddSong */](song));
-    };
-    SearchPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-search',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/'<ion-content padding>\n    <ion-grid class="search">\n            \n        <ion-row>\n            <ion-col>\n                <h4>Search Youtube for videos to add to this card:</h4>\n                <ion-searchbar placeholder="Search Youtube videos" (ionInput)="search($event)"></ion-searchbar>\n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="searchResults$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                        <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added" ion-button item-end (click)="addSongToList(result)">Add</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _d || Object])
-    ], SearchPage);
-    return SearchPage;
-    var _a, _b, _c, _d;
-}());
-
-//# sourceMappingURL=search.js.map
+/* Selectors */
+var getRFIDFeatureState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["l" /* createFeatureSelector */])('rfid');
+var getRFIDState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getRFIDFeatureState, function (state) { return state.rfid; });
+var getSelectedRFIDObject = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getRFIDState, __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__["c" /* getSelectedRFID */]);
+var getMode = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getRFIDState, __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__["b" /* getMode */]);
+var getDirty = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getRFIDState, __WEBPACK_IMPORTED_MODULE_1__rfid_reducer__["a" /* getDirty */]);
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ 93:
+/***/ 90:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOAD_RFID_OBJECT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SET_MODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return MODE_CHANGED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SAVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ADD_SONG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return REMOVE_SONG; });
+/* unused harmony export CLEAR_LIST */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LoadRFIDObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SetMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ModeChanged; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return Save; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AddSong; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return RemoveSong; });
+/* unused harmony export ClearList */
+var LOAD_RFID_OBJECT = '[RFID] Load';
+var SET_MODE = '[RFID] Set Mode';
+var MODE_CHANGED = '[RFID] Mode Changed';
+var SAVE = '[RFID] Save';
+var ADD_SONG = '[RFID] Add Song';
+var REMOVE_SONG = '[RFID] Remove Song';
+var CLEAR_LIST = '[RFID] Clear List';
+var LoadRFIDObject = (function () {
+    function LoadRFIDObject(payload) {
+        this.payload = payload;
+        this.type = LOAD_RFID_OBJECT;
+    }
+    return LoadRFIDObject;
+}());
+
+var SetMode = (function () {
+    function SetMode(payload) {
+        this.payload = payload;
+        this.type = SET_MODE;
+    }
+    return SetMode;
+}());
+
+var ModeChanged = (function () {
+    function ModeChanged(payload) {
+        this.payload = payload;
+        this.type = MODE_CHANGED;
+    }
+    return ModeChanged;
+}());
+
+var Save = (function () {
+    function Save() {
+        this.type = SAVE;
+    }
+    return Save;
+}());
+
+var AddSong = (function () {
+    function AddSong(payload) {
+        this.payload = payload;
+        this.type = ADD_SONG;
+    }
+    return AddSong;
+}());
+
+var RemoveSong = (function () {
+    function RemoveSong(payload) {
+        this.payload = payload;
+        this.type = REMOVE_SONG;
+    }
+    return RemoveSong;
+}());
+
+var ClearList = (function () {
+    function ClearList() {
+        this.type = CLEAR_LIST;
+    }
+    return ClearList;
+}());
+
+//# sourceMappingURL=rfid.actions.js.map
+
+/***/ }),
+
+/***/ 97:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1358,5 +1363,5 @@ var NextPageSuccess = (function () {
 
 /***/ })
 
-},[393]);
+},[394]);
 //# sourceMappingURL=main.js.map
