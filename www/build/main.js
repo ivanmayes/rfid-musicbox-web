@@ -754,7 +754,9 @@ function reducer(state, action) {
             // Check to see if the card payload is empty, fill in if it is
             var rfid_1 = action.payload;
             if (!rfid_1.payload) {
-                rfid_1.payload = __WEBPACK_IMPORTED_MODULE_1__rfid_model__["a" /* RFIDTrackListInitialState */];
+                rfid_1 = Object.assign(rfid_1, {
+                    payload: __WEBPACK_IMPORTED_MODULE_1__rfid_model__["a" /* RFIDTrackListInitialState */]
+                });
             }
             return __assign({}, state, { dirty: false, selectedRFID: action.payload });
         }
