@@ -44,12 +44,15 @@ export class SearchPage {
 
       // Find any results that are already in our tracklist
       return results.map((result) => {
-				for(let i = 0; i < tracklist.payload.tracks.length; i++) {
+            if (tracklist.payload && tracklist.payload.tracks) {
+                for(let i = 0; i < tracklist.payload.tracks.length; i++) {
 					if(result.id === tracklist.payload.tracks[i].id) {
 						result = Object.assign({}, result, { added: true });
 					}
 				}
-				return result;
+            }
+				
+			return result;
       });
       
     });
