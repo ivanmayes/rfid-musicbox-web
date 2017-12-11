@@ -26,9 +26,16 @@ export function reducer(
             // Check to see if the card payload is empty, fill in if it is
             let rfid = action.payload;
             if (!rfid.payload) {
-                rfid = Object.assign(rfid, {
-                    payload: RFIDTrackListInitialState
-                });
+                return {
+                    ...state,
+                    dirty: false,
+                    selectedRFID: {
+                        ...action.payload,
+                        payload: {
+                            ...RFIDTrackListInitialState
+                        }
+                    }
+                }
             }
 
             return {
