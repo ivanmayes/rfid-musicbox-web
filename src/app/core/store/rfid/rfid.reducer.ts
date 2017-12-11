@@ -2,7 +2,7 @@ import { createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as rfid from './rfid.actions';
-import { RFIDObject } from './rfid.model';
+import { RFIDObject, RFIDTrackListInitialState } from './rfid.model';
 
 export interface State {
     mode: 'get' | 'set';
@@ -23,6 +23,12 @@ export function reducer(
 	switch(action.type) {
 
 		case rfid.LOAD_RFID_OBJECT: {
+            // Check to see if the card payload is empty, fill in if it is
+            let rfid = action.payload;
+            if (!rfid.payload) {
+                rfid.payload = RFIDTrackListInitialState;
+            }
+
             return {
                 ...state,
                 dirty: false,
