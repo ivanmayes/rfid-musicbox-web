@@ -18,7 +18,8 @@ export function reducer(
 	action: song.Actions
 ): State {
 	switch (action.type) {
-		case song.SEARCH_SUCCESS: {
+		case song.SEARCH_SUCCESS:
+		case song.PLAYLIST_LOAD_SUCCESS: {
 			return adapter.addMany(action.payload, state);
 		}
 

@@ -36,7 +36,17 @@ export class SongsSearchEffects {
 		})
         .switchMap(params => this.searchYoutube(params, song.LOAD))
         .map((songs) => new song.SearchSuccess(songs))
-        .catch(err => Observable.of(new song.SearchFail(err)));
+		.catch(err => Observable.of(new song.SearchFail(err)));
+		
+	 // Load Playlist Effect
+	 @Effect()
+	 public loadPlaylist$: Observable<Action> = this.actions$
+		 .ofType<song.PlaylistLoad>(song.PLAYLIST_LOAD)
+		 .map(action => action.payload)
+		 .switchMap(playlistId => this.searchService.getPlaylistItems(playlistId))
+		 .map((songs) => new song.PlaylistLoadSuccess(songs));
+		//  .catch(err => Observable.of(new song.SearchFail(err)));
+		// TODO Catch this
 
 	// Search Effect
 	@Effect()

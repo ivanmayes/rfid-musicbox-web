@@ -64,7 +64,7 @@ var environment = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return reducers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return reducers; });
 /* unused harmony export getSongsState */
 /* unused harmony export getSongsEntitiesState */
 /* unused harmony export getSongsIds */
@@ -75,8 +75,12 @@ var environment = {
 /* unused harmony export getSearchEntriesIds */
 /* unused harmony export getSearchParams */
 /* unused harmony export getSearchLoading */
+/* unused harmony export getSelectedPlaylistId */
+/* unused harmony export getSelectedPlaylistSongIds */
 /* unused harmony export getSearchError */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getSearchResults; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getSelectedPlaylist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getSelectedPlaylistSongs; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_store__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__ = __webpack_require__(726);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducers_song_reducer__ = __webpack_require__(727);
@@ -87,7 +91,7 @@ var environment = {
 ;
 var reducers = {
     songs: __WEBPACK_IMPORTED_MODULE_2__reducers_song_reducer__["b" /* reducer */],
-    search: __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["e" /* reducer */]
+    search: __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["g" /* reducer */]
 };
 /* Selectors */
 var getSongsState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["l" /* createFeatureSelector */])('songs');
@@ -98,10 +102,21 @@ var getSearchState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* cre
 var getSearchEntriesIds = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["b" /* getIds */]);
 var getSearchParams = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["d" /* getParams */]);
 var getSearchLoading = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["c" /* getLoading */]);
+var getSelectedPlaylistId = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["e" /* getSelectedPlaylistId */]);
+var getSelectedPlaylistSongIds = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["f" /* getSelectedPlaylistSongIds */]);
 var getSearchError = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSearchState, __WEBPACK_IMPORTED_MODULE_1__reducers_search_reducer__["a" /* getError */]);
 var getSearchResults = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSongsEntities, getSearchEntriesIds, function (entries, searchIds) {
     return searchIds.map(function (id) { return entries[id]; });
 });
+/**
+ * TODO: Playlists still technically can come in as Songs right now,
+ * need to separate out before supporting other playlists
+ */
+var getSelectedPlaylist = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSongsEntities, getSelectedPlaylistId, function (entries, selectedPlaylistId) {
+    console.log('Selected Playlist', selectedPlaylistId, entries[selectedPlaylistId]);
+    return entries[selectedPlaylistId];
+});
+var getSelectedPlaylistSongs = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getSongsEntities, getSelectedPlaylistSongIds, function (entries, songIds) { return songIds.map(function (id) { return entries[id]; }); });
 var _a;
 //# sourceMappingURL=index.js.map
 
@@ -355,10 +370,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var SearchPage = (function () {
     function SearchPage(navCtrl, toastCtrl, rfidStore, songStore) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.toastCtrl = toastCtrl;
         this.rfidStore = rfidStore;
         this.songStore = songStore;
+        this.addedPlaylist = false;
         this.addSong = this.toastCtrl.create({
             message: 'Song Added Successfully!',
             duration: 2000,
@@ -366,43 +383,66 @@ var SearchPage = (function () {
         });
         this.searchResults$ = __WEBPACK_IMPORTED_MODULE_2_rxjs__["Observable"].combineLatest(this.songStore.select(__WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__["a" /* getSearchResults */]), this.rfidStore.select(__WEBPACK_IMPORTED_MODULE_6__app_core_store_rfid__["c" /* getSelectedRFIDObject */])).map(function (_a) {
             var results = _a[0], tracklist = _a[1];
-            // Find any results that are already in our tracklist
-            return results.map(function (result) {
-                if (tracklist.payload && tracklist.payload.tracks) {
-                    for (var i = 0; i < tracklist.payload.tracks.length; i++) {
-                        if (result.id === tracklist.payload.tracks[i].id) {
-                            result = Object.assign({}, result, { added: true });
-                        }
-                    }
-                }
-                return result;
-            });
+            return _this.insertTracklistAddedInformation(results, tracklist);
         });
         this.searchState$ = this.songStore.select(__WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__["b" /* getSearchState */]);
+        this.selectedPlaylist$ = this.songStore.select(__WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__["c" /* getSelectedPlaylist */]);
+        this.selectedPlaylistSongs$ = __WEBPACK_IMPORTED_MODULE_2_rxjs__["Observable"].combineLatest(this.songStore.select(__WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__["d" /* getSelectedPlaylistSongs */]), this.rfidStore.select(__WEBPACK_IMPORTED_MODULE_6__app_core_store_rfid__["c" /* getSelectedRFIDObject */])).map(function (_a) {
+            var results = _a[0], tracklist = _a[1];
+            var songs = _this.insertTracklistAddedInformation(results, tracklist);
+            var added = songs.filter(function (song) { return song.added; });
+            // Have we added this playlist?
+            if (added.length >= songs.length) {
+                _this.addedPlaylist = true;
+            }
+            else {
+                _this.addedPlaylist = false;
+            }
+            return songs;
+        });
     }
     SearchPage.prototype.ionViewDidEnter = function () { };
     SearchPage.prototype.search = function (query) {
         console.log(query);
         if (query.target) {
-            this.songStore.dispatch(new __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__["h" /* Search */]({
+            this.songStore.dispatch(new __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__["n" /* Search */]({
                 query: query.target.value,
                 type: undefined
             }));
         }
     };
-    SearchPage.prototype.addSongToList = function (song) {
-        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["b" /* AddSong */](song));
+    SearchPage.prototype.addSongsToList = function (songs) {
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["b" /* AddSong */](songs));
+    };
+    // TODO: Playlist is still a Song type 
+    // and dependent on Youtube types right now
+    SearchPage.prototype.browsePlaylist = function (playlist) {
+        this.songStore.dispatch(new __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__["i" /* PlaylistLoad */](playlist.id));
+    };
+    SearchPage.prototype.backToResults = function () {
+        this.songStore.dispatch(new __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__["h" /* PlaylistClear */]());
+    };
+    SearchPage.prototype.insertTracklistAddedInformation = function (songs, tracklist) {
+        // Find any results that are already in our tracklist
+        return songs.map(function (result) {
+            if (tracklist.payload && tracklist.payload.tracks) {
+                for (var i = 0; i < tracklist.payload.tracks.length; i++) {
+                    if (result.id === tracklist.payload.tracks[i].id) {
+                        result = Object.assign({}, result, { added: true });
+                    }
+                }
+            }
+            return result;
+        });
     };
     SearchPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-search',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/'<ion-content padding>\n    <ion-grid class="search">\n            \n        <ion-row>\n            <ion-col>\n                <h4>Search Youtube for videos to add to this card:</h4>\n                <ion-searchbar placeholder="Search Youtube videos" (ionInput)="search($event)"></ion-searchbar>\n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="searchResults$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                        <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added" ion-button item-end (click)="addSongToList(result)">Add</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/
+            selector: 'page-search',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/'<ion-content padding>\n\n    <ion-grid class="search" *ngIf="!(selectedPlaylist$ | async)">\n        <ion-row>\n            <ion-col>\n                <h4>Search Youtube for videos to add to this card:</h4>\n                <ion-searchbar placeholder="Search Youtube videos" (ionInput)="search($event)"></ion-searchbar>\n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="searchResults$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                        <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added && result.type == \'youtube-video\'" ion-button item-end (click)="addSongsToList([result])">Add</button>\n                    <button *ngIf="!result.added && result.type == \'youtube-playlist\'" ion-button item-end (click)="browsePlaylist(result)">Browse Playlist</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n\n    <ion-grid class="search" *ngIf="(selectedPlaylist$ | async); let selectedPlaylist;">\n        <ion-row>\n            <ion-col>\n                <button ion-button small color="light" icon-left (click)="backToResults()">\n                        <ion-icon name="arrow-back"></ion-icon>\n                        Back to Results\n                </button>\n                <h4>{{ selectedPlaylist.title }}</h4>\n                <div *ngIf="selectedPlaylistSongs$ | async; let results;">\n                    <button *ngIf="!addedPlaylist" ion-button item-end (click)="addSongsToList(results)">Add Entire Playlist</button>\n                    <button *ngIf="addedPlaylist" disabled ion-button item-end>Already Added</button>\n                </div>\n                \n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="selectedPlaylistSongs$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                            <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added && result.type == \'youtube-video\'" ion-button item-end (click)="addSongsToList([result])">Add</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */],
-            __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _d || Object])
     ], SearchPage);
     return SearchPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=search.js.map
@@ -479,11 +519,15 @@ var YoutubeSearchService = (function () {
             var durationItems = data['items'];
             var songs = items.map(function (item) {
                 var song = {
-                    id: item.id.videoId,
+                    id: item.id.videoId || item.id.playlistId,
                     title: item.snippet.title,
                     thumbnail: item.snippet.thumbnails.high.url,
                     type: 'youtube-video'
                 };
+                if (!item.id.videoId) {
+                    song.id = item.id.playlistId;
+                    song.type = 'youtube-playlist';
+                }
                 for (var i = 0; i < durationItems.length; i++) {
                     var di = durationItems[i];
                     if (di.id === item.id.videoId) {
@@ -498,41 +542,29 @@ var YoutubeSearchService = (function () {
             console.log(err);
         });
     };
-    YoutubeSearchService.prototype.getPlaylistInfo = function (playlists) {
-        var _this = this;
-        // If the first result contains support, remove it?
-        if (playlists[0] && playlists[0].snippet.title == 'https://youtube.com/devicesupport') {
-            playlists.splice(0, 1);
-        }
-        var ids = playlists.map(function (i) {
-            return i.id.playlistId;
-        });
+    YoutubeSearchService.prototype.getPlaylistItems = function (playlistId) {
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]();
-        params = params.append('id', ids.join(','));
-        params = params.append('part', 'contentDetails');
-        params = params.append('fields', 'items(id,contentDetails/duration)');
+        params = params.append('playlistId', playlistId);
+        params = params.append('part', 'snippet');
+        params = params.append('maxResults', '50');
         params = params.append('key', __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].youtubeAPIKey);
         return this.http
-            .get('https://www.googleapis.com/youtube/v3/videos', { params: params })
+            .get('https://www.googleapis.com/youtube/v3/playlistItems', { params: params })
             .map(function (data) {
-            var durationItems = data['items'];
-            var songs = playlists.map(function (item) {
-                var song = {
-                    id: item.id.videoId,
-                    title: item.snippet.title,
-                    thumbnail: item.snippet.thumbnails.high.url,
-                    type: 'youtube-video'
-                };
-                for (var i = 0; i < durationItems.length; i++) {
-                    var di = durationItems[i];
-                    if (di.id === item.id.videoId) {
-                        song.durationString = _this.getTimeString(di.contentDetails.duration);
-                        song.durationSeconds = _this.getSeconds(di.contentDetails.duration);
-                    }
-                }
-                return song;
-            });
-            return songs;
+            if (data['items']) {
+                var items = data['items'].map(function (item) {
+                    var song = {
+                        id: item.snippet.resourceId.videoId,
+                        title: item.snippet.title,
+                        thumbnail: item.snippet.thumbnails.high.url,
+                        type: 'youtube-video',
+                        playlistId: item.snippet.playlistId
+                    };
+                    return song;
+                });
+                return items;
+            }
+            return [];
         });
     };
     YoutubeSearchService.prototype.getTimeString = function (duration) {
@@ -564,9 +596,10 @@ var YoutubeSearchService = (function () {
     };
     YoutubeSearchService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
     ], YoutubeSearchService);
     return YoutubeSearchService;
+    var _a;
 }());
 
 //# sourceMappingURL=youtube.service.js.map
@@ -797,10 +830,12 @@ var RFIDTrackListInitialState = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["e"] = reducer;
+/* harmony export (immutable) */ __webpack_exports__["g"] = reducer;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getIds; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getParams; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getLoading; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getSelectedPlaylistId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getSelectedPlaylistSongIds; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getError; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__ = __webpack_require__(97);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
@@ -819,7 +854,9 @@ var initialState = {
     error: '',
     params: {},
     limit: 20,
-    offset: 0
+    offset: 0,
+    selectedPlaylistId: undefined,
+    selectedPlaylistSongIds: []
 };
 function reducer(state, action) {
     if (state === void 0) { state = initialState; }
@@ -827,18 +864,27 @@ function reducer(state, action) {
         case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["a" /* LOAD */]: {
             return initialState;
         }
-        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["e" /* SEARCH */]: {
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["k" /* SEARCH */]: {
             var params = action.payload;
             if (action.payload.query.length < 1) {
                 return state;
             }
             return __assign({}, state, { loading: true, ids: [], error: '', params: params, offset: 0, limit: 20, canLoadMore: false });
         }
-        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["g" /* SEARCH_SUCCESS */]: {
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["m" /* SEARCH_SUCCESS */]: {
             return __assign({}, state, { ids: action.payload.map(function (entries) { return entries.id; }), loading: false, error: '', params: state.params, canLoadMore: true });
         }
-        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["f" /* SEARCH_FAIL */]: {
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["l" /* SEARCH_FAIL */]: {
             return __assign({}, state, { loading: false, error: action.payload });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["f" /* PLAYLIST_LOAD */]: {
+            return __assign({}, state, { loading: true, selectedPlaylistId: action.payload, selectedPlaylistSongIds: [] });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["g" /* PLAYLIST_LOAD_SUCCESS */]: {
+            return __assign({}, state, { loading: false, selectedPlaylistSongIds: action.payload.map(function (entries) { return entries.id; }) });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["e" /* PLAYLIST_CLEAR */]: {
+            return __assign({}, state, { loading: false, selectedPlaylistId: undefined, selectedPlaylistSongIds: [] });
         }
         case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["b" /* NEXT_PAGE */]: {
             if (state.loading) {
@@ -856,6 +902,8 @@ function reducer(state, action) {
 var getIds = function (state) { return state.ids; };
 var getParams = function (state) { return state.params; };
 var getLoading = function (state) { return state.loading; };
+var getSelectedPlaylistId = function (state) { return state.selectedPlaylistId; };
+var getSelectedPlaylistSongIds = function (state) { return state.selectedPlaylistSongIds; };
 var getError = function (state) { return state.error; };
 //# sourceMappingURL=search.reducer.js.map
 
@@ -880,7 +928,8 @@ var initialState = adapter.getInitialState();
 function reducer(state, action) {
     if (state === void 0) { state = initialState; }
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_1__actions_song_actions__["g" /* SEARCH_SUCCESS */]: {
+        case __WEBPACK_IMPORTED_MODULE_1__actions_song_actions__["m" /* SEARCH_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_1__actions_song_actions__["g" /* PLAYLIST_LOAD_SUCCESS */]: {
             return adapter.addMany(action.payload, state);
         }
         default: {
@@ -929,7 +978,7 @@ var CoreModule = (function () {
     CoreModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             imports: [
-                __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["i" /* StoreModule */].forFeature('songs', __WEBPACK_IMPORTED_MODULE_6__store_songs__["c" /* reducers */]),
+                __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["i" /* StoreModule */].forFeature('songs', __WEBPACK_IMPORTED_MODULE_6__store_songs__["e" /* reducers */]),
                 __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["i" /* StoreModule */].forFeature('rfid', __WEBPACK_IMPORTED_MODULE_8__store_rfid__["d" /* reducers */]),
                 __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["c" /* EffectsModule */].forFeature([__WEBPACK_IMPORTED_MODULE_7__store_songs_effects_search_effects__["a" /* SongsSearchEffects */], __WEBPACK_IMPORTED_MODULE_9__store_rfid_rfid_effects__["a" /* RFIDEffects */]])
             ],
@@ -1012,16 +1061,24 @@ var SongsSearchEffects = (function () {
             return __assign({}, store.params, { offset: store.offset });
         })
             .switchMap(function (params) { return _this.searchYoutube(params, __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["a" /* LOAD */]); })
-            .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["j" /* SearchSuccess */](songs); })
-            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["i" /* SearchFail */](err)); });
+            .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["p" /* SearchSuccess */](songs); })
+            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["o" /* SearchFail */](err)); });
+        // Load Playlist Effect
+        this.loadPlaylist$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["f" /* PLAYLIST_LOAD */])
+            .map(function (action) { return action.payload; })
+            .switchMap(function (playlistId) { return _this.searchService.getPlaylistItems(playlistId); })
+            .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["j" /* PlaylistLoadSuccess */](songs); });
+        //  .catch(err => Observable.of(new song.SearchFail(err)));
+        // TODO Catch this
         // Search Effect
         this.search$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["e" /* SEARCH */])
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["k" /* SEARCH */])
             .debounceTime(this.debounce)
             .map(function (action) { return action.payload; })
             .switchMap(function (params) { return _this.searchYoutube(params, __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["a" /* LOAD */]); })
-            .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["j" /* SearchSuccess */](songs); })
-            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["i" /* SearchFail */](err)); });
+            .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["p" /* SearchSuccess */](songs); })
+            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["o" /* SearchFail */](err)); });
         // Next Page Effect
         this.nextPage$ = this.actions$
             .ofType(__WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["b" /* NEXT_PAGE */])
@@ -1034,7 +1091,7 @@ var SongsSearchEffects = (function () {
         })
             .switchMap(function (params) { return _this.searchYoutube(params, __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["a" /* LOAD */]); })
             .map(function (songs) { return new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["d" /* NextPageSuccess */](songs); })
-            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["i" /* SearchFail */](err)); });
+            .catch(function (err) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__actions_song_actions__["o" /* SearchFail */](err)); });
     }
     SongsSearchEffects.prototype.searchYoutube = function (params, action) {
         var _this = this;
@@ -1049,23 +1106,26 @@ var SongsSearchEffects = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _a || Object)
     ], SongsSearchEffects.prototype, "load$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _b || Object)
+    ], SongsSearchEffects.prototype, "loadPlaylist$", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
+        __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _c || Object)
     ], SongsSearchEffects.prototype, "search$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+        __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _d || Object)
     ], SongsSearchEffects.prototype, "nextPage$", void 0);
     SongsSearchEffects = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["a" /* Actions */],
-            __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__["a" /* YoutubeSearchService */],
-            __WEBPACK_IMPORTED_MODULE_9__ngrx_store__["h" /* Store */]])
+        __metadata("design:paramtypes", [typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["a" /* Actions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["a" /* Actions */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__["a" /* YoutubeSearchService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__["a" /* YoutubeSearchService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_9__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__ngrx_store__["h" /* Store */]) === "function" && _g || Object])
     ], SongsSearchEffects);
     return SongsSearchEffects;
+    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=search.effects.js.map
@@ -1318,18 +1378,27 @@ var ClearList = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LOAD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SEARCH; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SEARCH_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SEARCH_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PLAYLIST_LOAD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PLAYLIST_LOAD_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return PLAYLIST_CLEAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return SEARCH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return SEARCH_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SEARCH_FAIL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return NEXT_PAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return NEXT_PAGE_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return Search; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SearchSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SearchFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return Search; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return SearchSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return SearchFail; });
 /* unused harmony export Load */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return PlaylistLoad; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return PlaylistLoadSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return PlaylistClear; });
 /* unused harmony export NextPage */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return NextPageSuccess; });
 var LOAD = '[Songs] Load';
+var PLAYLIST_LOAD = '[Songs] Playlist Load';
+var PLAYLIST_LOAD_SUCCESS = '[Songs] Playlist Load Success';
+var PLAYLIST_CLEAR = '[Songs] Playlist Clear';
 var SEARCH = '[Songs] Search';
 var SEARCH_SUCCESS = '[Songs] Search Success';
 var SEARCH_FAIL = '[Songs] Search Fail';
@@ -1364,6 +1433,29 @@ var Load = (function () {
         this.type = LOAD;
     }
     return Load;
+}());
+
+var PlaylistLoad = (function () {
+    function PlaylistLoad(payload) {
+        this.payload = payload;
+        this.type = PLAYLIST_LOAD;
+    }
+    return PlaylistLoad;
+}());
+
+var PlaylistLoadSuccess = (function () {
+    function PlaylistLoadSuccess(payload) {
+        this.payload = payload;
+        this.type = PLAYLIST_LOAD_SUCCESS;
+    }
+    return PlaylistLoadSuccess;
+}());
+
+var PlaylistClear = (function () {
+    function PlaylistClear() {
+        this.type = PLAYLIST_CLEAR;
+    }
+    return PlaylistClear;
 }());
 
 var NextPage = (function () {

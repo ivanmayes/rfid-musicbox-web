@@ -61,11 +61,16 @@ export class YoutubeSearchService {
 
 				let songs = items.map((item) => {
 					let song: any = {
-						id: item.id.videoId,
+						id: item.id.videoId || item.id.playlistId,
 						title: item.snippet.title,
 						thumbnail: item.snippet.thumbnails.high.url,
 						type: 'youtube-video'
 					};
+
+					if (!item.id.videoId) {
+						song.id = item.id.playlistId;
+						song.type = 'youtube-playlist';
+					}
 
 					for(let i = 0; i < durationItems.length; i++) {
 						let di = durationItems[i];
@@ -84,47 +89,34 @@ export class YoutubeSearchService {
 			});
 	}
 
-	public getPlaylistInfo(playlists: any): Observable<any> {
-		// If the first result contains support, remove it?
-		if(playlists[0] && playlists[0].snippet.title == 'https://youtube.com/devicesupport') {
-			playlists.splice(0,1);
-		}
-
-		let ids = playlists.map((i) => {
-			return i.id.playlistId;
-		});
+	public getPlaylistItems(playlistId: any): Observable<any> {
 
 		let params = new HttpParams();
-		params = params.append('id', ids.join(','));
-		params = params.append('part', 'contentDetails');
-		params = params.append('fields', 'items(id,contentDetails/duration)');
+		params = params.append('playlistId', playlistId);
+		params = params.append('part', 'snippet');
+		params = params.append('maxResults', '50');
 		params = params.append('key', environment.youtubeAPIKey);
 
 		return this.http
-			.get('https://www.googleapis.com/youtube/v3/videos', { params: params })
+			.get('https://www.googleapis.com/youtube/v3/playlistItems', { params: params })
 			.map(data => {
-				let durationItems = data['items'];
-				
-				let songs = playlists.map((item) => {
-					let song: any = {
-						id: item.id.videoId,
-						title: item.snippet.title,
-						thumbnail: item.snippet.thumbnails.high.url,
-						type: 'youtube-video'
-					};
+				if (data['items']) {
+					let items = data['items'].map((item) => {
+						let song: any = {
+							id: item.snippet.resourceId.videoId,
+							title: item.snippet.title,
+							thumbnail: item.snippet.thumbnails.high.url,
+							type: 'youtube-video',
+							playlistId: item.snippet.playlistId
+						};
 
-					for(let i = 0; i < durationItems.length; i++) {
-						let di = durationItems[i];
+						return song;
+					});
 
-						if(di.id === item.id.videoId) {
-							song.durationString = this.getTimeString(di.contentDetails.duration);
-							song.durationSeconds = this.getSeconds(di.contentDetails.duration);
-						}
-					}
-					return song;
-				});
+					return items;
+				}
 
-				return songs;
+				return [];
 			});
 
 	}

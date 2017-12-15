@@ -24,6 +24,9 @@ import { Song } from '../../app/core/store/songs/song.model';
 export class SearchPage {
   public searchResults$: Observable<Song[]>;
   public searchState$: Observable<fromSongs.SongsState['search']>;
+  public selectedPlaylist$: Observable<Song>;
+  public selectedPlaylistSongs$: Observable<Song[]>;
+  public addedPlaylist: boolean = false;
 
   public addSong: Toast = this.toastCtrl.create({
     message: 'Song Added Successfully!',
@@ -40,25 +43,28 @@ export class SearchPage {
     this.searchResults$ = Observable.combineLatest(
       this.songStore.select(fromSongs.getSearchResults),
       this.rfidStore.select(fromRFID.getSelectedRFIDObject)
-    ).map(([results, tracklist]) => {
-
-      // Find any results that are already in our tracklist
-      return results.map((result) => {
-            if (tracklist.payload && tracklist.payload.tracks) {
-                for(let i = 0; i < tracklist.payload.tracks.length; i++) {
-					if(result.id === tracklist.payload.tracks[i].id) {
-						result = Object.assign({}, result, { added: true });
-					}
-				}
-            }
-				
-			return result;
-      });
-      
-    });
-
+    ).map(([results, tracklist]) => this.insertTracklistAddedInformation(results, tracklist));
 
     this.searchState$ = this.songStore.select(fromSongs.getSearchState);
+
+    this.selectedPlaylist$ = this.songStore.select(fromSongs.getSelectedPlaylist);
+    
+    this.selectedPlaylistSongs$ = Observable.combineLatest(
+      this.songStore.select(fromSongs.getSelectedPlaylistSongs),
+      this.rfidStore.select(fromRFID.getSelectedRFIDObject)
+    ).map(([results, tracklist]) => {
+      let songs = this.insertTracklistAddedInformation(results, tracklist);
+      let added = songs.filter(song => song.added);
+
+      // Have we added this playlist?
+      if (added.length >= songs.length) {
+        this.addedPlaylist = true;
+      } else {
+        this.addedPlaylist = false;
+      }
+
+      return songs;
+    });
   }
 
   ionViewDidEnter() {}
@@ -74,8 +80,33 @@ export class SearchPage {
     }
   }
   
-  public addSongToList(song: Song) {
-    this.rfidStore.dispatch(new rfid.AddSong(song));
+  public addSongsToList(songs: Song) {
+    this.rfidStore.dispatch(new rfid.AddSong(songs));
+  }
+
+  // TODO: Playlist is still a Song type 
+  // and dependent on Youtube types right now
+  public browsePlaylist(playlist: Song) {
+    this.songStore.dispatch(new songs.PlaylistLoad(playlist.id));
+  }
+
+  public backToResults() {
+    this.songStore.dispatch(new songs.PlaylistClear());
+  }
+
+  private insertTracklistAddedInformation(songs: Song[], tracklist: RFIDObject): Song[] {
+    // Find any results that are already in our tracklist
+    return songs.map((result) => {
+      if (tracklist.payload && tracklist.payload.tracks) {
+        for(let i = 0; i < tracklist.payload.tracks.length; i++) {
+          if(result.id === tracklist.payload.tracks[i].id) {
+            result = Object.assign({}, result, { added: true });
+          }
+        }
+      }
+      
+      return result;
+    });
   }
 
 }

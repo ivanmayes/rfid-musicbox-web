@@ -4,6 +4,9 @@ import { Song, SearchParams } from '../song.model';
 
 
 export const LOAD = '[Songs] Load';
+export const PLAYLIST_LOAD = '[Songs] Playlist Load';
+export const PLAYLIST_LOAD_SUCCESS = '[Songs] Playlist Load Success';
+export const PLAYLIST_CLEAR = '[Songs] Playlist Clear';
 export const SEARCH = '[Songs] Search';
 export const SEARCH_SUCCESS = '[Songs] Search Success';
 export const SEARCH_FAIL = '[Songs] Search Fail';
@@ -34,6 +37,24 @@ export class Load implements Action {
 	constructor() {}
 }
 
+export class PlaylistLoad implements Action {
+	readonly type = PLAYLIST_LOAD;
+
+	constructor(public payload: string) {}
+}
+
+export class PlaylistLoadSuccess implements Action {
+	readonly type = PLAYLIST_LOAD_SUCCESS;
+
+	constructor(public payload: Song[]) {}
+}
+
+export class PlaylistClear implements Action {
+	readonly type = PLAYLIST_CLEAR;
+
+	constructor() {}
+}
+
 export class NextPage implements Action {
 	readonly type = NEXT_PAGE;
 
@@ -47,4 +68,12 @@ export class NextPageSuccess implements Action {
 }
 
 
-export type Actions = Search | SearchSuccess | SearchFail | Load | NextPage | NextPageSuccess;
+export type Actions = Search | 
+	SearchSuccess | 
+	SearchFail | 
+	Load | 
+	PlaylistLoad | 
+	PlaylistLoadSuccess | 
+	PlaylistClear | 
+	NextPage | 
+	NextPageSuccess;

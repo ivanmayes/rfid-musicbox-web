@@ -12,6 +12,8 @@ export interface State {
     params: any;
     offset: number;
     limit: number;
+    selectedPlaylistId: string;
+    selectedPlaylistSongIds: string[];
 }
   
 const initialState: State = {
@@ -21,7 +23,9 @@ const initialState: State = {
     error: '',
     params: {},
     limit: 20,
-    offset: 0
+    offset: 0,
+    selectedPlaylistId: undefined,
+    selectedPlaylistSongIds: []
 };
 
 export function reducer(
@@ -71,6 +75,32 @@ export function reducer(
             error: action.payload,
           };
         }
+
+        case song.PLAYLIST_LOAD: {
+            return {
+                ...state,
+                loading: true,
+                selectedPlaylistId: action.payload,
+                selectedPlaylistSongIds: []
+            }
+        }
+
+        case song.PLAYLIST_LOAD_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                selectedPlaylistSongIds: action.payload.map(entries => entries.id),
+            }
+        }
+
+        case song.PLAYLIST_CLEAR: {
+            return {
+                ...state,
+                loading: false,
+                selectedPlaylistId: undefined,
+                selectedPlaylistSongIds: []
+            }
+        }
     
         case song.NEXT_PAGE: {
             if (state.loading) {
@@ -106,5 +136,8 @@ export const getIds = (state: State) => state.ids;
 export const getParams = (state: State) => state.params;
 
 export const getLoading = (state: State) => state.loading;
+
+export const getSelectedPlaylistId = (state: State) => state.selectedPlaylistId;
+export const getSelectedPlaylistSongIds = (state: State) => state.selectedPlaylistSongIds;
 
 export const getError = (state: State) => state.error;
