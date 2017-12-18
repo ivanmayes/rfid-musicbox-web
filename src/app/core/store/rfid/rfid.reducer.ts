@@ -83,6 +83,21 @@ export function reducer(
             }
         }
 
+        case rfid.CLEAR_LIST: {
+            // Long way to say add a track to that array
+            return {
+                ...state,
+                dirty: true,
+                selectedRFID: {
+                    ...state.selectedRFID,
+                    payload: {
+                        ...state.selectedRFID.payload,
+                        tracks: []
+                    }
+                }
+            }
+        }
+
 		default:
 			return state;
 	}

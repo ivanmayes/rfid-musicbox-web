@@ -74,4 +74,8 @@ export class HomePage {
     this.rfidStore.dispatch(new rfid.Save());
   }
 
+  public clearTrackList() {
+    this.rfidStore.dispatch(new rfid.ClearList());
+  }
+
 }

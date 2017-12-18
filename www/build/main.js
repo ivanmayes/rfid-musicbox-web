@@ -215,31 +215,31 @@ var HomePage = (function () {
     }
     HomePage.prototype.ionViewDidEnter = function () { };
     HomePage.prototype.ngOnDestroy = function () {
-        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["l" /* SetMode */]('get'));
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["n" /* SetMode */]('get'));
     };
     HomePage.prototype.addSongs = function () {
         this.searchModal.present();
     };
     HomePage.prototype.removeSongFromList = function (id) {
-        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["h" /* RemoveSong */](id));
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["j" /* RemoveSong */](id));
     };
     HomePage.prototype.setRFIDMode = function (mode) {
-        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["l" /* SetMode */](mode));
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["n" /* SetMode */](mode));
     };
     HomePage.prototype.saveRFIDTrackList = function () {
-        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["k" /* Save */]());
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["m" /* Save */]());
+    };
+    HomePage.prototype.clearTrackList = function () {
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["d" /* ClearList */]());
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      RFID Configurator\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="(rfidMode$ | async) === \'get\'">\n    <button ion-button (click)="setRFIDMode(\'set\')">Turn on \'Edit\' Mode</button>\n  </div>\n  <div *ngIf="(rfidMode$ | async) === \'set\'">\n    <button ion-button small color="light" icon-left (click)="setRFIDMode(\'get\')">\n        <ion-icon name="arrow-back"></ion-icon>\n        I\'m Finished\n    </button>\n\n    <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="rfidObjectFound$ | async">\n        Save To RFID\n    </button>\n\n    <button ion-button small (click)="addSongs()" *ngIf="rfidObjectFound$ | async">\n        Add Songs to Tracklist\n    </button>\n\n    <br>\n    <br>\n\n    <div *ngIf="!(rfidObjectFound$ | async)?.id">\n      Waiting for an RFID card to scan...\n    </div>\n\n    <div *ngIf="rfidObjectFound$ | async; let rfidObject;">\n\n      <h2>RFID Found: {{ rfidObject.id }}</h2>\n\n      <div class="tracklist" *ngIf="rfidObject.payload">\n        <ion-list>\n            <h4>Track List:</h4>\n            <ion-item *ngFor="let track of rfidObject.payload.tracks">\n              <ion-thumbnail item-start>\n                <div class="overlay">\n                  <i class="fa fa-plus"></i>\n                </div>\n                <img [src]="track.thumbnail">\n              </ion-thumbnail>\n              <h2>{{track.title}}</h2>\n              <p>{{track.durationString}}</p>\n              <button ion-button color="danger" item-end (click)="removeSongFromList(track.id)">Remove</button>\n            </ion-item>\n        </ion-list>\n      </div>\n\n      <p>{{ rfidObject | json }}</p>\n\n    </div>\n    \n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      RFID Configurator\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="(rfidMode$ | async) === \'get\'">\n    <button ion-button (click)="setRFIDMode(\'set\')">Turn on \'Edit\' Mode</button>\n  </div>\n  <div *ngIf="(rfidMode$ | async) === \'set\'">\n    <button ion-button small color="light" icon-left (click)="setRFIDMode(\'get\')">\n        <ion-icon name="arrow-back"></ion-icon>\n        I\'m Finished\n    </button>\n\n    <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="rfidObjectFound$ | async">\n        Save To RFID\n    </button>\n\n    <button ion-button small (click)="addSongs()" *ngIf="rfidObjectFound$ | async">\n        Add Songs to Tracklist\n    </button>\n\n    <br>\n    <br>\n\n    <div *ngIf="!(rfidObjectFound$ | async)?.id">\n      Waiting for an RFID card to scan...\n    </div>\n\n    <div *ngIf="rfidObjectFound$ | async; let rfidObject;">\n\n      <h2>RFID ID: {{ rfidObject.id }}</h2>\n\n      <div class="tracklist" *ngIf="rfidObject.payload">\n        <ion-list>\n            <ion-grid>\n              <ion-row>\n                <ion-col>\n                  <h4>Track List:</h4>\n                </ion-col>\n                <ion-col text-right>\n                    <button ion-button small item-end color="danger" (click)="clearTrackList()">\n                        Clear List\n                    </button>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n            \n            \n\n            <ion-item *ngFor="let track of rfidObject.payload.tracks">\n              <ion-thumbnail item-start>\n                <div class="overlay">\n                  <i class="fa fa-plus"></i>\n                </div>\n                <img [src]="track.thumbnail">\n              </ion-thumbnail>\n              <h2>{{track.title}}</h2>\n              <p>{{track.durationString}}</p>\n              <button ion-button color="danger" item-end (click)="removeSongFromList(track.id)">Remove</button>\n            </ion-item>\n        </ion-list>\n      </div>\n\n      <!-- <p>{{ rfidObject | json }}</p> -->\n\n    </div>\n    \n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */],
-            __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */],
-            __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */]) === "function" && _e || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -783,7 +783,7 @@ var initialState = {
 function reducer(state, action) {
     if (state === void 0) { state = initialState; }
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["c" /* LOAD_RFID_OBJECT */]: {
+        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["e" /* LOAD_RFID_OBJECT */]: {
             // Check to see if the card payload is empty, fill in if it is
             var rfid_1 = action.payload;
             if (!rfid_1.payload) {
@@ -791,16 +791,20 @@ function reducer(state, action) {
             }
             return __assign({}, state, { dirty: false, selectedRFID: action.payload });
         }
-        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["e" /* MODE_CHANGED */]: {
+        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["g" /* MODE_CHANGED */]: {
             return __assign({}, state, { mode: action.payload });
         }
         case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["a" /* ADD_SONG */]: {
             // Long way to say add a track to that array
             return __assign({}, state, { dirty: true, selectedRFID: __assign({}, state.selectedRFID, { payload: __assign({}, state.selectedRFID.payload, { tracks: state.selectedRFID.payload.tracks.concat(action.payload) }) }) });
         }
-        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["g" /* REMOVE_SONG */]: {
+        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["i" /* REMOVE_SONG */]: {
             // Long way to say remove a track from that array
             return __assign({}, state, { dirty: true, selectedRFID: __assign({}, state.selectedRFID, { payload: __assign({}, state.selectedRFID.payload, { tracks: state.selectedRFID.payload.tracks.filter(function (track) { return track.id !== action.payload; }) }) }) });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["c" /* CLEAR_LIST */]: {
+            // Long way to say add a track to that array
+            return __assign({}, state, { dirty: true, selectedRFID: __assign({}, state.selectedRFID, { payload: __assign({}, state.selectedRFID.payload, { tracks: [] }) }) });
         }
         default:
             return state;
@@ -1178,22 +1182,22 @@ var RFIDEffects = (function () {
          */
         this.modeChanged$ = this.rfidService.rfidModeChanged$
             .switchMap(function (mode) {
-            return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__rfid_actions__["f" /* ModeChanged */](mode));
+            return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__rfid_actions__["h" /* ModeChanged */](mode));
         });
         this.rfidObjectFound$ = this.rfidService.rfidObjectFound$
             .switchMap(function (obj) {
             console.log('Found Object');
-            return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__rfid_actions__["d" /* LoadRFIDObject */](obj));
+            return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__rfid_actions__["f" /* LoadRFIDObject */](obj));
         });
         /**
          * Set Effects
          */
         this.setMode$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_7__rfid_actions__["j" /* SET_MODE */])
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__rfid_actions__["l" /* SET_MODE */])
             .map(function (action) { return action.payload; })
             .do(function (mode) { return _this.rfidService.setRFIDMode(mode); });
         this.save$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_7__rfid_actions__["i" /* SAVE */])
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__rfid_actions__["k" /* SAVE */])
             .withLatestFrom(this.store.select(__WEBPACK_IMPORTED_MODULE_8____["c" /* getSelectedRFIDObject */]))
             .map(function (_a) {
             var action = _a[0], store = _a[1];
@@ -1294,20 +1298,20 @@ var getDirty = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSel
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOAD_RFID_OBJECT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SET_MODE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return MODE_CHANGED; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SAVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOAD_RFID_OBJECT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SET_MODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return MODE_CHANGED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return SAVE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ADD_SONG; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return REMOVE_SONG; });
-/* unused harmony export CLEAR_LIST */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LoadRFIDObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SetMode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ModeChanged; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return Save; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return REMOVE_SONG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_LIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LoadRFIDObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return SetMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ModeChanged; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return Save; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AddSong; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return RemoveSong; });
-/* unused harmony export ClearList */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return RemoveSong; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ClearList; });
 var LOAD_RFID_OBJECT = '[RFID] Load';
 var SET_MODE = '[RFID] Set Mode';
 var MODE_CHANGED = '[RFID] Mode Changed';
