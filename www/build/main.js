@@ -236,10 +236,13 @@ var HomePage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      RFID Configurator\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="(rfidMode$ | async) === \'get\'">\n    <button ion-button (click)="setRFIDMode(\'set\')">Turn on \'Edit\' Mode</button>\n  </div>\n  <div *ngIf="(rfidMode$ | async) === \'set\'">\n    <button ion-button small color="light" icon-left (click)="setRFIDMode(\'get\')">\n        <ion-icon name="arrow-back"></ion-icon>\n        I\'m Finished\n    </button>\n\n    <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="rfidObjectFound$ | async">\n        Save To RFID\n    </button>\n\n    <button ion-button small (click)="addSongs()" *ngIf="rfidObjectFound$ | async">\n        Add Songs to Tracklist\n    </button>\n\n    <br>\n    <br>\n\n    <div *ngIf="!(rfidObjectFound$ | async)?.id">\n      Waiting for an RFID card to scan...\n    </div>\n\n    <div *ngIf="rfidObjectFound$ | async; let rfidObject;">\n\n      <h2>RFID ID: {{ rfidObject.id }}</h2>\n\n      <div class="tracklist" *ngIf="rfidObject.payload">\n        <ion-list>\n            <ion-grid>\n              <ion-row>\n                <ion-col>\n                  <h4>Track List:</h4>\n                </ion-col>\n                <ion-col text-right>\n                    <button ion-button small item-end color="danger" (click)="clearTrackList()">\n                        Clear List\n                    </button>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n            \n            \n\n            <ion-item *ngFor="let track of rfidObject.payload.tracks">\n              <ion-thumbnail item-start>\n                <div class="overlay">\n                  <i class="fa fa-plus"></i>\n                </div>\n                <img [src]="track.thumbnail">\n              </ion-thumbnail>\n              <h2>{{track.title}}</h2>\n              <p>{{track.durationString}}</p>\n              <button ion-button color="danger" item-end (click)="removeSongFromList(track.id)">Remove</button>\n            </ion-item>\n        </ion-list>\n      </div>\n\n      <!-- <p>{{ rfidObject | json }}</p> -->\n\n    </div>\n    \n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_5__app_core_store_rfid_rfid_service__["a" /* RFIDService */],
+            __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */],
+            __WEBPACK_IMPORTED_MODULE_8_ionic_angular_components_modal_modal_controller__["a" /* ModalController */]])
     ], HomePage);
     return HomePage;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -349,6 +352,7 @@ var SocketService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_core_store_songs__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ionic_angular_navigation_view_controller__ = __webpack_require__(9);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -368,10 +372,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var SearchPage = (function () {
-    function SearchPage(navCtrl, toastCtrl, rfidStore, songStore) {
+    function SearchPage(navCtrl, viewCtrl, toastCtrl, rfidStore, songStore) {
         var _this = this;
         this.navCtrl = navCtrl;
+        this.viewCtrl = viewCtrl;
         this.toastCtrl = toastCtrl;
         this.rfidStore = rfidStore;
         this.songStore = songStore;
@@ -422,6 +428,9 @@ var SearchPage = (function () {
     SearchPage.prototype.backToResults = function () {
         this.songStore.dispatch(new __WEBPACK_IMPORTED_MODULE_9__app_core_store_songs_actions_song_actions__["h" /* PlaylistClear */]());
     };
+    SearchPage.prototype.dismiss = function () {
+        this.viewCtrl.dismiss();
+    };
     SearchPage.prototype.insertTracklistAddedInformation = function (songs, tracklist) {
         // Find any results that are already in our tracklist
         return songs.map(function (result) {
@@ -437,12 +446,12 @@ var SearchPage = (function () {
     };
     SearchPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-search',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/'<ion-content padding>\n\n    <ion-grid class="search" *ngIf="!(selectedPlaylist$ | async)">\n        <ion-row>\n            <ion-col>\n                <h4>Search Youtube for videos to add to this card:</h4>\n                <ion-searchbar placeholder="Search Youtube videos" (ionInput)="search($event)"></ion-searchbar>\n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="searchResults$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                        <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added && result.type == \'youtube-video\'" ion-button item-end (click)="addSongsToList([result])">Add</button>\n                    <button *ngIf="!result.added && result.type == \'youtube-playlist\'" ion-button item-end (click)="browsePlaylist(result)">Browse Playlist</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n\n    <ion-grid class="search" *ngIf="(selectedPlaylist$ | async); let selectedPlaylist;">\n        <ion-row>\n            <ion-col>\n                <button ion-button small color="light" icon-left (click)="backToResults()">\n                        <ion-icon name="arrow-back"></ion-icon>\n                        Back to Results\n                </button>\n                <h4>{{ selectedPlaylist.title }}</h4>\n                <div *ngIf="selectedPlaylistSongs$ | async; let results;">\n                    <button *ngIf="!addedPlaylist" ion-button item-end (click)="addSongsToList(results)">Add Entire Playlist</button>\n                    <button *ngIf="addedPlaylist" disabled ion-button item-end>Already Added</button>\n                </div>\n                \n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="selectedPlaylistSongs$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                            <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added && result.type == \'youtube-video\'" ion-button item-end (click)="addSongsToList([result])">Add</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/
+            selector: 'page-search',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/'<ion-header>\n    <ion-toolbar>\n      <ion-title>\n        Add Songs to Card\n      </ion-title>\n      <ion-buttons start>\n        <button ion-button (click)="dismiss()">\n          <span ion-text color="primary" showWhen="ios">Cancel</span>\n          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n    <ion-grid class="search" *ngIf="!(selectedPlaylist$ | async)">\n        <ion-row>\n            <ion-col>\n                <!-- <h4>Search Youtube for videos to add to this card:</h4> -->\n                <ion-searchbar placeholder="Search Youtube videos" (ionInput)="search($event)"></ion-searchbar>\n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="searchResults$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                        <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added && result.type == \'youtube-video\'" ion-button item-end (click)="addSongsToList([result])">Add</button>\n                    <button *ngIf="!result.added && result.type == \'youtube-playlist\'" ion-button item-end (click)="browsePlaylist(result)">Browse Playlist</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n\n    <ion-grid class="search" *ngIf="(selectedPlaylist$ | async); let selectedPlaylist;">\n        <ion-row>\n            <ion-col>\n                <button ion-button small color="light" icon-left (click)="backToResults()">\n                        <ion-icon name="arrow-back"></ion-icon>\n                        Back to Results\n                </button>\n                <h4>{{ selectedPlaylist.title }}</h4>\n                <div *ngIf="selectedPlaylistSongs$ | async; let results;">\n                    <button *ngIf="!addedPlaylist" ion-button item-end (click)="addSongsToList(results)">Add Entire Playlist</button>\n                    <button *ngIf="addedPlaylist" disabled ion-button item-end>Already Added</button>\n                </div>\n                \n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="selectedPlaylistSongs$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                            <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added && result.type == \'youtube-video\'" ion-button item-end (click)="addSongsToList([result])">Add</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_10_ionic_angular_navigation_view_controller__["a" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10_ionic_angular_navigation_view_controller__["a" /* ViewController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _e || Object])
     ], SearchPage);
     return SearchPage;
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=search.js.map
@@ -596,10 +605,9 @@ var YoutubeSearchService = (function () {
     };
     YoutubeSearchService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
     ], YoutubeSearchService);
     return YoutubeSearchService;
-    var _a;
 }());
 
 //# sourceMappingURL=youtube.service.js.map
@@ -1110,26 +1118,27 @@ var SongsSearchEffects = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
     ], SongsSearchEffects.prototype, "load$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _b || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
     ], SongsSearchEffects.prototype, "loadPlaylist$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _c || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
     ], SongsSearchEffects.prototype, "search$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _d || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
     ], SongsSearchEffects.prototype, "nextPage$", void 0);
     SongsSearchEffects = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["a" /* Actions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["a" /* Actions */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__["a" /* YoutubeSearchService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__["a" /* YoutubeSearchService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_9__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__ngrx_store__["h" /* Store */]) === "function" && _g || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__ngrx_effects__["a" /* Actions */],
+            __WEBPACK_IMPORTED_MODULE_8__youtube_youtube_service__["a" /* YoutubeSearchService */],
+            __WEBPACK_IMPORTED_MODULE_9__ngrx_store__["h" /* Store */]])
     ], SongsSearchEffects);
     return SongsSearchEffects;
-    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=search.effects.js.map

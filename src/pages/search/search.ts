@@ -14,6 +14,7 @@ import * as rfid from '../../app/core/store/rfid/rfid.actions';
 import * as fromSongs from '../../app/core/store/songs';
 import * as songs from '../../app/core/store/songs/actions/song.actions';
 import { Song } from '../../app/core/store/songs/song.model';
+import { ViewController } from 'ionic-angular/navigation/view-controller';
 
 
 
@@ -36,6 +37,7 @@ export class SearchPage {
 
   constructor(
     public navCtrl: NavController,
+    private viewCtrl: ViewController,
     private toastCtrl: ToastController,
     private rfidStore: Store<fromRFID.State>,
     private songStore: Store<fromSongs.State>
@@ -92,6 +94,10 @@ export class SearchPage {
 
   public backToResults() {
     this.songStore.dispatch(new songs.PlaylistClear());
+  }
+
+  public dismiss() {
+    this.viewCtrl.dismiss();
   }
 
   private insertTracklistAddedInformation(songs: Song[], tracklist: RFIDObject): Song[] {
