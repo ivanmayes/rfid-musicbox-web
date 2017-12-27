@@ -63,9 +63,18 @@ export class YoutubeSearchService {
 					let song: any = {
 						id: item.id.videoId || item.id.playlistId,
 						title: item.snippet.title,
-						thumbnail: item.snippet.thumbnails.high.url,
 						type: 'youtube-video'
 					};
+
+					if (
+						item.snippet &&
+						item.snippet.thumbnails &&
+						item.snippet.thumbnails.high
+					) {
+						song.thumbnail = item.snippet.thumbnails.high.url;
+					} else {
+						song.thumbnail = 'https://i.stack.imgur.com/WFy1e.jpg';
+					}
 
 					if (!item.id.videoId) {
 						song.id = item.id.playlistId;
@@ -105,10 +114,19 @@ export class YoutubeSearchService {
 						let song: any = {
 							id: item.snippet.resourceId.videoId,
 							title: item.snippet.title,
-							thumbnail: item.snippet.thumbnails.high.url,
 							type: 'youtube-video',
 							playlistId: item.snippet.playlistId
 						};
+
+						if (
+							item.snippet &&
+							item.snippet.thumbnails &&
+							item.snippet.thumbnails.high
+						) {
+							song.thumbnail = item.snippet.thumbnails.high.url;
+						} else {
+							song.thumbnail = 'https://i.stack.imgur.com/WFy1e.jpg';
+						}
 
 						return song;
 					});

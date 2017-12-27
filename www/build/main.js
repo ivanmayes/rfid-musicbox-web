@@ -448,10 +448,13 @@ var SearchPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-search',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/'<ion-header>\n    <ion-toolbar>\n      <ion-title>\n        Add Songs to Card\n      </ion-title>\n      <ion-buttons start>\n        <button ion-button (click)="dismiss()">\n          <span ion-text color="primary" showWhen="ios">Cancel</span>\n          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n    <ion-grid class="search" *ngIf="!(selectedPlaylist$ | async)">\n        <ion-row>\n            <ion-col>\n                <!-- <h4>Search Youtube for videos to add to this card:</h4> -->\n                <ion-searchbar placeholder="Search Youtube videos" (ionInput)="search($event)"></ion-searchbar>\n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="searchResults$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                        <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added && result.type == \'youtube-video\'" ion-button item-end (click)="addSongsToList([result])">Add</button>\n                    <button *ngIf="!result.added && result.type == \'youtube-playlist\'" ion-button item-end (click)="browsePlaylist(result)">Browse Playlist</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n\n    <ion-grid class="search" *ngIf="(selectedPlaylist$ | async); let selectedPlaylist;">\n        <ion-row>\n            <ion-col>\n                <button ion-button small color="light" icon-left (click)="backToResults()">\n                        <ion-icon name="arrow-back"></ion-icon>\n                        Back to Results\n                </button>\n                <h4>{{ selectedPlaylist.title }}</h4>\n                <div *ngIf="selectedPlaylistSongs$ | async; let results;">\n                    <button *ngIf="!addedPlaylist" ion-button item-end (click)="addSongsToList(results)">Add Entire Playlist</button>\n                    <button *ngIf="addedPlaylist" disabled ion-button item-end>Already Added</button>\n                </div>\n                \n            </ion-col>\n        </ion-row>\n    \n        <ion-row class="search-results">\n            <ion-col>\n                <p *ngIf="(searchState$ | async)?.loading">\n                    <ion-spinner name="dots"></ion-spinner>\n                </p>\n    \n                <ion-list *ngIf="selectedPlaylistSongs$ | async; let results;">\n                    <ion-item *ngFor="let result of results;">\n                    <ion-thumbnail item-start>\n                        <div class="overlay">\n                            <i class="fa fa-plus"></i>\n                        </div>\n                        <img [src]="result.thumbnail">\n                    </ion-thumbnail>\n                    <h2>{{result.title}}</h2>\n                    <p>{{result.durationString}}</p>\n                    <button *ngIf="!result.added && result.type == \'youtube-video\'" ion-button item-end (click)="addSongsToList([result])">Add</button>\n                    <button *ngIf="result.added" disabled ion-button color="light" item-end>Already Added</button>\n                    </ion-item>\n                </ion-list>\n            </ion-col>\n        </ion-row>\n    \n    </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/search/search.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_10_ionic_angular_navigation_view_controller__["a" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10_ionic_angular_navigation_view_controller__["a" /* ViewController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_10_ionic_angular_navigation_view_controller__["a" /* ViewController */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular_components_toast_toast_controller__["a" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */],
+            __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]])
     ], SearchPage);
     return SearchPage;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=search.js.map
@@ -530,9 +533,16 @@ var YoutubeSearchService = (function () {
                 var song = {
                     id: item.id.videoId || item.id.playlistId,
                     title: item.snippet.title,
-                    thumbnail: item.snippet.thumbnails.high.url,
                     type: 'youtube-video'
                 };
+                if (item.snippet &&
+                    item.snippet.thumbnails &&
+                    item.snippet.thumbnails.high) {
+                    song.thumbnail = item.snippet.thumbnails.high.url;
+                }
+                else {
+                    song.thumbnail = 'https://i.stack.imgur.com/WFy1e.jpg';
+                }
                 if (!item.id.videoId) {
                     song.id = item.id.playlistId;
                     song.type = 'youtube-playlist';
@@ -565,10 +575,17 @@ var YoutubeSearchService = (function () {
                     var song = {
                         id: item.snippet.resourceId.videoId,
                         title: item.snippet.title,
-                        thumbnail: item.snippet.thumbnails.high.url,
                         type: 'youtube-video',
                         playlistId: item.snippet.playlistId
                     };
+                    if (item.snippet &&
+                        item.snippet.thumbnails &&
+                        item.snippet.thumbnails.high) {
+                        song.thumbnail = item.snippet.thumbnails.high.url;
+                    }
+                    else {
+                        song.thumbnail = 'https://i.stack.imgur.com/WFy1e.jpg';
+                    }
                     return song;
                 });
                 return items;
