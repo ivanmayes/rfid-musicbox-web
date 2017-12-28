@@ -78,4 +78,8 @@ export class HomePage {
     this.rfidStore.dispatch(new rfid.ClearList());
   }
 
+  public toggleShuffle() {
+    this.rfidStore.dispatch(new rfid.ToggleShuffle());
+  }
+
 }

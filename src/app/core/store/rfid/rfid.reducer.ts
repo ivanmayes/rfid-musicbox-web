@@ -52,6 +52,20 @@ export function reducer(
             }
         }
 
+        case rfid.TOGGLE_SHUFFLE: {
+            return {
+                ...state,
+                dirty: true,
+                selectedRFID: {
+                    ...state.selectedRFID,
+                    payload: {
+                        ...state.selectedRFID.payload,
+                        shuffle: !state.selectedRFID.payload.shuffle
+                    }
+                }
+            }
+        }
+
         case rfid.ADD_SONG: {
 
             // Long way to say add a track to that array

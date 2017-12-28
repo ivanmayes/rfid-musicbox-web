@@ -4,6 +4,7 @@ import { RFIDObject } from './rfid.model';
 
 export const LOAD_RFID_OBJECT = '[RFID] Load';
 export const SET_MODE = '[RFID] Set Mode';
+export const TOGGLE_SHUFFLE = '[RFID] Toggle Shuffle';
 export const MODE_CHANGED = '[RFID] Mode Changed';
 export const SAVE = '[RFID] Save';
 export const ADD_SONG = '[RFID] Add Song';
@@ -20,6 +21,12 @@ export class SetMode implements Action {
 	readonly type = SET_MODE;
 
 	constructor(public payload: string) {}
+}
+
+export class ToggleShuffle implements Action {
+	readonly type = TOGGLE_SHUFFLE;
+
+	constructor() {}
 }
 
 export class ModeChanged implements Action {
@@ -53,4 +60,4 @@ export class ClearList implements Action {
 }
 
 
-export type Actions = LoadRFIDObject | SetMode | ModeChanged | Save | AddSong | RemoveSong | ClearList;
+export type Actions = LoadRFIDObject | SetMode | ToggleShuffle | ModeChanged | Save | AddSong | RemoveSong | ClearList;

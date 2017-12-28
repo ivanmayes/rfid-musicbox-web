@@ -40,6 +40,23 @@
             <ion-grid>
               <ion-row>
                 <ion-col>
+                    <h4>Settings:</h4>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col col-12>
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>Shuffle</ion-label>
+                            <ion-toggle [ngModel]="rfidObject.payload.shuffle" (click)="toggleShuffle()"></ion-toggle>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
                   <h4>Track List:</h4>
                 </ion-col>
                 <ion-col text-right>
