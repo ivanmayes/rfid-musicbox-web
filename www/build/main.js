@@ -232,9 +232,16 @@ var HomePage = (function () {
     HomePage.prototype.clearTrackList = function () {
         this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["d" /* ClearList */]());
     };
+    HomePage.prototype.toggleShuffle = function () {
+        console.log('Shuffled!');
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["r" /* ToggleShuffle */]());
+    };
+    HomePage.prototype.toggleLoop = function () {
+        this.rfidStore.dispatch(new __WEBPACK_IMPORTED_MODULE_7__app_core_store_rfid_rfid_actions__["q" /* ToggleLoop */]());
+    };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      RFID Configurator\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="(rfidMode$ | async) === \'get\'">\n    <button ion-button (click)="setRFIDMode(\'set\')">Turn on \'Edit\' Mode</button>\n  </div>\n  <div *ngIf="(rfidMode$ | async) === \'set\'">\n    <button ion-button small color="light" icon-left (click)="setRFIDMode(\'get\')">\n        <ion-icon name="arrow-back"></ion-icon>\n        I\'m Finished\n    </button>\n\n    <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="rfidObjectFound$ | async">\n        Save To RFID\n    </button>\n\n    <button ion-button small (click)="addSongs()" *ngIf="rfidObjectFound$ | async">\n        Add Songs to Tracklist\n    </button>\n\n    <br>\n    <br>\n\n    <div *ngIf="!(rfidObjectFound$ | async)?.id">\n      Waiting for an RFID card to scan...\n    </div>\n\n    <div *ngIf="rfidObjectFound$ | async; let rfidObject;">\n\n      <h2>RFID ID: {{ rfidObject.id }}</h2>\n\n      <div class="tracklist" *ngIf="rfidObject.payload">\n        <ion-list>\n            <ion-grid>\n              <ion-row>\n                <ion-col>\n                    <h4>Settings:</h4>\n                </ion-col>\n              </ion-row>\n\n              <ion-row>\n                <ion-col col-12>\n                    <ion-list>\n                        <ion-item>\n                            <ion-label>Shuffle</ion-label>\n                            <ion-toggle [ngModel]="rfidObject.payload.shuffle" (click)="toggleShuffle()"></ion-toggle>\n                        </ion-item>\n                    </ion-list>\n                </ion-col>\n              </ion-row>\n\n              <ion-row>\n                <ion-col>\n                  <h4>Track List:</h4>\n                </ion-col>\n                <ion-col text-right>\n                    <button ion-button small item-end color="danger" (click)="clearTrackList()">\n                        Clear List\n                    </button>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n            \n            \n\n            <ion-item *ngFor="let track of rfidObject.payload.tracks">\n              <ion-thumbnail item-start>\n                <div class="overlay">\n                  <i class="fa fa-plus"></i>\n                </div>\n                <img [src]="track.thumbnail">\n              </ion-thumbnail>\n              <h2>{{track.title}}</h2>\n              <p>{{track.durationString}}</p>\n              <button ion-button color="danger" item-end (click)="removeSongFromList(track.id)">Remove</button>\n            </ion-item>\n        </ion-list>\n      </div>\n\n      <!-- <p>{{ rfidObject | json }}</p> -->\n\n    </div>\n    \n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      RFID Configurator\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="(rfidMode$ | async) === \'get\'">\n    <button ion-button (click)="setRFIDMode(\'set\')">Turn on \'Edit\' Mode</button>\n  </div>\n  <div *ngIf="(rfidMode$ | async) === \'set\'">\n    <button ion-button small color="light" icon-left (click)="setRFIDMode(\'get\')">\n        <ion-icon name="arrow-back"></ion-icon>\n        I\'m Finished\n    </button>\n\n    <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="rfidObjectFound$ | async">\n        Save To RFID\n    </button>\n\n    <button ion-button small (click)="addSongs()" *ngIf="rfidObjectFound$ | async">\n        Add Songs to Tracklist\n    </button>\n\n    <br>\n    <br>\n\n    <div *ngIf="!(rfidObjectFound$ | async)?.id">\n      Waiting for an RFID card to scan...\n    </div>\n\n    <div *ngIf="rfidObjectFound$ | async; let rfidObject;">\n\n      <h2>RFID ID: {{ rfidObject.id }}</h2>\n\n      <div class="tracklist" *ngIf="rfidObject.payload">\n        <ion-list>\n            <ion-grid>\n              <ion-row>\n                <ion-col>\n                    <h4>Settings:</h4>\n                </ion-col>\n              </ion-row>\n\n              <ion-row>\n                <ion-col col-12>\n                    <ion-list>\n                        <ion-item>\n                            <ion-label>Shuffle</ion-label>\n                            <ion-toggle [ngModel]="rfidObject.payload.shuffle" (ngModelChange)="toggleShuffle()"></ion-toggle>\n                        </ion-item>\n                        <ion-item>\n                            <ion-label>Loop</ion-label>\n                            <ion-toggle [ngModel]="rfidObject.payload.loop" (ngModelChange)="toggleLoop()"></ion-toggle>\n                        </ion-item>\n                    </ion-list>\n                </ion-col>\n              </ion-row>\n\n              <ion-row>\n                <ion-col>\n                  <h4>Track List:</h4>\n                </ion-col>\n                <ion-col text-right>\n                    <button ion-button small item-end color="danger" (click)="clearTrackList()">\n                        Clear List\n                    </button>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n            \n            \n\n            <ion-item *ngFor="let track of rfidObject.payload.tracks">\n              <ion-thumbnail item-start>\n                <div class="overlay">\n                  <i class="fa fa-plus"></i>\n                </div>\n                <img [src]="track.thumbnail">\n              </ion-thumbnail>\n              <h2>{{track.title}}</h2>\n              <p>{{track.durationString}}</p>\n              <button ion-button color="danger" item-end (click)="removeSongFromList(track.id)">Remove</button>\n            </ion-item>\n        </ion-list>\n      </div>\n\n      <!-- <p>{{ rfidObject | json }}</p> -->\n\n    </div>\n    \n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_4_ionic_angular_components_toast_toast_controller__["a" /* ToastController */],
@@ -819,6 +826,12 @@ function reducer(state, action) {
         case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["g" /* MODE_CHANGED */]: {
             return __assign({}, state, { mode: action.payload });
         }
+        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["p" /* TOGGLE_SHUFFLE */]: {
+            return __assign({}, state, { dirty: true, selectedRFID: __assign({}, state.selectedRFID, { payload: __assign({}, state.selectedRFID.payload, { shuffle: !state.selectedRFID.payload.shuffle }) }) });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["o" /* TOGGLE_LOOP */]: {
+            return __assign({}, state, { dirty: true, selectedRFID: __assign({}, state.selectedRFID, { payload: __assign({}, state.selectedRFID.payload, { loop: !state.selectedRFID.payload.loop }) }) });
+        }
         case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["a" /* ADD_SONG */]: {
             // Long way to say add a track to that array
             return __assign({}, state, { dirty: true, selectedRFID: __assign({}, state.selectedRFID, { payload: __assign({}, state.selectedRFID.payload, { tracks: state.selectedRFID.payload.tracks.concat(action.payload) }) }) });
@@ -828,7 +841,7 @@ function reducer(state, action) {
             return __assign({}, state, { dirty: true, selectedRFID: __assign({}, state.selectedRFID, { payload: __assign({}, state.selectedRFID.payload, { tracks: state.selectedRFID.payload.tracks.filter(function (track) { return track.id !== action.payload; }) }) }) });
         }
         case __WEBPACK_IMPORTED_MODULE_0__rfid_actions__["c" /* CLEAR_LIST */]: {
-            // Long way to say add a track to that array
+            // Long way to say clear the list
             return __assign({}, state, { dirty: true, selectedRFID: __assign({}, state.selectedRFID, { payload: __assign({}, state.selectedRFID.payload, { tracks: [] }) }) });
         }
         default:
@@ -849,6 +862,7 @@ var getSelectedRFID = function (state) { return state.selectedRFID; };
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RFIDTrackListInitialState; });
 var RFIDTrackListInitialState = {
     shuffle: false,
+    loop: false,
     tracks: []
 };
 //# sourceMappingURL=rfid.model.js.map
@@ -1326,6 +1340,8 @@ var getDirty = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSel
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOAD_RFID_OBJECT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SET_MODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return TOGGLE_SHUFFLE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return TOGGLE_LOOP; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return MODE_CHANGED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return SAVE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ADD_SONG; });
@@ -1333,6 +1349,8 @@ var getDirty = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSel
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_LIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LoadRFIDObject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return SetMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return ToggleShuffle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return ToggleLoop; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ModeChanged; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return Save; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AddSong; });
@@ -1340,6 +1358,8 @@ var getDirty = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSel
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ClearList; });
 var LOAD_RFID_OBJECT = '[RFID] Load';
 var SET_MODE = '[RFID] Set Mode';
+var TOGGLE_SHUFFLE = '[RFID] Toggle Shuffle';
+var TOGGLE_LOOP = '[RFID] Toggle Loop';
 var MODE_CHANGED = '[RFID] Mode Changed';
 var SAVE = '[RFID] Save';
 var ADD_SONG = '[RFID] Add Song';
@@ -1359,6 +1379,20 @@ var SetMode = (function () {
         this.type = SET_MODE;
     }
     return SetMode;
+}());
+
+var ToggleShuffle = (function () {
+    function ToggleShuffle() {
+        this.type = TOGGLE_SHUFFLE;
+    }
+    return ToggleShuffle;
+}());
+
+var ToggleLoop = (function () {
+    function ToggleLoop() {
+        this.type = TOGGLE_LOOP;
+    }
+    return ToggleLoop;
 }());
 
 var ModeChanged = (function () {

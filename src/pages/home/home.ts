@@ -79,7 +79,12 @@ export class HomePage {
   }
 
   public toggleShuffle() {
+    console.log('Shuffled!');
     this.rfidStore.dispatch(new rfid.ToggleShuffle());
+  }
+
+  public toggleLoop() {
+    this.rfidStore.dispatch(new rfid.ToggleLoop());
   }
 
 }

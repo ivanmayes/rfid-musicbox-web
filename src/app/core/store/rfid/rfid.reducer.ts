@@ -66,6 +66,20 @@ export function reducer(
             }
         }
 
+        case rfid.TOGGLE_LOOP: {
+            return {
+                ...state,
+                dirty: true,
+                selectedRFID: {
+                    ...state.selectedRFID,
+                    payload: {
+                        ...state.selectedRFID.payload,
+                        loop: !state.selectedRFID.payload.loop
+                    }
+                }
+            }
+        }
+
         case rfid.ADD_SONG: {
 
             // Long way to say add a track to that array
@@ -98,7 +112,7 @@ export function reducer(
         }
 
         case rfid.CLEAR_LIST: {
-            // Long way to say add a track to that array
+            // Long way to say clear the list
             return {
                 ...state,
                 dirty: true,

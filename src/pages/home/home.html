@@ -49,7 +49,11 @@
                     <ion-list>
                         <ion-item>
                             <ion-label>Shuffle</ion-label>
-                            <ion-toggle [ngModel]="rfidObject.payload.shuffle" (click)="toggleShuffle()"></ion-toggle>
+                            <ion-toggle [ngModel]="rfidObject.payload.shuffle" (ngModelChange)="toggleShuffle()"></ion-toggle>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Loop</ion-label>
+                            <ion-toggle [ngModel]="rfidObject.payload.loop" (ngModelChange)="toggleLoop()"></ion-toggle>
                         </ion-item>
                     </ion-list>
                 </ion-col>
