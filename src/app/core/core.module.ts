@@ -12,6 +12,7 @@ import { SongsSearchEffects } from './store/songs/effects/search.effects';
 
 import { reducers as rfidReducers } from './store/rfid';
 import { RFIDEffects } from './store/rfid/rfid.effects';
+import { MopidyService } from './mopidy/mopidy.service';
 
 
 
@@ -20,7 +21,6 @@ import { RFIDEffects } from './store/rfid/rfid.effects';
 		StoreModule.forFeature('songs', songsReducers),
 		StoreModule.forFeature('rfid', rfidReducers),
 		EffectsModule.forFeature([ SongsSearchEffects, RFIDEffects ])
-		
 	],
 	exports: [
 
@@ -29,6 +29,7 @@ import { RFIDEffects } from './store/rfid/rfid.effects';
 
 	],
 	providers: [
+		MopidyService,
 		SocketService,
 		RFIDService,
 		YoutubeSearchService

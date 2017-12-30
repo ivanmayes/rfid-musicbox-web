@@ -5,5 +5,8 @@ export const environment = {
 		server: 'http://' + window.location.hostname + ':3000',
 		namespace: 'rfid',
 		heartbeatInterval: 5000
+	},
+	mopidy: {
+		server: 'ws://' + window.location.hostname + ':6680/mopidy/ws/'
 	}
 };

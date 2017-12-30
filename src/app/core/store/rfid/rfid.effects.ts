@@ -15,7 +15,7 @@ export class RFIDEffects {
 	constructor(
 		private actions$: Actions,
 		private rfidService: RFIDService,
-		private store: Store<fromRFID.State>,
+		private store: Store<fromRFID.State>
 	) {}
 
     /**
