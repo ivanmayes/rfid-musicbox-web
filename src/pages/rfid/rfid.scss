@@ -1,3 +1,18 @@
 page-rfid {
-    
+    .object-list {
+        ion-thumbnail {
+            flex: 2;
+            max-width: 50%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+
+            img {
+                width: 26px;
+                height: 26px;
+                margin: 0 1px;
+            }
+        }
+    }
 }

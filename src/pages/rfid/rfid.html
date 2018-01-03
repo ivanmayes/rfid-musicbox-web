@@ -14,17 +14,14 @@
         <div *ngIf="!(selectedRFIDObject$ | async)">
           <p *ngIf="(rfidMode$ | async) === 'get'">Select an RFID Object below or scan a card to edit</p>
 
-          <ion-list>
+          <ion-list class="object-list">
               <ion-item *ngFor="let obj of rfidObjects$ | async" (click)="selectObject(obj)">
-                  <!-- <ion-thumbnail item-start>
-                    <div class="overlay">
-                      <i class="fa fa-plus"></i>
-                    </div>
-                    <img [src]="track.thumbnail">
-                  </ion-thumbnail> -->
-                  <h2>{{obj.id}}</h2>
-                  <p>{{obj.payload.tracks.length}} Tracks</p>
-                </ion-item>
+                <h2>{{obj.id}}</h2>
+                <p>{{obj.payload.tracks.length}} Tracks</p>
+                <ion-thumbnail item-end>
+                    <img [src]="track.thumbnail" *ngFor="let track of obj.payload.tracks">
+                </ion-thumbnail>
+              </ion-item>
           </ion-list>
         </div>
         <!-- end Browse Mode -->

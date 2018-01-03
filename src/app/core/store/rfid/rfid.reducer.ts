@@ -25,13 +25,10 @@ export function reducer(
 	switch(action.type) {
 
         case rfid.LOAD: {
-
-            return state;
-            
-            // return {
-            //     ...initialState,
-            //     mode: state.mode
-            // };
+            return {
+                ...initialState,
+                mode: state.mode
+            };
         }
 
         case rfid.LOAD_SUCCESS: {
