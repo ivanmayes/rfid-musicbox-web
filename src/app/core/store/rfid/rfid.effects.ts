@@ -43,6 +43,11 @@ export class RFIDEffects {
      */
 
 	@Effect({ dispatch: false })
+	load$ = this.actions$
+        .ofType<rfid.SetMode>(rfid.LOAD)
+		.do(() => this.rfidService.getRFIDObjects());
+
+	@Effect({ dispatch: false })
 	setMode$ = this.actions$
         .ofType<rfid.SetMode>(rfid.SET_MODE)
         .map((action: rfid.SetMode) => action.payload)

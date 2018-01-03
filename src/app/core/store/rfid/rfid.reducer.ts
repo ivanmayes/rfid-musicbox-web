@@ -8,12 +8,14 @@ export interface State {
     mode: 'get' | 'set';
     dirty: boolean;
     selectedRFID: RFIDObject;
+    objects: RFIDObject[];
 }
   
 const initialState: State = {
     mode: 'get',
     dirty: false,
-    selectedRFID: undefined
+    selectedRFID: undefined,
+    objects: []
 };
 
 export function reducer(
@@ -21,6 +23,17 @@ export function reducer(
 	action: rfid.Actions
 ): State {
 	switch(action.type) {
+
+        case rfid.LOAD: {
+            return initialState;
+        }
+
+        case rfid.LOAD_SUCCESS: {
+            return {
+                ...state,
+                objects: action.payload
+            }
+        }
 
 		case rfid.LOAD_RFID_OBJECT: {
             // Check to see if the card payload is empty, fill in if it is
@@ -132,6 +145,8 @@ export function reducer(
 }
 
 export const getMode = (state: State) => state.mode;
+
+export const getRFIDObjects = (state: State) => state.objects;
 
 export const getDirty = (state: State) => state.dirty;
 

@@ -23,6 +23,11 @@ export const getRFIDState = createSelector(
 	(state: RFIDState) => state.rfid
 );
 
+export const getRFIDObjects = createSelector(
+	getRFIDState,
+	fromRFID.getRFIDObjects
+);
+
 export const getSelectedRFIDObject = createSelector(
 	getRFIDState,
 	fromRFID.getSelectedRFID

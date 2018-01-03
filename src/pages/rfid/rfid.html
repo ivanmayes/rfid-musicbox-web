@@ -10,31 +10,48 @@
       </ion-header>
       
       <ion-content padding>
-        <div *ngIf="(rfidMode$ | async) === 'get'">
-          <button ion-button (click)="setRFIDMode('set')">Turn on 'Edit' Mode</button>
+        <!-- Browse Mode -->
+        <div *ngIf="!(selectedRFIDObject$ | async)">
+          <p>Select an RFID Object below or scan a card to edit</p>
+
+          <ion-list>
+              <ion-item *ngFor="let obj of rfidObjects$ | async" (click)="selectObject(obj)">
+                  <!-- <ion-thumbnail item-start>
+                    <div class="overlay">
+                      <i class="fa fa-plus"></i>
+                    </div>
+                    <img [src]="track.thumbnail">
+                  </ion-thumbnail> -->
+                  <h2>{{obj.id}}</h2>
+                  <p>{{obj.payload.tracks.length}} Tracks</p>
+                </ion-item>
+          </ion-list>
         </div>
-        <div *ngIf="(rfidMode$ | async) === 'set'">
-          <button ion-button small color="light" icon-left (click)="setRFIDMode('get')">
+        <!-- end Browse Mode -->
+
+        <!-- Edit Mode -->
+        <div *ngIf="selectedRFIDObject$ | async; let rfidObject;">
+          <button ion-button small color="light" icon-left (click)="resetView()">
               <ion-icon name="arrow-back"></ion-icon>
               I'm Finished
           </button>
       
-          <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="rfidObjectFound$ | async">
+          <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="selectedRFIDObject$ | async">
               Save To RFID
           </button>
       
-          <button ion-button small (click)="addSongs()" *ngIf="rfidObjectFound$ | async">
+          <button ion-button small (click)="addSongs()" *ngIf="rfidObject">
               Add Songs to Tracklist
           </button>
       
           <br>
           <br>
       
-          <div *ngIf="!(rfidObjectFound$ | async)?.id">
+          <div *ngIf="!rfidObject.id">
             Waiting for an RFID card to scan...
           </div>
       
-          <div *ngIf="rfidObjectFound$ | async; let rfidObject;">
+          <div *ngIf="rfidObject">
       
             <h2>RFID ID: {{ rfidObject.id }}</h2>
       
@@ -89,12 +106,9 @@
                   </ion-item>
               </ion-list>
             </div>
-      
-            <!-- <p>{{ rfidObject | json }}</p> -->
-      
           </div>
-          
-      
         </div>
+        <!-- end Edit Mode -->
+
       </ion-content>
       

@@ -23,9 +23,10 @@ import { SearchPage } from '../search/search';
   templateUrl: 'rfid.html'
 })
 export class RFIDPage {
-  public rfidObjectFound$: Observable<RFIDObject>;
+  public selectedRFIDObject$: Observable<RFIDObject>;
   public rfidMode$: Observable<string>;
   public rfidObjectIsDirty$: Observable<boolean>;
+  public rfidObjects$: Observable<RFIDObject[]>;
 
   public saveToast: Toast = this.toastCtrl.create({
     message: 'RFID Object Saved Successfully!',
@@ -45,14 +46,18 @@ export class RFIDPage {
   ) {
     menuCtrl.enable(true);
 
-    this.rfidObjectFound$ = this.rfidStore.select(fromRFID.getSelectedRFIDObject);
     this.rfidMode$ = this.rfidStore.select(fromRFID.getMode);
+    this.rfidObjects$ = this.rfidStore.select(fromRFID.getRFIDObjects);
+    this.selectedRFIDObject$ = this.rfidStore.select(fromRFID.getSelectedRFIDObject);
     this.rfidObjectIsDirty$ = this.rfidStore.select(fromRFID.getDirty);
 
     this.rfidService.rfidObjectSaved$
       .subscribe(() => {
         this.saveToast.present();
       });
+
+    this.rfidStore.dispatch(new rfid.Load());
+    this.rfidStore.dispatch(new rfid.SetMode('set'));
   }
 
   ionViewDidEnter() {}
@@ -71,6 +76,14 @@ export class RFIDPage {
 
   public setRFIDMode(mode: RFIDMode) {
     this.rfidStore.dispatch(new rfid.SetMode(mode));
+  }
+
+  public selectObject(obj: RFIDObject) {
+    this.rfidStore.dispatch(new rfid.LoadRFIDObject(obj));
+  }
+
+  public resetView() {
+    this.rfidStore.dispatch(new rfid.Load());
   }
 
   public saveRFIDTrackList() {
