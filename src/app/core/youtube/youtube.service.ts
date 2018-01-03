@@ -69,9 +69,9 @@ export class YoutubeSearchService {
 					if (
 						item.snippet &&
 						item.snippet.thumbnails &&
-						item.snippet.thumbnails.high
+						item.snippet.thumbnails.default
 					) {
-						song.thumbnail = item.snippet.thumbnails.high.url;
+						song.thumbnail = item.snippet.thumbnails.default.url;
 					} else {
 						song.thumbnail = 'https://i.stack.imgur.com/WFy1e.jpg';
 					}
@@ -121,9 +121,9 @@ export class YoutubeSearchService {
 						if (
 							item.snippet &&
 							item.snippet.thumbnails &&
-							item.snippet.thumbnails.high
+							item.snippet.thumbnails.default
 						) {
-							song.thumbnail = item.snippet.thumbnails.high.url;
+							song.thumbnail = item.snippet.thumbnails.default.url;
 						} else {
 							song.thumbnail = 'https://i.stack.imgur.com/WFy1e.jpg';
 						}
