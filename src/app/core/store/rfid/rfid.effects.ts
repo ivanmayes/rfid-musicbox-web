@@ -25,17 +25,17 @@ export class RFIDEffects {
 	@Effect()
 	modeChanged$: Observable<Action> =
 		this.rfidService.rfidModeChanged$
-			.switchMap(mode => {
-				return Observable.of(new rfid.ModeChanged(mode));
-            });
+			.switchMap(mode => Observable.of(new rfid.ModeChanged(mode)));
 
     @Effect()
     rfidObjectFound$: Observable<Action> =
         this.rfidService.rfidObjectFound$
-            .switchMap(obj => {
-                console.log('Found Object');
-                return Observable.of(new rfid.LoadRFIDObject(obj));
-            });
+            .switchMap(obj => Observable.of(new rfid.LoadRFIDObject(obj)));
+			
+	@Effect()
+	getRFIDObjectsSuccess$: Observable<Action> =
+		this.rfidService.getRFIDObjectsSuccess$
+			.switchMap(rfidObjects => Observable.of(new rfid.LoadSuccess(rfidObjects)));
     
 
     /**

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, ModalController, MenuController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import 'rxjs/add/operator/do';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { Toast } from 'ionic-angular/components/toast/toast';
 import { RFIDService } from '../../app/core/store/rfid/rfid.service';
 import { RFIDObject, RFIDMode } from '../../app/core/store/rfid/rfid.model';
@@ -12,12 +11,13 @@ import { RFIDObject, RFIDMode } from '../../app/core/store/rfid/rfid.model';
 import * as fromRFID from '../../app/core/store/rfid';
 import * as rfid from '../../app/core/store/rfid/rfid.actions';
 import { Song } from '../../app/core/store/songs/song.model';
-import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { Modal } from 'ionic-angular/components/modal/modal';
 import { SearchPage } from '../search/search';
 
 
-
+@IonicPage({
+  name: 'home'
+})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -40,8 +40,11 @@ export class HomePage {
     private toastCtrl: ToastController,
     private rfidService: RFIDService,
     private rfidStore: Store<fromRFID.State>,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private menuCtrl: MenuController
   ) {
+    menuCtrl.enable(true);
+
     this.rfidObjectFound$ = this.rfidStore.select(fromRFID.getSelectedRFIDObject);
     this.rfidMode$ = this.rfidStore.select(fromRFID.getMode);
     this.rfidObjectIsDirty$ = this.rfidStore.select(fromRFID.getDirty);

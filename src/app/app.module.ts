@@ -14,13 +14,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers } from './app.reducers';
 import { SearchPage } from '../pages/search/search';
+import { PagesModule } from '../pages/pages.module';
 
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    SearchPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -31,13 +30,12 @@ import { SearchPage } from '../pages/search/search';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
-    })
+    }),
+    PagesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    SearchPage
+    MyApp
   ],
   providers: [
     StatusBar,

@@ -2,7 +2,9 @@ import { Action } from '@ngrx/store';
 import { Song } from '../songs/song.model';
 import { RFIDObject } from './rfid.model';
 
-export const LOAD_RFID_OBJECT = '[RFID] Load';
+export const LOAD = '[RFID] Load';
+export const LOAD_SUCCESS = '[RFID] Load Success';
+export const LOAD_RFID_OBJECT = '[RFID] Load RFID Object';
 export const SET_MODE = '[RFID] Set Mode';
 export const TOGGLE_SHUFFLE = '[RFID] Toggle Shuffle';
 export const TOGGLE_LOOP = '[RFID] Toggle Loop';
@@ -11,6 +13,18 @@ export const SAVE = '[RFID] Save';
 export const ADD_SONG = '[RFID] Add Song';
 export const REMOVE_SONG = '[RFID] Remove Song';
 export const CLEAR_LIST = '[RFID] Clear List';
+
+export class Load implements Action {
+	readonly type = LOAD;
+
+	constructor() {}
+}
+
+export class LoadSuccess implements Action {
+	readonly type = LOAD_SUCCESS;
+
+	constructor(public payload: RFIDObject[]) {}
+}
 
 export class LoadRFIDObject implements Action {
 	readonly type = LOAD_RFID_OBJECT;
@@ -67,4 +81,4 @@ export class ClearList implements Action {
 }
 
 
-export type Actions = LoadRFIDObject | SetMode | ToggleShuffle | ToggleLoop | ModeChanged | Save | AddSong | RemoveSong | ClearList;
+export type Actions = Load | LoadSuccess | LoadRFIDObject | SetMode | ToggleShuffle | ToggleLoop | ModeChanged | Save | AddSong | RemoveSong | ClearList;
