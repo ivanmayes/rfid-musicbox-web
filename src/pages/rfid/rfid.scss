@@ -3,10 +3,12 @@ page-rfid {
         ion-thumbnail {
             flex: 2;
             max-width: 50%;
+            max-height: 56px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: flex-end;
+            overflow: hidden;
 
             img {
                 width: 26px;

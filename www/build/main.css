@@ -25684,6 +25684,7 @@ page-rfid .object-list ion-thumbnail {
   -ms-flex: 2;
   flex: 2;
   max-width: 50%;
+  max-height: 56px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25699,6 +25700,7 @@ page-rfid .object-list ion-thumbnail {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
+  overflow: hidden;
 }
 
 page-rfid .object-list ion-thumbnail img {
