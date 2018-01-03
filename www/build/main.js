@@ -1091,7 +1091,7 @@ function reducer(state, action) {
         }
         case __WEBPACK_IMPORTED_MODULE_0__actions_song_actions__["k" /* SEARCH */]: {
             var params = action.payload;
-            if (action.payload.query.length < 1) {
+            if (!action.payload.query || action.payload.query.length < 1) {
                 return state;
             }
             return __assign({}, state, { loading: true, ids: [], error: '', params: params, offset: 0, limit: 20, canLoadMore: false });
