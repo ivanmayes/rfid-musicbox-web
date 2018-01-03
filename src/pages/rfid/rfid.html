@@ -47,72 +47,87 @@
           <div *ngIf="rfidObject">
       
             <div class="tracklist" *ngIf="rfidObject.payload">
-              <ion-list>
                   <ion-grid>
                     <ion-row>
-                      <ion-col>
-                          <h4>Settings:</h4>
+                      <ion-col class="settings" col-12 col-md-4>
+                          <ion-row>
+                              <ion-col>
+                                  <h4>Settings:</h4>
+                              </ion-col>
+                            </ion-row>
+              
+                            <ion-row>
+                              <ion-col>
+                                  <ion-list>
+                                      <ion-item>
+                                          <ion-label>RFID ID:</ion-label>
+                                          <ion-input text-right [ngModel]="rfidObject.id" disabled type="text"></ion-input>
+                                      </ion-item>
+                                      <ion-item>
+                                          <ion-label>Title:</ion-label>
+                                          <ion-input text-right [ngModel]="rfidObject.payload.title" placeholder="Optional" (ngModelChange)="setTitle($event)" type="text"></ion-input>
+                                      </ion-item>
+                                      <ion-item>
+                                          <ion-label>Shuffle:</ion-label>
+                                          <ion-toggle [ngModel]="rfidObject.payload.shuffle" (ngModelChange)="toggleShuffle()"></ion-toggle>
+                                      </ion-item>
+                                      <ion-item>
+                                          <ion-label>Loop:</ion-label>
+                                          <ion-toggle [ngModel]="rfidObject.payload.loop" (ngModelChange)="toggleLoop()"></ion-toggle>
+                                      </ion-item>
+                                  </ion-list>
+                              </ion-col>
+                            </ion-row>
                       </ion-col>
-                    </ion-row>
-      
-                    <ion-row>
-                      <ion-col col-12>
-                          <ion-list>
-                              <ion-item>
-                                  <ion-label>RFID ID</ion-label>
-                                  <ion-input [ngModel]="rfidObject.id" disabled type="text"></ion-input>
-                              </ion-item>
-                              <ion-item>
-                                  <ion-label>Title</ion-label>
-                                  <ion-input [ngModel]="rfidObject.payload.title" placeholder="Optional" (ngModelChange)="setTitle($event)" type="text"></ion-input>
-                              </ion-item>
-                              <ion-item>
-                                  <ion-label>Shuffle</ion-label>
-                                  <ion-toggle [ngModel]="rfidObject.payload.shuffle" (ngModelChange)="toggleShuffle()"></ion-toggle>
-                              </ion-item>
-                              <ion-item>
-                                  <ion-label>Loop</ion-label>
-                                  <ion-toggle [ngModel]="rfidObject.payload.loop" (ngModelChange)="toggleLoop()"></ion-toggle>
-                              </ion-item>
-                          </ion-list>
-                      </ion-col>
-                    </ion-row>
-      
-                    <ion-row>
-                      <ion-col flex>
-                        <h4>Track List:</h4>
+                      <ion-col col-12 col-md-8 class="tracklist">
+                          <ion-grid>
+                              <ion-row>
+                                  <ion-col flex>
+                                    <h4>Track List:</h4>
+                                  </ion-col>
+                                </ion-row>
+            
+                                <ion-row>
+                                  <ion-col>
+                                      <button ion-button small (click)="addSongs()" *ngIf="rfidObject">
+                                          Add Songs
+                                      </button>
+                                  </ion-col>
+                                  <ion-col text-right>
+                                      <button ion-button small item-end color="danger" (click)="clearTrackList()">
+                                          Clear List
+                                      </button>
+                                  </ion-col>
+                                </ion-row>
+            
+                                <ion-row>
+                                  <ion-col>
+                                    <ion-list>
+                                        <ion-item *ngFor="let track of rfidObject.payload.tracks">
+                                            <ion-thumbnail item-start>
+                                              <div class="overlay">
+                                                <i class="fa fa-plus"></i>
+                                              </div>
+                                              <img [src]="track.thumbnail">
+                                            </ion-thumbnail>
+                                            <h2>{{track.title}}</h2>
+                                            <p>{{track.durationString}}</p>
+                                            <button ion-button color="danger" item-end (click)="removeSongFromList(track.id)">Remove</button>
+                                          </ion-item>
+                                    </ion-list>
+                                  </ion-col>
+                                </ion-row>
+                          </ion-grid>
                       </ion-col>
                     </ion-row>
 
-                    <ion-row>
-                      <ion-col>
-                          <button ion-button small (click)="addSongs()" *ngIf="rfidObject">
-                              Add Songs
-                          </button>
-                      </ion-col>
-                      <ion-col text-right>
-                          <button ion-button small item-end color="danger" (click)="clearTrackList()">
-                              Clear List
-                          </button>
-                      </ion-col>
-                    </ion-row>
-                  </ion-grid>
+              </ion-grid>
                   
                   
-      
-                  <ion-item *ngFor="let track of rfidObject.payload.tracks">
-                    <ion-thumbnail item-start>
-                      <div class="overlay">
-                        <i class="fa fa-plus"></i>
-                      </div>
-                      <img [src]="track.thumbnail">
-                    </ion-thumbnail>
-                    <h2>{{track.title}}</h2>
-                    <p>{{track.durationString}}</p>
-                    <button ion-button color="danger" item-end (click)="removeSongFromList(track.id)">Remove</button>
-                  </ion-item>
-              </ion-list>
+                
+                  
             </div>
+
           </div>
         </div>
         <!-- end Edit Mode -->

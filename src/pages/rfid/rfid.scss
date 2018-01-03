@@ -17,4 +17,25 @@ page-rfid {
             }
         }
     }
+
+    ion-list {
+        ion-label h2 {
+            white-space: normal;
+        }
+    }
+
+    .tracklist {
+        ion-grid {
+            padding:0;
+            margin: 0;
+        }
+
+        ion-item {
+            padding-left: 0;
+            .item-inner {
+                padding-right: 0;
+            }
+        }
+    }
+    
 }
