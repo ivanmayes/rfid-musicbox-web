@@ -46,7 +46,15 @@ export class RFIDPage {
   ) {
     menuCtrl.enable(true);
 
-    this.rfidMode$ = this.rfidStore.select(fromRFID.getMode);
+    this.rfidMode$ = this.rfidStore.select(fromRFID.getMode)
+      .do((mode) => {
+        // Prevent box from changing to get while on this page
+        if (mode === 'get') {
+          console.log('DO: Setting Mode to set')
+          this.rfidStore.dispatch(new rfid.SetMode('set'));
+        }
+      });
+
     this.rfidObjects$ = this.rfidStore.select(fromRFID.getRFIDObjects);
     this.selectedRFIDObject$ = this.rfidStore.select(fromRFID.getSelectedRFIDObject);
     this.rfidObjectIsDirty$ = this.rfidStore.select(fromRFID.getDirty);
@@ -57,7 +65,6 @@ export class RFIDPage {
       });
 
     this.rfidStore.dispatch(new rfid.Load());
-    this.rfidStore.dispatch(new rfid.SetMode('set'));
   }
 
   ionViewDidEnter() {}

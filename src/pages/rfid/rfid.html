@@ -12,7 +12,7 @@
       <ion-content padding>
         <!-- Browse Mode -->
         <div *ngIf="!(selectedRFIDObject$ | async)">
-          <p>Select an RFID Object below or scan a card to edit</p>
+          <p *ngIf="(rfidMode$ | async) === 'get'">Select an RFID Object below or scan a card to edit</p>
 
           <ion-list>
               <ion-item *ngFor="let obj of rfidObjects$ | async" (click)="selectObject(obj)">
