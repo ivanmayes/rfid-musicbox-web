@@ -25678,6 +25678,14 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+page-rfid .object-list ion-item {
+  cursor: pointer;
+}
+
+page-rfid .object-list ion-item:hover {
+  opacity: 0.8;
+}
+
 page-rfid .object-list ion-thumbnail {
   -webkit-box-flex: 2;
   -webkit-flex: 2;

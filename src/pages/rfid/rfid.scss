@@ -1,5 +1,14 @@
 page-rfid {
     .object-list {
+
+        ion-item {
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
         ion-thumbnail {
             flex: 2;
             max-width: 50%;
