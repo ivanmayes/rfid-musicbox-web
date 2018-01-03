@@ -6,6 +6,7 @@ export const LOAD = '[RFID] Load';
 export const LOAD_SUCCESS = '[RFID] Load Success';
 export const LOAD_RFID_OBJECT = '[RFID] Load RFID Object';
 export const SET_MODE = '[RFID] Set Mode';
+export const SET_TITLE = '[RFID] Set Title';
 export const TOGGLE_SHUFFLE = '[RFID] Toggle Shuffle';
 export const TOGGLE_LOOP = '[RFID] Toggle Loop';
 export const MODE_CHANGED = '[RFID] Mode Changed';
@@ -34,6 +35,12 @@ export class LoadRFIDObject implements Action {
 
 export class SetMode implements Action {
 	readonly type = SET_MODE;
+
+	constructor(public payload: string) {}
+}
+
+export class SetTitle implements Action {
+	readonly type = SET_TITLE;
 
 	constructor(public payload: string) {}
 }
@@ -81,4 +88,4 @@ export class ClearList implements Action {
 }
 
 
-export type Actions = Load | LoadSuccess | LoadRFIDObject | SetMode | ToggleShuffle | ToggleLoop | ModeChanged | Save | AddSong | RemoveSong | ClearList;
+export type Actions = Load | LoadSuccess | LoadRFIDObject | SetMode | SetTitle | ToggleShuffle | ToggleLoop | ModeChanged | Save | AddSong | RemoveSong | ClearList;

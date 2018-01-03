@@ -68,6 +68,20 @@ export function reducer(
             }
         }
 
+        case rfid.SET_TITLE: {
+            return {
+                ...state,
+                dirty: true,
+                selectedRFID: {
+                    ...state.selectedRFID,
+                    payload: {
+                        ...state.selectedRFID.payload,
+                        title: action.payload
+                    }
+                }
+            }
+        }
+
         case rfid.TOGGLE_SHUFFLE: {
             return {
                 ...state,

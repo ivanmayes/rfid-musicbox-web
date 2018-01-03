@@ -101,8 +101,11 @@ export class RFIDPage {
     this.rfidStore.dispatch(new rfid.ClearList());
   }
 
+  public setTitle(title: string) {
+    this.rfidStore.dispatch(new rfid.SetTitle(title));
+  }
+
   public toggleShuffle() {
-    console.log('Shuffled!');
     this.rfidStore.dispatch(new rfid.ToggleShuffle());
   }
 

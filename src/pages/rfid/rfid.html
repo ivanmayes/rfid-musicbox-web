@@ -16,7 +16,7 @@
 
           <ion-list class="object-list">
               <ion-item *ngFor="let obj of rfidObjects$ | async" (click)="selectObject(obj)">
-                <h2>{{obj.id}}</h2>
+                <h2>{{obj.payload.title || obj.id}}</h2>
                 <p>{{obj.payload.tracks.length}} Tracks</p>
                 <ion-thumbnail item-end>
                     <img [src]="track.thumbnail" *ngFor="let track of obj.payload.tracks">
@@ -37,10 +37,6 @@
               Save To RFID
           </button>
       
-          <button ion-button small (click)="addSongs()" *ngIf="rfidObject">
-              Add Songs to Tracklist
-          </button>
-      
           <br>
           <br>
       
@@ -49,8 +45,6 @@
           </div>
       
           <div *ngIf="rfidObject">
-      
-            <h2>RFID ID: {{ rfidObject.id }}</h2>
       
             <div class="tracklist" *ngIf="rfidObject.payload">
               <ion-list>
@@ -65,6 +59,14 @@
                       <ion-col col-12>
                           <ion-list>
                               <ion-item>
+                                  <ion-label>RFID ID</ion-label>
+                                  <ion-input [ngModel]="rfidObject.id" disabled type="text"></ion-input>
+                              </ion-item>
+                              <ion-item>
+                                  <ion-label>Title</ion-label>
+                                  <ion-input [ngModel]="rfidObject.payload.title" placeholder="Optional" (ngModelChange)="setTitle($event)" type="text"></ion-input>
+                              </ion-item>
+                              <ion-item>
                                   <ion-label>Shuffle</ion-label>
                                   <ion-toggle [ngModel]="rfidObject.payload.shuffle" (ngModelChange)="toggleShuffle()"></ion-toggle>
                               </ion-item>
@@ -77,8 +79,16 @@
                     </ion-row>
       
                     <ion-row>
-                      <ion-col>
+                      <ion-col flex>
                         <h4>Track List:</h4>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                      <ion-col>
+                          <button ion-button small (click)="addSongs()" *ngIf="rfidObject">
+                              Add Songs
+                          </button>
                       </ion-col>
                       <ion-col text-right>
                           <button ion-button small item-end color="danger" (click)="clearTrackList()">

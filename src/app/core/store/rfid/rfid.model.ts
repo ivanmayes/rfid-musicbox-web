@@ -9,6 +9,7 @@ export interface RFIDTrackList {
     tracks: Song[];
     shuffle?: boolean;
     loop?: boolean;
+    title?: string;
 }
 
 export const RFIDTrackListInitialState: RFIDTrackList = {
