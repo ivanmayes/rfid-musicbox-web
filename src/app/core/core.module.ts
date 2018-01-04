@@ -12,7 +12,10 @@ import { SongsSearchEffects } from './store/songs/effects/search.effects';
 
 import { reducers as rfidReducers } from './store/rfid';
 import { RFIDEffects } from './store/rfid/rfid.effects';
-import { MopidyService } from './mopidy/mopidy.service';
+
+import { reducers as mopidyReducers } from './store/mopidy';
+import { MopidyEffects } from './store/mopidy/mopidy.effects';
+import { MopidyService } from './store/mopidy/mopidy.service';
 
 
 
@@ -20,7 +23,8 @@ import { MopidyService } from './mopidy/mopidy.service';
 	imports: [
 		StoreModule.forFeature('songs', songsReducers),
 		StoreModule.forFeature('rfid', rfidReducers),
-		EffectsModule.forFeature([ SongsSearchEffects, RFIDEffects ])
+		StoreModule.forFeature('mopidy', mopidyReducers),
+		EffectsModule.forFeature([ SongsSearchEffects, RFIDEffects, MopidyEffects ])
 	],
 	exports: [
 

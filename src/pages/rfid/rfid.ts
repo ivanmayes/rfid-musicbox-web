@@ -28,12 +28,6 @@ export class RFIDPage {
   public rfidObjectIsDirty$: Observable<boolean>;
   public rfidObjects$: Observable<RFIDObject[]>;
 
-  public saveToast: Toast = this.toastCtrl.create({
-    message: 'RFID Object Saved Successfully!',
-    duration: 3000,
-    position: 'top'
-  });
-
   public searchModal: Modal = this.modalCtrl.create(SearchPage);
 
   constructor(
@@ -61,7 +55,11 @@ export class RFIDPage {
 
     this.rfidService.rfidObjectSaved$
       .subscribe(() => {
-        this.saveToast.present();
+        this.toastCtrl.create({
+          message: 'RFID Object Saved Successfully!',
+          duration: 3000,
+          position: 'top'
+        }).present();
       });
 
     this.rfidStore.dispatch(new rfid.Load());

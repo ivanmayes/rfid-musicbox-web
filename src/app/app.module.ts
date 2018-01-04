@@ -15,6 +15,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers } from './app.reducers';
 import { SearchPage } from '../pages/search/search';
 import { PagesModule } from '../pages/pages.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { PagesModule } from '../pages/pages.module';
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     CoreModule,
+    SharedModule,
     StoreModule.forRoot([], { metaReducers }),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({

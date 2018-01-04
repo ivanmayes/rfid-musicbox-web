@@ -29,12 +29,6 @@ export class SearchPage {
   public selectedPlaylistSongs$: Observable<Song[]>;
   public addedPlaylist: boolean = false;
 
-  public addSong: Toast = this.toastCtrl.create({
-    message: 'Song Added Successfully!',
-    duration: 2000,
-    position: 'top'
-  });
-
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
