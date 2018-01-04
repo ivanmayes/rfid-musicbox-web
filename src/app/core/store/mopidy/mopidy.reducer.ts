@@ -36,10 +36,13 @@ export function reducer(
             }
         }
 
-        case mopidy.PLAYBACK_CHANGE: {
-            return {
-                ...state,
-                nowPlaying: action.payload
+        case mopidy.PLAYBACK_CHANGE:
+        case mopidy.PLAY: {
+            if (action.payload) {
+                return {
+                    ...state,
+                    nowPlaying: action.payload
+                }
             }
         }
 

@@ -25678,6 +25678,37 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+player-controls .toolbar-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+player-controls .current-track {
+  padding-left: 2%;
+}
+
+player-controls .buttons {
+  margin-left: auto;
+}
+
+page-home .tracklist ion-item .thumb-active {
+  display: none;
+}
+
+page-home .tracklist ion-item.active {
+  background: rgba(0, 202, 0, 0.2);
+}
+
+page-home .tracklist ion-item.active .thumb {
+  display: none;
+}
+
+page-home .tracklist ion-item.active .thumb-active {
+  display: block;
+}
+
 page-rfid .object-list ion-item {
   cursor: pointer;
 }

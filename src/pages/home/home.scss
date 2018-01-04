@@ -1,3 +1,21 @@
 page-home {
+    .tracklist {
+        ion-item {
+            .thumb-active {
+                display:none;
+            }
 
+            &.active {
+                background: rgba(0, 202, 0, 0.2);
+
+                .thumb {
+                    display: none;
+                }
+
+                .thumb-active {
+                    display: block;
+                }
+            }
+        }
+    }
 }

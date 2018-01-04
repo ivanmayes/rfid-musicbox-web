@@ -15,37 +15,27 @@
 
     <ion-grid *ngIf="state.connectionStatus === 'online'">
 
-      <ion-row *ngIf="state.nowPlaying">
-          <ion-col>
-            <h2>Now Playing</h2>
-          </ion-col>
-      </ion-row>
-      <ion-row *ngIf="state.nowPlaying">
-          <ion-col>
-            <ion-list>
-              <ion-item>
-                <ion-thumbnail item-start>
-                  <img [src]="state.nowPlaying.track.album.images[0]">
-                </ion-thumbnail>
-                <h2>{{ state.nowPlaying.track.name }}</h2>
-                <p>{{ state.nowPlaying.track.length }}</p>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-      </ion-row>
-
       <ion-row>
         <ion-col>
-          <h2>Next Up</h2>
+          <h2>Track List</h2>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="tracklist">
         <ion-col>
           <ion-list>
-            <ion-item *ngFor="let tltrack of state.trackList;">
-              <ion-thumbnail item-start>
-                <img [src]="tltrack.track.album.images[0]">
-              </ion-thumbnail>
+            <ion-item 
+              *ngFor="let tltrack of state.trackList;" 
+              [class.active]="state.nowPlaying && tltrack.tlid === state.nowPlaying.tlid"
+            >
+
+                <ion-thumbnail class="thumb" item-start (click)="play(tltrack)">
+                    <img [src]="tltrack.track.album.images[0]">
+                </ion-thumbnail>
+                
+                <ion-thumbnail class="thumb-active" item-start>
+                    <img [src]="tltrack.track.album.images[0]">
+                </ion-thumbnail>
+              
               <h2>{{ tltrack.track.name }}</h2>
               <p>{{ tltrack.track.length }}</p>
             </ion-item>

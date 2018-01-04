@@ -1,0 +1,12 @@
+<ion-toolbar *ngIf="state$ | async; let state;">
+    <div class="current-track" *ngIf="state.nowPlaying">
+        <p>{{ state.nowPlaying.track.name }}</p>
+    </div>
+    <!-- <button ion-button item-end (click)="prev()">Prev</button> -->
+    <div class="buttons">
+        <button ion-button (click)="togglePause()">Pause</button>
+        <button ion-button (click)="togglePause()">Play</button>
+        <button ion-button (click)="next()">Next</button>
+    </div>
+    
+</ion-toolbar>

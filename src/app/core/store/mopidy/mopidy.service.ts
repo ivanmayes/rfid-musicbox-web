@@ -38,7 +38,6 @@ export class MopidyService {
 		return new Observable(observer => {
 
 			this.mopidy.on(event, data => {
-				console.log('OBSERVER', event, data);
 				observer.next(data);
 			});
 
@@ -54,7 +53,7 @@ export class MopidyService {
 		return this.mopidy.playback.getCurrentTlTrack();
 	}
 
-	public play(tlTrack?: Track, tlid?: number) {
+	public play(tlTrack?: TlTrack, tlid?: number) {
 		return this.mopidy.playback.play(tlTrack, tlid);
 	}
 
@@ -73,17 +72,18 @@ export class MopidyService {
 	public togglePause() {
 		this.mopidy.playback.getState()
 			.then(state => {
+				console.log('Playback State', state);
 				switch(state) {
-					case 'PLAYING':
+					case 'playing':
 						this.mopidy.playback.pause();
 					break;
 
-					case 'STOPPED':
-						this.mopidy.playback.play();
+					case 'paused':
+						this.mopidy.playback.resume();
 					break;
 
-					case 'PAUSED':
-						this.mopidy.playback.resume();
+					case 'stopped':
+						this.mopidy.playback.play();
 					break;
 				}
 			});

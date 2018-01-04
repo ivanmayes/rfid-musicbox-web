@@ -10,6 +10,7 @@ import * as mopidy from '../../app/core/store/mopidy/mopidy.actions';
 import { Song } from '../../app/core/store/songs/song.model';
 import { Modal } from 'ionic-angular/components/modal/modal';
 import { SearchPage } from '../search/search';
+import { TlTrack } from '../../app/core/store/mopidy/mopidy.model';
 
 
 @IonicPage({
@@ -35,6 +36,14 @@ export class HomePage {
 
   ngOnDestroy() {
     
+  }
+
+  public play(track?:TlTrack) {
+    this.mopidyStore.dispatch(new mopidy.Play(track));
+  }
+
+  public stop() {
+    this.mopidyStore.dispatch(new mopidy.Stop());
   }
 
 }

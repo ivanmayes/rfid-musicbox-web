@@ -57,7 +57,7 @@ export class Stop implements Action {
 export class Play implements Action {
 	readonly type = PLAY;
 
-	constructor() {}
+	constructor(public payload?: TlTrack) {}
 }
 
 

@@ -59,9 +59,34 @@ export class MopidyEffects {
     /**
      * Set Effects
      */
+	@Effect({ dispatch: false })
+	play$ = this.actions$
+		.ofType<mopidy.Play>(mopidy.PLAY)
+		.map(action => action.payload)
+		.do(track => this.mopidyService.play(track));
 
+	@Effect({ dispatch: false })
+	stop$ = this.actions$
+		.ofType<mopidy.Stop>(mopidy.STOP)
+		.do(track => this.mopidyService.stop());
+	
+	@Effect({ dispatch: false })
+	next$ = this.actions$
+		.ofType<mopidy.NextTrack>(mopidy.NEXT_TRACK)
+		.do(track => this.mopidyService.next());
+
+	@Effect({ dispatch: false })
+	prev$ = this.actions$
+		.ofType<mopidy.PrevTrack>(mopidy.PREV_TRACK)
+		.do(track => this.mopidyService.previous());
+
+	@Effect({ dispatch: false })
+	togglePause$ = this.actions$
+		.ofType<mopidy.TogglePause>(mopidy.TOGGLE_PAUSE)
+		.do(track => this.mopidyService.togglePause());
 	
 
+		
 	// @Effect({ dispatch: false })
 	// setMode$ = this.actions$
     //     .ofType<rfid.SetMode>(rfid.SET_MODE)
