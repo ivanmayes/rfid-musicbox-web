@@ -10,20 +10,22 @@ webpackJsonp([0],{
 /* unused harmony export getConnectionStatus */
 /* unused harmony export getNowPlaying */
 /* unused harmony export getTrackList */
+/* unused harmony export getPlaybackState */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngrx_store__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mopidy_reducer__ = __webpack_require__(433);
 
 
 ;
 var reducers = {
-    mopidy: __WEBPACK_IMPORTED_MODULE_1__mopidy_reducer__["d" /* reducer */]
+    mopidy: __WEBPACK_IMPORTED_MODULE_1__mopidy_reducer__["e" /* reducer */]
 };
 /* Selectors */
 var getMopidyFeatureState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["l" /* createFeatureSelector */])('mopidy');
 var getMopidyState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getMopidyFeatureState, function (state) { return state.mopidy; });
 var getConnectionStatus = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getMopidyState, __WEBPACK_IMPORTED_MODULE_1__mopidy_reducer__["a" /* getConnectionStatus */]);
 var getNowPlaying = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getMopidyState, __WEBPACK_IMPORTED_MODULE_1__mopidy_reducer__["b" /* getNowPlaying */]);
-var getTrackList = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getMopidyState, __WEBPACK_IMPORTED_MODULE_1__mopidy_reducer__["c" /* getTrackList */]);
+var getTrackList = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getMopidyState, __WEBPACK_IMPORTED_MODULE_1__mopidy_reducer__["d" /* getTrackList */]);
+var getPlaybackState = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["m" /* createSelector */])(getMopidyState, __WEBPACK_IMPORTED_MODULE_1__mopidy_reducer__["c" /* getPlaybackState */]);
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -260,10 +262,10 @@ var HomePage = (function () {
     HomePage.prototype.ngOnDestroy = function () {
     };
     HomePage.prototype.play = function (track) {
-        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_5__app_core_store_mopidy_mopidy_actions__["h" /* Play */](track));
+        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_5__app_core_store_mopidy_mopidy_actions__["i" /* Play */](track));
     };
     HomePage.prototype.stop = function () {
-        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_5__app_core_store_mopidy_mopidy_actions__["l" /* Stop */]());
+        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_5__app_core_store_mopidy_mopidy_actions__["n" /* Stop */]());
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -738,7 +740,7 @@ var MopidyService = (function () {
         this.mopidy.on('reconnectionPending', function () { return _this.connected.next('reconnecting'); });
         this.mopidy.on('reconnecting', function () { return _this.connected.next('reconnecting'); });
         // Debug
-        // this.mopidy.on(console.log.bind(console));
+        this.mopidy.on(console.log.bind(console));
         console.log('Mopidy Init', this.mopidy);
     }
     MopidyService.prototype.listen = function (event) {
@@ -756,6 +758,23 @@ var MopidyService = (function () {
     MopidyService.prototype.getCurrentTrack = function () {
         return this.mopidy.playback.getCurrentTlTrack();
     };
+    MopidyService.prototype.getPlaybackState = function () {
+        return this.mopidy.playback.getState();
+    };
+    MopidyService.prototype.getTrackListSettings = function () {
+        var calls = [
+            this.mopidy.tracklist.getRandom,
+            this.mopidy.tracklist.getRepeat
+        ];
+        return Promise.all(calls)
+            .then(function (_a) {
+            var random = _a[0], repeat = _a[1];
+            return {
+                random: random,
+                repeat: repeat
+            };
+        });
+    };
     MopidyService.prototype.play = function (tlTrack, tlid) {
         return this.mopidy.playback.play(tlTrack, tlid);
     };
@@ -772,7 +791,6 @@ var MopidyService = (function () {
         var _this = this;
         this.mopidy.playback.getState()
             .then(function (state) {
-            console.log('Playback State', state);
             switch (state) {
                 case 'playing':
                     _this.mopidy.playback.pause();
@@ -781,11 +799,16 @@ var MopidyService = (function () {
                     _this.mopidy.playback.resume();
                     break;
                 case 'stopped':
-                default:
                     _this.mopidy.playback.play();
                     break;
             }
         });
+    };
+    MopidyService.prototype.setRandom = function (setting) {
+        return this.mopidy.tracklist.setRandom(setting);
+    };
+    MopidyService.prototype.setRepeat = function (setting) {
+        return this.mopidy.tracklist.setRepeat(setting);
     };
     MopidyService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -899,10 +922,11 @@ var AppModule = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["d"] = reducer;
+/* harmony export (immutable) */ __webpack_exports__["e"] = reducer;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getConnectionStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getNowPlaying; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getTrackList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getTrackList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getPlaybackState; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__ = __webpack_require__(83);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -915,6 +939,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 
 var initialState = {
     connectionStatus: 'offline',
+    playbackState: 'stopped',
     nowPlaying: undefined,
     trackList: undefined
 };
@@ -924,15 +949,20 @@ function reducer(state, action) {
         case __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__["a" /* CONNECTION_CHANGE */]: {
             return __assign({}, state, { connectionStatus: action.payload });
         }
-        case __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__["n" /* TRACKLIST_CHANGE */]: {
+        case __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__["p" /* TRACKLIST_CHANGE */]: {
             return __assign({}, state, { trackList: action.payload });
         }
-        case __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__["f" /* PLAYBACK_CHANGE */]:
-        case __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__["e" /* PLAY */]: {
-            if (action.payload) {
-                return __assign({}, state, { nowPlaying: action.payload });
-            }
+        case __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__["g" /* PLAYBACK_STATE_CHANGE */]: {
+            return __assign({}, state, { playbackState: action.payload });
         }
+        case __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__["f" /* PLAYBACK_CHANGE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__mopidy_actions__["e" /* PLAY */]:
+            {
+                if (action.payload) {
+                    return __assign({}, state, { nowPlaying: action.payload });
+                }
+            }
+            break;
         default:
             return state;
     }
@@ -940,6 +970,7 @@ function reducer(state, action) {
 var getConnectionStatus = function (state) { return state.connectionStatus; };
 var getNowPlaying = function (state) { return state.nowPlaying; };
 var getTrackList = function (state) { return state.trackList; };
+var getPlaybackState = function (state) { return state.playbackState; };
 //# sourceMappingURL=mopidy.reducer.js.map
 
 /***/ }),
@@ -1686,10 +1717,12 @@ var MopidyEffects = (function () {
             .switchMap(function (status) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["b" /* ConnectionChange */](status)); });
         this.trackListChange$ = this.mopidyService.listen('event:tracklistChanged')
             .flatMap(function () { return _this.mopidyService.getTrackList(); })
-            .map(function (tracks) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["p" /* TrackListChange */](tracks); });
+            .map(function (tracks) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["r" /* TrackListChange */](tracks); });
         this.playbackStarted$ = this.mopidyService.listen('event:trackPlaybackStarted')
             .flatMap(function () { return _this.mopidyService.getCurrentTrack(); })
-            .map(function (track) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["i" /* PlaybackChange */](track); });
+            .map(function (track) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["j" /* PlaybackChange */](track); });
+        this.playbackStateChanged$ = this.mopidyService.listen('event:playbackStateChanged')
+            .switchMap(function (state) { return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].of(new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["k" /* PlaybackStateChange */](state.new_state)); });
         /**
          * Get Effects
          */
@@ -1697,12 +1730,17 @@ var MopidyEffects = (function () {
             .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["a" /* CONNECTION_CHANGE */])
             .filter(function (action) { return action.payload === 'online'; })
             .switchMap(function () { return _this.mopidyService.getTrackList(); })
-            .map(function (tracks) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["p" /* TrackListChange */](tracks); });
+            .map(function (tracks) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["r" /* TrackListChange */](tracks); });
         this.initialCurrentTrack$ = this.actions$
             .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["a" /* CONNECTION_CHANGE */])
             .filter(function (action) { return action.payload === 'online'; })
             .switchMap(function () { return _this.mopidyService.getCurrentTrack(); })
-            .map(function (track) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["i" /* PlaybackChange */](track); });
+            .map(function (track) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["j" /* PlaybackChange */](track); });
+        this.initialPlaybackState$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["a" /* CONNECTION_CHANGE */])
+            .filter(function (action) { return action.payload === 'online'; })
+            .switchMap(function () { return _this.mopidyService.getPlaybackState(); })
+            .map(function (state) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["k" /* PlaybackStateChange */](state); });
         /**
          * Set Effects
          */
@@ -1711,30 +1749,34 @@ var MopidyEffects = (function () {
             .map(function (action) { return action.payload; })
             .do(function (track) { return _this.mopidyService.play(track); });
         this.stop$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["k" /* STOP */])
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["m" /* STOP */])
             .do(function (track) { return _this.mopidyService.stop(); });
         this.next$ = this.actions$
             .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["c" /* NEXT_TRACK */])
             .do(function (track) { return _this.mopidyService.next(); });
         this.prev$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["g" /* PREV_TRACK */])
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["h" /* PREV_TRACK */])
             .do(function (track) { return _this.mopidyService.previous(); });
         this.togglePause$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["m" /* TOGGLE_PAUSE */])
+            .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["o" /* TOGGLE_PAUSE */])
             .do(function (track) { return _this.mopidyService.togglePause(); });
     }
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _a || Object)
     ], MopidyEffects.prototype, "connected$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _b || Object)
     ], MopidyEffects.prototype, "trackListChange$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
+        __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _c || Object)
     ], MopidyEffects.prototype, "playbackStarted$", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
+        __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _d || Object)
+    ], MopidyEffects.prototype, "playbackStateChanged$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
         __metadata("design:type", Object)
@@ -1743,6 +1785,10 @@ var MopidyEffects = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
         __metadata("design:type", Object)
     ], MopidyEffects.prototype, "initialCurrentTrack$", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
+        __metadata("design:type", Object)
+    ], MopidyEffects.prototype, "initialPlaybackState$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])({ dispatch: false }),
         __metadata("design:type", Object)
@@ -1765,11 +1811,10 @@ var MopidyEffects = (function () {
     ], MopidyEffects.prototype, "togglePause$", void 0);
     MopidyEffects = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["a" /* Actions */],
-            __WEBPACK_IMPORTED_MODULE_6__mopidy_service__["a" /* MopidyService */],
-            __WEBPACK_IMPORTED_MODULE_5__ngrx_store__["h" /* Store */]])
+        __metadata("design:paramtypes", [typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["a" /* Actions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["a" /* Actions */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__mopidy_service__["a" /* MopidyService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__mopidy_service__["a" /* MopidyService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ngrx_store__["h" /* Store */]) === "function" && _g || Object])
     ], MopidyEffects);
     return MopidyEffects;
+    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=mopidy.effects.js.map
@@ -1929,20 +1974,20 @@ var MopidyPlayerControls = (function () {
         this.state$ = this.mopidyStore.select(__WEBPACK_IMPORTED_MODULE_2__core_store_mopidy__["a" /* getMopidyState */]);
     }
     MopidyPlayerControls.prototype.stop = function () {
-        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_3__core_store_mopidy_mopidy_actions__["l" /* Stop */]());
+        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_3__core_store_mopidy_mopidy_actions__["n" /* Stop */]());
     };
     MopidyPlayerControls.prototype.prev = function () {
-        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_3__core_store_mopidy_mopidy_actions__["j" /* PrevTrack */]());
+        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_3__core_store_mopidy_mopidy_actions__["l" /* PrevTrack */]());
     };
     MopidyPlayerControls.prototype.togglePause = function () {
-        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_3__core_store_mopidy_mopidy_actions__["o" /* TogglePause */]());
+        this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_3__core_store_mopidy_mopidy_actions__["q" /* TogglePause */]());
     };
     MopidyPlayerControls.prototype.next = function () {
         this.mopidyStore.dispatch(new __WEBPACK_IMPORTED_MODULE_3__core_store_mopidy_mopidy_actions__["d" /* NextTrack */]());
     };
     MopidyPlayerControls = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'player-controls',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/app/shared/player-controls/player-controls.html"*/'<ion-toolbar *ngIf="state$ | async; let state;">\n    <div class="current-track" *ngIf="state.nowPlaying">\n        <p>{{ state.nowPlaying.track.name }}</p>\n    </div>\n    <!-- <button ion-button item-end (click)="prev()">Prev</button> -->\n    <div class="buttons">\n        <button ion-button (click)="togglePause()">Pause</button>\n        <button ion-button (click)="togglePause()">Play</button>\n        <button ion-button (click)="next()">Next</button>\n    </div>\n    \n</ion-toolbar>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/app/shared/player-controls/player-controls.html"*/
+            selector: 'player-controls',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/app/shared/player-controls/player-controls.html"*/'<ion-toolbar *ngIf="state$ | async; let state;">\n    <div class="current-track" *ngIf="state.nowPlaying">\n        <p>{{ state.nowPlaying.track.name }}</p>\n    </div>\n    <!-- <button ion-button item-end (click)="prev()">Prev</button> -->\n    <div class="buttons">\n        <button ion-button *ngIf="state.playbackState === \'playing\'" (click)="togglePause()">Pause</button>\n        <button ion-button *ngIf="state.playbackState !== \'playing\'" (click)="togglePause()">Play</button>\n        <button ion-button (click)="next()">Next</button>\n    </div>\n    \n</ion-toolbar>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/app/shared/player-controls/player-controls.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["h" /* Store */]])
     ], MopidyPlayerControls);
@@ -1958,24 +2003,27 @@ var MopidyPlayerControls = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CONNECTION_CHANGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return TRACKLIST_CHANGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return TRACKLIST_CHANGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PLAYBACK_CHANGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PLAYBACK_STATE_CHANGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return NEXT_TRACK; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PREV_TRACK; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return TOGGLE_PAUSE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return STOP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return PREV_TRACK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return TOGGLE_PAUSE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return STOP; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return PLAY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ConnectionChange; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return TrackListChange; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return PlaybackChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return TrackListChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return PlaybackChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return PlaybackStateChange; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return NextTrack; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return PrevTrack; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return TogglePause; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return Stop; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return Play; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PrevTrack; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return TogglePause; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return Stop; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return Play; });
 var CONNECTION_CHANGE = '[Mopidy] Connection Change';
 var TRACKLIST_CHANGE = '[Mopidy] Tracklist Change';
 var PLAYBACK_CHANGE = '[Mopidy] Playback Change';
+var PLAYBACK_STATE_CHANGE = '[Mopidy] Playback State Change';
 var NEXT_TRACK = '[Mopidy] Next Track';
 var PREV_TRACK = '[Mopidy] Previous Track';
 var TOGGLE_PAUSE = '[Mopidy] Toggle Pause';
@@ -2003,6 +2051,14 @@ var PlaybackChange = (function () {
         this.type = PLAYBACK_CHANGE;
     }
     return PlaybackChange;
+}());
+
+var PlaybackStateChange = (function () {
+    function PlaybackStateChange(payload) {
+        this.payload = payload;
+        this.type = PLAYBACK_STATE_CHANGE;
+    }
+    return PlaybackStateChange;
 }());
 
 var NextTrack = (function () {

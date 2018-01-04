@@ -37,6 +37,11 @@ export class MopidyEffects {
 			.flatMap(() => this.mopidyService.getCurrentTrack())
 			.map(track => new mopidy.PlaybackChange(track));
 
+	@Effect()
+	playbackStateChanged$: Observable<Action> =
+		this.mopidyService.listen('event:playbackStateChanged')
+			.switchMap(state => Observable.of(new mopidy.PlaybackStateChange(state.new_state)));			
+
 
 	/**
      * Get Effects
@@ -54,6 +59,13 @@ export class MopidyEffects {
 		.filter((action: mopidy.ConnectionChange) => action.payload === 'online')
 		.switchMap(() => this.mopidyService.getCurrentTrack())
 		.map((track) => new mopidy.PlaybackChange(track));
+
+	@Effect()
+	initialPlaybackState$ = this.actions$
+		.ofType<mopidy.ConnectionChange>(mopidy.CONNECTION_CHANGE)
+		.filter((action: mopidy.ConnectionChange) => action.payload === 'online')
+		.switchMap(() => this.mopidyService.getPlaybackState())
+		.map((state) => new mopidy.PlaybackStateChange(state));
     
 
     /**

@@ -29,7 +29,7 @@ export class MopidyService {
 		this.mopidy.on('reconnecting', () => this.connected.next('reconnecting'));
 
 		// Debug
-		// this.mopidy.on(console.log.bind(console));
+		this.mopidy.on(console.log.bind(console));
 
 		console.log('Mopidy Init', this.mopidy);
 	}
@@ -53,6 +53,25 @@ export class MopidyService {
 		return this.mopidy.playback.getCurrentTlTrack();
 	}
 
+	public getPlaybackState(): Promise<string> {
+		return this.mopidy.playback.getState();
+	}
+
+	public getTrackListSettings(): Promise<any> {
+		let calls = [
+			this.mopidy.tracklist.getRandom,
+			this.mopidy.tracklist.getRepeat
+		];
+
+		return Promise.all(calls)
+			.then(([random, repeat]) => {
+				return {
+					random: random,
+					repeat: repeat
+				}
+			});
+	}
+
 	public play(tlTrack?: TlTrack, tlid?: number) {
 		return this.mopidy.playback.play(tlTrack, tlid);
 	}
@@ -72,7 +91,6 @@ export class MopidyService {
 	public togglePause() {
 		this.mopidy.playback.getState()
 			.then(state => {
-				console.log('Playback State', state);
 				switch(state) {
 					case 'playing':
 						this.mopidy.playback.pause();
@@ -87,6 +105,14 @@ export class MopidyService {
 					break;
 				}
 			});
+	}
+
+	public setRandom(setting: boolean) {
+		return this.mopidy.tracklist.setRandom(setting);
+	}
+
+	public setRepeat(setting: boolean) {
+		return this.mopidy.tracklist.setRepeat(setting);
 	}
 
 }

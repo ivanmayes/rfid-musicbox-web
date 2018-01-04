@@ -5,6 +5,7 @@ import { TlTrack } from './mopidy.model';
 export const CONNECTION_CHANGE = '[Mopidy] Connection Change';
 export const TRACKLIST_CHANGE = '[Mopidy] Tracklist Change';
 export const PLAYBACK_CHANGE = '[Mopidy] Playback Change';
+export const PLAYBACK_STATE_CHANGE = '[Mopidy] Playback State Change';
 export const NEXT_TRACK = '[Mopidy] Next Track';
 export const PREV_TRACK = '[Mopidy] Previous Track';
 export const TOGGLE_PAUSE = '[Mopidy] Toggle Pause';
@@ -28,6 +29,12 @@ export class PlaybackChange implements Action {
 	readonly type = PLAYBACK_CHANGE;
 
 	constructor(public payload: TlTrack) {}
+}
+
+export class PlaybackStateChange implements Action {
+	readonly type = PLAYBACK_STATE_CHANGE;
+
+	constructor(public payload: string) {}
 }
 
 export class NextTrack implements Action {
@@ -65,6 +72,7 @@ export type Actions =
 	ConnectionChange |
 	TrackListChange |
 	PlaybackChange |
+	PlaybackStateChange |
 	NextTrack |
 	PrevTrack |
 	TogglePause |

@@ -37,3 +37,8 @@ export const getTrackList = createSelector(
 	getMopidyState,
 	fromMopidy.getTrackList
 );
+
+export const getPlaybackState = createSelector(
+	getMopidyState,
+	fromMopidy.getPlaybackState
+);

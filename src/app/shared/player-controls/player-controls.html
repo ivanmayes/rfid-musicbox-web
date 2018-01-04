@@ -4,8 +4,8 @@
     </div>
     <!-- <button ion-button item-end (click)="prev()">Prev</button> -->
     <div class="buttons">
-        <button ion-button (click)="togglePause()">Pause</button>
-        <button ion-button (click)="togglePause()">Play</button>
+        <button ion-button *ngIf="state.playbackState === 'playing'" (click)="togglePause()">Pause</button>
+        <button ion-button *ngIf="state.playbackState !== 'playing'" (click)="togglePause()">Play</button>
         <button ion-button (click)="next()">Next</button>
     </div>
     

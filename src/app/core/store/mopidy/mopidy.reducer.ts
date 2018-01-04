@@ -6,12 +6,14 @@ import { TlTrack } from './mopidy.model';
 
 export interface State {
     connectionStatus: string;
-    nowPlaying: TlTrack,
-    trackList: TlTrack[]
+    nowPlaying: TlTrack;
+    trackList: TlTrack[];
+    playbackState: string;
 }
   
 const initialState: State = {
     connectionStatus: 'offline',
+    playbackState: 'stopped',
     nowPlaying: undefined,
     trackList: undefined
 };
@@ -36,15 +38,25 @@ export function reducer(
             }
         }
 
-        case mopidy.PLAYBACK_CHANGE:
-        case mopidy.PLAY: {
-            if (action.payload) {
-                return {
-                    ...state,
-                    nowPlaying: action.payload
-                }
+        case mopidy.PLAYBACK_STATE_CHANGE: {
+            return {
+                ...state,
+                playbackState: action.payload
             }
         }
+
+        case mopidy.PLAYBACK_CHANGE:
+        case mopidy.PLAY: {
+                if (action.payload) {
+                    return {
+                        ...state,
+                        nowPlaying: action.payload
+                    }
+                }
+            }
+        break;
+
+        
 
 		default:
 			return state;
@@ -54,3 +66,4 @@ export function reducer(
 export const getConnectionStatus = (state: State) => state.connectionStatus;
 export const getNowPlaying = (state: State) => state.nowPlaying;
 export const getTrackList = (state: State) => state.trackList;
+export const getPlaybackState = (state: State) => state.playbackState;
