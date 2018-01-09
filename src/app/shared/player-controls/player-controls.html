@@ -4,9 +4,18 @@
     </div>
     <!-- <button ion-button item-end (click)="prev()">Prev</button> -->
     <div class="buttons">
-        <button ion-button *ngIf="state.playbackState === 'playing'" (click)="togglePause()">Pause</button>
-        <button ion-button *ngIf="state.playbackState !== 'playing'" (click)="togglePause()">Play</button>
-        <button ion-button (click)="next()">Next</button>
+        <button ion-button *ngIf="state.playbackState === 'playing'" (click)="togglePause()">
+            <ion-icon name="pause"></ion-icon>
+            <label showWhen="core">&nbsp;Pause</label>
+        </button>
+        <button ion-button *ngIf="state.playbackState !== 'playing'" (click)="togglePause()">
+            <ion-icon name="play"></ion-icon>
+            <label showWhen="core">&nbsp;Play</label>
+        </button>
+        <button ion-button (click)="next()">
+            <ion-icon name="skip-forward"></ion-icon>
+            <label showWhen="core">&nbsp;Next</label>
+        </button>
     </div>
     
 </ion-toolbar>

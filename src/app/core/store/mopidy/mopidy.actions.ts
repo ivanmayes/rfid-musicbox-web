@@ -1,11 +1,12 @@
 import { Action } from '@ngrx/store';
 import { Song } from '../songs/song.model';
-import { TlTrack } from './mopidy.model';
+import { TlTrack, TrackListSettings } from './mopidy.model';
 
 export const CONNECTION_CHANGE = '[Mopidy] Connection Change';
 export const TRACKLIST_CHANGE = '[Mopidy] Tracklist Change';
 export const PLAYBACK_CHANGE = '[Mopidy] Playback Change';
 export const PLAYBACK_STATE_CHANGE = '[Mopidy] Playback State Change';
+export const TRACKLIST_SETTINGS_CHANGE = '[Mopidy] Tracklist Settings Change';
 export const NEXT_TRACK = '[Mopidy] Next Track';
 export const PREV_TRACK = '[Mopidy] Previous Track';
 export const TOGGLE_PAUSE = '[Mopidy] Toggle Pause';
@@ -35,6 +36,12 @@ export class PlaybackStateChange implements Action {
 	readonly type = PLAYBACK_STATE_CHANGE;
 
 	constructor(public payload: string) {}
+}
+
+export class TrackListSettingsChange implements Action {
+	readonly type = TRACKLIST_SETTINGS_CHANGE;
+
+	constructor(public payload: TrackListSettings) {}
 }
 
 export class NextTrack implements Action {
@@ -73,6 +80,7 @@ export type Actions =
 	TrackListChange |
 	PlaybackChange |
 	PlaybackStateChange |
+	TrackListSettingsChange |
 	NextTrack |
 	PrevTrack |
 	TogglePause |

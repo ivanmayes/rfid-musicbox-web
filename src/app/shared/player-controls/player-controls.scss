@@ -9,5 +9,12 @@ player-controls {
 
     .buttons {
         margin-left: auto;
+        display: flex;
+        align-items: center;
+
+        label {
+            padding-left: 5px;
+        }
     }
+    
 }

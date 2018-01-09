@@ -2,20 +2,25 @@ import { createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as mopidy from './mopidy.actions';
-import { TlTrack } from './mopidy.model';
+import { TlTrack, TrackListSettings } from './mopidy.model';
 
 export interface State {
     connectionStatus: string;
     nowPlaying: TlTrack;
     trackList: TlTrack[];
     playbackState: string;
+    trackListSettings: TrackListSettings;
 }
   
 const initialState: State = {
     connectionStatus: 'offline',
     playbackState: 'stopped',
     nowPlaying: undefined,
-    trackList: undefined
+    trackList: undefined,
+    trackListSettings: {
+        random: false,
+        repeat: false
+    }
 };
 
 export function reducer(
@@ -42,6 +47,13 @@ export function reducer(
             return {
                 ...state,
                 playbackState: action.payload
+            }
+        }
+
+        case mopidy.TRACKLIST_SETTINGS_CHANGE: {
+            return {
+                ...state,
+                trackListSettings: action.payload
             }
         }
 

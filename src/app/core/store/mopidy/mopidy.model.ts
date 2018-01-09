@@ -52,6 +52,11 @@ export interface Playlist {
     last_modified: number; //playlist’s modification time in milliseconds since Unix epoch
 }
 
+export interface TrackListSettings {
+    random: boolean;
+    repeat: boolean;
+}
+
 export type Events = 
     'mute_changed' |
     'on_event' |

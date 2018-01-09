@@ -758,23 +758,6 @@ var MopidyService = (function () {
     MopidyService.prototype.getCurrentTrack = function () {
         return this.mopidy.playback.getCurrentTlTrack();
     };
-    MopidyService.prototype.getPlaybackState = function () {
-        return this.mopidy.playback.getState();
-    };
-    MopidyService.prototype.getTrackListSettings = function () {
-        var calls = [
-            this.mopidy.tracklist.getRandom,
-            this.mopidy.tracklist.getRepeat
-        ];
-        return Promise.all(calls)
-            .then(function (_a) {
-            var random = _a[0], repeat = _a[1];
-            return {
-                random: random,
-                repeat: repeat
-            };
-        });
-    };
     MopidyService.prototype.play = function (tlTrack, tlid) {
         return this.mopidy.playback.play(tlTrack, tlid);
     };
@@ -803,12 +786,6 @@ var MopidyService = (function () {
                     break;
             }
         });
-    };
-    MopidyService.prototype.setRandom = function (setting) {
-        return this.mopidy.tracklist.setRandom(setting);
-    };
-    MopidyService.prototype.setRepeat = function (setting) {
-        return this.mopidy.tracklist.setRepeat(setting);
     };
     MopidyService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -1736,11 +1713,6 @@ var MopidyEffects = (function () {
             .filter(function (action) { return action.payload === 'online'; })
             .switchMap(function () { return _this.mopidyService.getCurrentTrack(); })
             .map(function (track) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["j" /* PlaybackChange */](track); });
-        this.initialPlaybackState$ = this.actions$
-            .ofType(__WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["a" /* CONNECTION_CHANGE */])
-            .filter(function (action) { return action.payload === 'online'; })
-            .switchMap(function () { return _this.mopidyService.getPlaybackState(); })
-            .map(function (state) { return new __WEBPACK_IMPORTED_MODULE_7__mopidy_actions__["k" /* PlaybackStateChange */](state); });
         /**
          * Set Effects
          */
@@ -1763,19 +1735,19 @@ var MopidyEffects = (function () {
     }
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
     ], MopidyEffects.prototype, "connected$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _b || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
     ], MopidyEffects.prototype, "trackListChange$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _c || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
     ], MopidyEffects.prototype, "playbackStarted$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"]) === "function" && _d || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"])
     ], MopidyEffects.prototype, "playbackStateChanged$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
@@ -1785,10 +1757,6 @@ var MopidyEffects = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
         __metadata("design:type", Object)
     ], MopidyEffects.prototype, "initialCurrentTrack$", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", Object)
-    ], MopidyEffects.prototype, "initialPlaybackState$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["b" /* Effect */])({ dispatch: false }),
         __metadata("design:type", Object)
@@ -1811,10 +1779,11 @@ var MopidyEffects = (function () {
     ], MopidyEffects.prototype, "togglePause$", void 0);
     MopidyEffects = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["a" /* Actions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["a" /* Actions */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__mopidy_service__["a" /* MopidyService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__mopidy_service__["a" /* MopidyService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__ngrx_store__["h" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ngrx_store__["h" /* Store */]) === "function" && _g || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__ngrx_effects__["a" /* Actions */],
+            __WEBPACK_IMPORTED_MODULE_6__mopidy_service__["a" /* MopidyService */],
+            __WEBPACK_IMPORTED_MODULE_5__ngrx_store__["h" /* Store */]])
     ], MopidyEffects);
     return MopidyEffects;
-    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=mopidy.effects.js.map
@@ -1987,7 +1956,7 @@ var MopidyPlayerControls = (function () {
     };
     MopidyPlayerControls = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'player-controls',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/app/shared/player-controls/player-controls.html"*/'<ion-toolbar *ngIf="state$ | async; let state;">\n    <div class="current-track" *ngIf="state.nowPlaying">\n        <p>{{ state.nowPlaying.track.name }}</p>\n    </div>\n    <!-- <button ion-button item-end (click)="prev()">Prev</button> -->\n    <div class="buttons">\n        <button ion-button *ngIf="state.playbackState === \'playing\'" (click)="togglePause()">Pause</button>\n        <button ion-button *ngIf="state.playbackState !== \'playing\'" (click)="togglePause()">Play</button>\n        <button ion-button (click)="next()">Next</button>\n    </div>\n    \n</ion-toolbar>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/app/shared/player-controls/player-controls.html"*/
+            selector: 'player-controls',template:/*ion-inline-start:"/Users/imayes/Projects/rfid-musicbox-web/src/app/shared/player-controls/player-controls.html"*/'<ion-toolbar *ngIf="state$ | async; let state;">\n    <div class="current-track" *ngIf="state.nowPlaying">\n        <p>{{ state.nowPlaying.track.name }}</p>\n    </div>\n    <!-- <button ion-button item-end (click)="prev()">Prev</button> -->\n    <div class="buttons">\n        <button ion-button *ngIf="state.playbackState === \'playing\'" (click)="togglePause()">\n            <ion-icon name="pause"></ion-icon>\n            <label showWhen="core">&nbsp;Pause</label>\n        </button>\n        <button ion-button *ngIf="state.playbackState !== \'playing\'" (click)="togglePause()">\n            <ion-icon name="play"></ion-icon>\n            <label showWhen="core">&nbsp;Play</label>\n        </button>\n        <button ion-button (click)="next()">\n            <ion-icon name="skip-forward"></ion-icon>\n            <label showWhen="core">&nbsp;Next</label>\n        </button>\n    </div>\n    \n</ion-toolbar>\n'/*ion-inline-end:"/Users/imayes/Projects/rfid-musicbox-web/src/app/shared/player-controls/player-controls.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["h" /* Store */]])
     ], MopidyPlayerControls);
