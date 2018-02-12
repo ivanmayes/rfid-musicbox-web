@@ -15,6 +15,7 @@ import * as fromSongs from '../../app/core/store/songs';
 import * as songs from '../../app/core/store/songs/actions/song.actions';
 import { Song } from '../../app/core/store/songs/song.model';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
+import { NavParams } from 'ionic-angular/navigation/nav-params';
 
 
 
@@ -23,6 +24,7 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
   templateUrl: 'search.html'
 })
 export class SearchPage {
+  public action: any;
   public searchResults$: Observable<Song[]>;
   public searchState$: Observable<fromSongs.SongsState['search']>;
   public selectedPlaylist$: Observable<Song>;
@@ -31,11 +33,14 @@ export class SearchPage {
 
   constructor(
     public navCtrl: NavController,
+    private params: NavParams,
     private viewCtrl: ViewController,
     private toastCtrl: ToastController,
     private rfidStore: Store<fromRFID.State>,
     private songStore: Store<fromSongs.State>
   ) {
+    this.action = params.get('action');
+
     this.searchResults$ = Observable.combineLatest(
       this.songStore.select(fromSongs.getSearchResults),
       this.rfidStore.select(fromRFID.getSelectedRFIDObject)
@@ -77,7 +82,7 @@ export class SearchPage {
   }
   
   public addSongsToList(songs: Song) {
-    this.rfidStore.dispatch(new rfid.AddSong(songs));
+    this.rfidStore.dispatch(new this.action(songs));
   }
 
   // TODO: Playlist is still a Song type 
@@ -97,7 +102,8 @@ export class SearchPage {
   private insertTracklistAddedInformation(songs: Song[], tracklist: RFIDObject): Song[] {
     // Find any results that are already in our tracklist
     return songs.map((result) => {
-      if (tracklist.payload && tracklist.payload.tracks) {
+
+      if (tracklist && tracklist.payload && tracklist.payload.tracks) {
         for(let i = 0; i < tracklist.payload.tracks.length; i++) {
           if(result.id === tracklist.payload.tracks[i].id) {
             result = Object.assign({}, result, { added: true });

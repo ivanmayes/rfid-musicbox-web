@@ -83,6 +83,11 @@ export class MopidyEffects {
 	stop$ = this.actions$
 		.ofType<mopidy.Stop>(mopidy.STOP)
 		.do(track => this.mopidyService.stop());
+
+	@Effect({ dispatch: false })
+	clear$ = this.actions$
+		.ofType<mopidy.Clear>(mopidy.CLEAR)
+		.do(track => this.mopidyService.clear());
 	
 	@Effect({ dispatch: false })
 	next$ = this.actions$
@@ -105,7 +110,7 @@ export class MopidyEffects {
 		.map(action => action.payload)
 		.do(uris => {
 			this.toastCtrl.create({
-				message: 'Playing Tracklist...',
+				message: 'Playing Now...',
 				duration: 1000,
 				position: 'top'
 			}).present();
@@ -119,7 +124,7 @@ export class MopidyEffects {
 		.map(action => action.payload)
 		.do(uris => { 
 			this.toastCtrl.create({
-				message: 'Adding Tracklist to Queue.',
+				message: 'Adding to Queue.',
 				duration: 3000,
 				position: 'top'
 			  }).present();

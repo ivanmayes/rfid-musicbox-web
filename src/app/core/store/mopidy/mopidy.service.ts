@@ -89,6 +89,10 @@ export class MopidyService {
 		return this.mopidy.playback.stop();
 	}
 
+	public clear() {
+		return this.mopidy.tracklist.clear();
+	}
+
 	public togglePause() {
 		this.mopidy.playback.getState()
 			.then(state => {
@@ -129,8 +133,7 @@ export class MopidyService {
 		let uris = songs.map(song => this.rfidToURI(song));
 
 		return this.mopidy.tracklist.add(undefined, undefined, undefined, uris)
-			.then(() => this.play())
-			.catch((err) => console.log('playURIs Error:', err));
+			.catch((err) => console.log('addToQueue Error:', err));
 	}
 
 	public rfidToURI(song: Song) {

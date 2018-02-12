@@ -31,7 +31,9 @@ export class RFIDPage {
   public rfidObjectIsDirty$: Observable<boolean>;
   public rfidObjects$: Observable<RFIDObject[]>;
 
-  public searchModal: Modal = this.modalCtrl.create(SearchPage);
+  public searchModal: Modal = this.modalCtrl.create(SearchPage, {
+    action: rfid.AddSong
+  });
 
   constructor(
     public navCtrl: NavController,

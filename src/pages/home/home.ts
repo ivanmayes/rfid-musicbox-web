@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, ModalController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
@@ -22,14 +22,18 @@ import { TlTrack } from '../../app/core/store/mopidy/mopidy.model';
 })
 export class HomePage {
   public state$: Observable<fromMopidy.MopidyState['mopidy']>;
+  public searchModal: Modal = this.modalCtrl.create(SearchPage, {
+    action: mopidy.AddToQueue
+  });
 
   constructor(
     public navCtrl: NavController,
     private mopidyStore: Store<fromMopidy.State>,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private modalCtrl: ModalController,
   ) {
     menuCtrl.enable(true);
-    this.state$ = this.mopidyStore.select(fromMopidy.getMopidyState)
+    this.state$ = this.mopidyStore.select(fromMopidy.getMopidyState);
   }
 
   ionViewDidEnter() {}
@@ -44,6 +48,14 @@ export class HomePage {
 
   public stop() {
     this.mopidyStore.dispatch(new mopidy.Stop());
+  }
+
+  public clearList() {
+    this.mopidyStore.dispatch(new mopidy.Clear());
+  }
+
+  public addSongs() {
+    this.searchModal.present();
   }
 
 }

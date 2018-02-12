@@ -19,6 +19,14 @@
         <ion-col>
           <h2>Track List</h2>
         </ion-col>
+        <ion-col text-right>
+            <button ion-button color="danger" small (click)="clearList()">
+                Clear List
+            </button>
+            <button ion-button small (click)="addSongs()">
+                Add Songs
+            </button>
+        </ion-col>
       </ion-row>
       <ion-row class="tracklist">
         <ion-col>
@@ -26,6 +34,7 @@
             <ion-item 
               *ngFor="let tltrack of state.trackList;" 
               [class.active]="state.nowPlaying && tltrack.tlid === state.nowPlaying.tlid"
+              (click)="play(tltrack)"
             >
 
                 <ion-thumbnail class="thumb" item-start (click)="play(tltrack)">

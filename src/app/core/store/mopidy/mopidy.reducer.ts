@@ -59,16 +59,15 @@ export function reducer(
 
         case mopidy.PLAYBACK_CHANGE:
         case mopidy.PLAY: {
-                if (action.payload) {
-                    return {
-                        ...state,
-                        nowPlaying: action.payload
-                    }
+            if (action.payload) {
+                return {
+                    ...state,
+                    nowPlaying: action.payload
                 }
+            } else {
+                return state;
             }
-        break;
-
-        
+        }
 
 		default:
 			return state;

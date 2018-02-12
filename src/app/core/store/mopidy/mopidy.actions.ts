@@ -15,6 +15,7 @@ export const PREV_TRACK = '[Mopidy] Previous Track';
 export const TOGGLE_PAUSE = '[Mopidy] Toggle Pause';
 export const STOP = '[Mopidy] Stop';
 export const PLAY = '[Mopidy] Play';
+export const CLEAR = '[Mopidy] Clear';
 export const PLAY_URIS = '[Mopidy] Play URIs';
 export const ADD_TO_QUEUE = '[Mopidy] Add to Queue';
 
@@ -79,6 +80,12 @@ export class Play implements Action {
 	constructor(public payload?: TlTrack) {}
 }
 
+export class Clear implements Action {
+	readonly type = CLEAR;
+
+	constructor() {}
+}
+
 export class PlayURIs implements Action {
 	readonly type = PLAY_URIS;
 
@@ -103,5 +110,6 @@ export type Actions =
 	TogglePause |
 	Stop |
 	Play |
+	Clear |
 	PlayURIs |
 	AddToQueue;
