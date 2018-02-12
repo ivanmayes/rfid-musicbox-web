@@ -1,4 +1,13 @@
 page-rfid {
+
+    .actions {
+        display: flex;
+
+        .right {
+            margin-left: auto;
+        }
+    }
+
     .object-list {
 
         ion-item {

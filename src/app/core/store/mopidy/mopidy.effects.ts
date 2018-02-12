@@ -8,12 +8,14 @@ import { Action, Store } from '@ngrx/store';
 import { MopidyService } from './mopidy.service';
 import * as mopidy from './mopidy.actions';
 import * as fromMopidy from './';
+import { ToastController } from 'ionic-angular';
 
 @Injectable()
 export class MopidyEffects {
 	constructor(
 		private actions$: Actions,
 		private mopidyService: MopidyService,
+		private toastCtrl: ToastController,
 		private store: Store<fromMopidy.State>
 	) {}
 
@@ -96,7 +98,34 @@ export class MopidyEffects {
 	togglePause$ = this.actions$
 		.ofType<mopidy.TogglePause>(mopidy.TOGGLE_PAUSE)
 		.do(track => this.mopidyService.togglePause());
+
+	@Effect({ dispatch: false })
+	playURIs$ = this.actions$
+		.ofType<mopidy.PlayURIs>(mopidy.PLAY_URIS)
+		.map(action => action.payload)
+		.do(uris => {
+			this.toastCtrl.create({
+				message: 'Playing Tracklist...',
+				duration: 1000,
+				position: 'top'
+			}).present();
+
+			this.mopidyService.playURIs(uris);
+		});
 	
+	@Effect({ dispatch: false })
+	addToQueue$ = this.actions$
+		.ofType<mopidy.AddToQueue>(mopidy.ADD_TO_QUEUE)
+		.map(action => action.payload)
+		.do(uris => { 
+			this.toastCtrl.create({
+				message: 'Adding Tracklist to Queue.',
+				duration: 3000,
+				position: 'top'
+			  }).present();
+			
+			this.mopidyService.addToQueue(uris)
+		});
 
 		
 	// @Effect({ dispatch: false })

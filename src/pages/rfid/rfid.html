@@ -28,14 +28,27 @@
 
         <!-- Edit Mode -->
         <div *ngIf="selectedRFIDObject$ | async; let rfidObject;">
-          <button ion-button small color="light" icon-left (click)="resetView()">
-              <ion-icon name="arrow-back"></ion-icon>
-              I'm Finished
-          </button>
-      
-          <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="selectedRFIDObject$ | async">
-              Save Changes
-          </button>
+          <div class="actions">
+              <button ion-button small color="light" icon-left (click)="resetView()">
+                  <ion-icon name="arrow-back"></ion-icon>
+                  I'm Finished
+              </button>
+          
+              <button [disabled]="!(rfidObjectIsDirty$ | async)" ion-button small (click)="saveRFIDTrackList()" *ngIf="selectedRFIDObject$ | async">
+                  Save Changes
+              </button>
+
+              <div class="right">
+                  <button ion-button small class="addToQueue" (click)="addTrackListToQueue(rfidObject.payload.tracks)" *ngIf="selectedRFIDObject$ | async">
+                      Add To Queue
+                  </button>
+    
+                  <button ion-button color="secondary" small class="playNow" (click)="playRFIDTrackList(rfidObject.payload.tracks)" *ngIf="selectedRFIDObject$ | async">
+                      Play Now
+                  </button>
+              </div>
+          </div>
+          
       
           <br>
           <br>

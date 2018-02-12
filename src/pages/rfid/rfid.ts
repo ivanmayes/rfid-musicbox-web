@@ -14,6 +14,9 @@ import { Song } from '../../app/core/store/songs/song.model';
 import { Modal } from 'ionic-angular/components/modal/modal';
 import { SearchPage } from '../search/search';
 
+import * as fromMopidy from '../../app/core/store/mopidy';
+import * as mopidy from '../../app/core/store/mopidy/mopidy.actions';
+
 
 @IonicPage({
   name: 'rfid'
@@ -35,6 +38,7 @@ export class RFIDPage {
     private toastCtrl: ToastController,
     private rfidService: RFIDService,
     private rfidStore: Store<fromRFID.State>,
+    private mopidyStore: Store<fromMopidy.State>,
     private modalCtrl: ModalController,
     private menuCtrl: MenuController
   ) {
@@ -109,6 +113,14 @@ export class RFIDPage {
 
   public toggleLoop() {
     this.rfidStore.dispatch(new rfid.ToggleLoop());
+  }
+
+  public addTrackListToQueue(songs: Song[]) {
+    this.mopidyStore.dispatch(new mopidy.AddToQueue(songs));
+  }
+
+  public playRFIDTrackList(songs: Song[]) {
+    this.mopidyStore.dispatch(new mopidy.PlayURIs(songs));
   }
 
 }

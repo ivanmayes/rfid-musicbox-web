@@ -6,6 +6,7 @@ import * as Mopidy from 'mopidy';
 
 import { environment } from '../../../environments/environment';
 import { Track, Events, TlTrack } from './mopidy.model';
+import { Song } from '../songs/song.model';
 
 @Injectable()
 export class MopidyService {
@@ -113,6 +114,42 @@ export class MopidyService {
 
 	public setRepeat(setting: boolean) {
 		return this.mopidy.tracklist.setRepeat(setting);
+	}
+
+	public playURIs(songs: Song[]) {
+		let uris = songs.map(song => this.rfidToURI(song));
+
+		return this.mopidy.tracklist.clear()
+			.then(() => this.mopidy.tracklist.add(undefined, 0, undefined, uris))
+			.then(() => this.play())
+			.catch((err) => console.log('playURIs Error:', err));
+	}
+
+	public addToQueue(songs: Song[]) {
+		let uris = songs.map(song => this.rfidToURI(song));
+
+		return this.mopidy.tracklist.add(undefined, undefined, undefined, uris)
+			.then(() => this.play())
+			.catch((err) => console.log('playURIs Error:', err));
+	}
+
+	public rfidToURI(song: Song) {
+		if (!song) {
+			console.warn('No RFID Object Provided');
+			return undefined;
+		}
+	
+		switch(song.type) {
+			case 'youtube-video':
+				return 'youtube:video/shim.' + song.id;
+	
+			case 'youtube-playlist':
+				return 'youtube:https://www.youtube.com/playlist?list=' + song.id;
+	
+			default:
+				console.warn('Couldnt find a type for this Song');
+				return undefined;
+		}
 	}
 
 }
