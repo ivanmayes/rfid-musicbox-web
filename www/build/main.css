@@ -25721,6 +25721,17 @@ page-home .tracklist ion-item.active .thumb-active {
   display: block;
 }
 
+page-rfid .actions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+page-rfid .actions .right {
+  margin-left: auto;
+}
+
 page-rfid .object-list ion-item {
   cursor: pointer;
 }
