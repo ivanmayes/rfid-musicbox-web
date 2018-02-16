@@ -16,6 +16,7 @@ import { metaReducers } from './app.reducers';
 import { SearchPage } from '../pages/search/search';
 import { PagesModule } from '../pages/pages.module';
 import { SharedModule } from './shared/shared.module';
+import { Zeroconf } from '@ionic-native/zeroconf';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { SharedModule } from './shared/shared.module';
   providers: [
     StatusBar,
     SplashScreen,
+    Zeroconf,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

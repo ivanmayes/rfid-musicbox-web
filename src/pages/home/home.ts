@@ -12,7 +12,6 @@ import { Modal } from 'ionic-angular/components/modal/modal';
 import { SearchPage } from '../search/search';
 import { TlTrack } from '../../app/core/store/mopidy/mopidy.model';
 
-
 @IonicPage({
   name: 'home'
 })
