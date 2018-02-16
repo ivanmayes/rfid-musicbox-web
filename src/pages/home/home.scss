@@ -8,6 +8,11 @@ page-home {
             &.active {
                 background: rgba(0, 202, 0, 0.2);
 
+                .item-inner {
+                    border-right: 1px solid #DEDEDF;
+                    border-left: 1px solid #DEDEDF;
+                }
+
                 .thumb {
                     display: none;
                 }

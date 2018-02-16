@@ -25713,6 +25713,11 @@ page-home .tracklist ion-item.active {
   background: rgba(0, 202, 0, 0.2);
 }
 
+page-home .tracklist ion-item.active .item-inner {
+  border-right: 1px solid #DEDEDF;
+  border-left: 1px solid #DEDEDF;
+}
+
 page-home .tracklist ion-item.active .thumb {
   display: none;
 }
